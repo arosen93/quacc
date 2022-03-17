@@ -221,7 +221,7 @@
     <span class="k">if</span> <span class="n">compact</span><span class="p">:</span>
         <span class="c1"># Replace the InputSummary and OutputSummary with the full</span>
         <span class="c1"># input and output details from calcs_reversed</span>
-        <span class="k">if</span> <span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;calcs_reversed&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s2">&quot;calcs_reversed&quot;</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
             <span class="n">final_run</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s2">&quot;calcs_reversed&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="n">results</span><span class="p">[</span><span class="s2">&quot;input&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">final_run</span><span class="p">[</span><span class="s2">&quot;input&quot;</span><span class="p">]</span>
             <span class="n">results</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">final_run</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">]</span>
@@ -239,6 +239,12 @@
 
         <span class="c1"># Remove the entry data since it&#39;s redundant</span>
         <span class="n">results</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;entry&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="c1"># Remove other unnecessary fields</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;task_type&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;output&quot;</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;elph_displaced_structures&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;frequency_dependent_dielectric&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
     <span class="c1"># Get Bader analysis</span>
     <span class="k">if</span> <span class="n">bader</span><span class="p">:</span>
