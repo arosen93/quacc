@@ -1,6 +1,0 @@
-prerelax
-========
-
-.. currentmodule:: quacc.recipes.vasp.qmof
-
-.. autofunction:: prerelax

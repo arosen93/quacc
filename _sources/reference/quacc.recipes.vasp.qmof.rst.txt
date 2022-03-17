@@ -9,18 +9,6 @@ quacc.recipes.vasp.qmof
 
    
 
-   .. rubric:: Functions
-
-   .. autosummary::
-      :toctree:
-      :nosignatures:
-   
-      double_relax
-      loose_relax_positions
-      loose_relax_volume
-      prerelax
-      static
-
 
 
    

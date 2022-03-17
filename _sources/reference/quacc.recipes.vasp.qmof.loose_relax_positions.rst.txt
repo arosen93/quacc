@@ -1,6 +1,0 @@
-loose\_relax\_positions
-=======================
-
-.. currentmodule:: quacc.recipes.vasp.qmof
-
-.. autofunction:: loose_relax_positions

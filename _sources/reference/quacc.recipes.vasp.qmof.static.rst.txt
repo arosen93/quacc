@@ -1,6 +1,0 @@
-static
-======
-
-.. currentmodule:: quacc.recipes.vasp.qmof
-
-.. autofunction:: static

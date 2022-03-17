@@ -213,29 +213,29 @@
         <span class="n">swaps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">swaps</span> <span class="ow">or</span> <span class="p">{}</span>
 
         <span class="c1"># 1. Pre-relaxation</span>
-        <span class="n">summary1</span> <span class="o">=</span> <span class="n">prerelax</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">preset</span><span class="p">,</span> <span class="n">swaps</span><span class="p">,</span> <span class="n">fmax</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+        <span class="n">summary1</span> <span class="o">=</span> <span class="n">_prerelax</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">preset</span><span class="p">,</span> <span class="n">swaps</span><span class="p">,</span> <span class="n">fmax</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
         <span class="n">atoms</span> <span class="o">=</span> <span class="n">summary1</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">]</span>
 
         <span class="c1"># 2. Position relaxation (loose)</span>
-        <span class="n">summary2</span> <span class="o">=</span> <span class="n">loose_relax_positions</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">preset</span><span class="p">,</span> <span class="n">swaps</span><span class="p">)</span>
+        <span class="n">summary2</span> <span class="o">=</span> <span class="n">_loose_relax_positions</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">preset</span><span class="p">,</span> <span class="n">swaps</span><span class="p">)</span>
         <span class="n">atoms</span> <span class="o">=</span> <span class="n">summary2</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">]</span>
 
         <span class="c1"># 3. Optional: Volume relaxation (loose)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">volume_relax</span><span class="p">:</span>
-            <span class="n">summary3</span> <span class="o">=</span> <span class="n">loose_relax_volume</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">preset</span><span class="p">,</span> <span class="n">swaps</span><span class="p">)</span>
+            <span class="n">summary3</span> <span class="o">=</span> <span class="n">_loose_relax_volume</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">preset</span><span class="p">,</span> <span class="n">swaps</span><span class="p">)</span>
             <span class="n">atoms</span> <span class="o">=</span> <span class="n">summary3</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">]</span>
 
         <span class="c1"># 4. Double Relaxation</span>
         <span class="c1"># This is done for two reasons: a) because it can resolve repadding</span>
         <span class="c1"># issues when dV is large; b) because we can use LREAL = Auto for the</span>
         <span class="c1"># first relaxation and the default LREAL for the second.</span>
-        <span class="n">summary4</span> <span class="o">=</span> <span class="n">double_relax</span><span class="p">(</span>
+        <span class="n">summary4</span> <span class="o">=</span> <span class="n">_double_relax</span><span class="p">(</span>
             <span class="n">atoms</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">preset</span><span class="p">,</span> <span class="n">swaps</span><span class="p">,</span> <span class="n">volume_relax</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">volume_relax</span>
         <span class="p">)</span>
         <span class="n">atoms</span> <span class="o">=</span> <span class="n">summary4</span><span class="p">[</span><span class="s2">&quot;relax2&quot;</span><span class="p">][</span><span class="s2">&quot;atoms&quot;</span><span class="p">]</span>
 
         <span class="c1"># 5. Static Calculation</span>
-        <span class="n">summary5</span> <span class="o">=</span> <span class="n">static</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">preset</span><span class="p">,</span> <span class="n">swaps</span><span class="p">)</span>
+        <span class="n">summary5</span> <span class="o">=</span> <span class="n">_static</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">preset</span><span class="p">,</span> <span class="n">swaps</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="p">{</span>
             <span class="s2">&quot;prerelax-lowacc&quot;</span><span class="p">:</span> <span class="n">summary1</span><span class="p">,</span>
@@ -246,7 +246,7 @@
         <span class="p">}</span></div></div>
 
 
-<div class="viewcode-block" id="prerelax"><a class="viewcode-back" href="../../../../reference/quacc.recipes.vasp.qmof.prerelax.html#quacc.recipes.vasp.qmof.prerelax">[docs]</a><span class="k">def</span> <span class="nf">prerelax</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">_prerelax</span><span class="p">(</span>
     <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span>
     <span class="n">preset</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;QMOFSet&quot;</span><span class="p">,</span>
     <span class="n">swaps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -289,10 +289,10 @@
 
     <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_ase_run</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">summary</span></div>
+    <span class="k">return</span> <span class="n">summary</span>
 
 
-<div class="viewcode-block" id="loose_relax_positions"><a class="viewcode-back" href="../../../../reference/quacc.recipes.vasp.qmof.loose_relax_positions.html#quacc.recipes.vasp.qmof.loose_relax_positions">[docs]</a><span class="k">def</span> <span class="nf">loose_relax_positions</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">_loose_relax_positions</span><span class="p">(</span>
     <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span>
     <span class="n">preset</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;QMOFSet&quot;</span><span class="p">,</span>
     <span class="n">swaps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -332,10 +332,10 @@
 
     <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">summary</span></div>
+    <span class="k">return</span> <span class="n">summary</span>
 
 
-<div class="viewcode-block" id="loose_relax_volume"><a class="viewcode-back" href="../../../../reference/quacc.recipes.vasp.qmof.loose_relax_volume.html#quacc.recipes.vasp.qmof.loose_relax_volume">[docs]</a><span class="k">def</span> <span class="nf">loose_relax_volume</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">_loose_relax_volume</span><span class="p">(</span>
     <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span>
     <span class="n">preset</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;QMOFSet&quot;</span><span class="p">,</span>
     <span class="n">swaps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -374,10 +374,10 @@
 
     <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">summary</span></div>
+    <span class="k">return</span> <span class="n">summary</span>
 
 
-<div class="viewcode-block" id="double_relax"><a class="viewcode-back" href="../../../../reference/quacc.recipes.vasp.qmof.double_relax.html#quacc.recipes.vasp.qmof.double_relax">[docs]</a><span class="k">def</span> <span class="nf">double_relax</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">_double_relax</span><span class="p">(</span>
     <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span>
     <span class="n">preset</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;QMOFSet&quot;</span><span class="p">,</span>
     <span class="n">swaps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -438,10 +438,10 @@
     <span class="n">atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
     <span class="n">summary2</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;relax1&quot;</span><span class="p">:</span> <span class="n">summary1</span><span class="p">,</span> <span class="s2">&quot;relax2&quot;</span><span class="p">:</span> <span class="n">summary2</span><span class="p">}</span></div>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;relax1&quot;</span><span class="p">:</span> <span class="n">summary1</span><span class="p">,</span> <span class="s2">&quot;relax2&quot;</span><span class="p">:</span> <span class="n">summary2</span><span class="p">}</span>
 
 
-<div class="viewcode-block" id="static"><a class="viewcode-back" href="../../../../reference/quacc.recipes.vasp.qmof.static.html#quacc.recipes.vasp.qmof.static">[docs]</a><span class="k">def</span> <span class="nf">static</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">_static</span><span class="p">(</span>
     <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span>
     <span class="n">preset</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;QMOFSet&quot;</span><span class="p">,</span>
     <span class="n">swaps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -478,7 +478,7 @@
 
     <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">summary</span></div>
+    <span class="k">return</span> <span class="n">summary</span>
 </pre></div>
 
               </div>
