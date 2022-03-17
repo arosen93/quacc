@@ -1,0 +1,6 @@
+XTB
+===
+
+.. currentmodule:: quacc.recipes.xtb.core
+
+.. autodata:: XTB

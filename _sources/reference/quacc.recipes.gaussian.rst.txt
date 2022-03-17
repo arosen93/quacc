@@ -1,0 +1,42 @@
+quacc.recipes.gaussian
+======================
+
+.. automodule:: quacc.recipes.gaussian
+
+   
+
+
+
+   
+
+
+
+   
+
+
+
+   
+   
+   
+   
+   
+   
+   
+
+
+
+
+   
+   
+   
+
+
+
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   quacc.recipes.gaussian.core
+

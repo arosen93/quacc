@@ -1,0 +1,8 @@
+RelaxJob
+========
+
+.. currentmodule:: quacc.recipes.xtb.core
+
+.. autoclass:: RelaxJob
+   :show-inheritance:
+   :members:

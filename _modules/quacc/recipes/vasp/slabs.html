@@ -1,0 +1,673 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>quacc.recipes.vasp.slabs &#8212; quacc</title>
+    
+    <link href="../../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/pydata-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css" />
+    
+    <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../../../../index.html">
+<p class="title">quacc</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../user/index.html">
+  User Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../reference/index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../dev/index.html">
+  Developer Guide
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/arosen93/quacc" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <h1>Source code for quacc.recipes.vasp.slabs</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="kn">from</span> <span class="nn">ase.atoms</span> <span class="kn">import</span> <span class="n">Atoms</span>
+<span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">Flow</span><span class="p">,</span> <span class="n">Maker</span><span class="p">,</span> <span class="n">Response</span><span class="p">,</span> <span class="n">job</span>
+<span class="kn">from</span> <span class="nn">jobflow.core.flow</span> <span class="kn">import</span> <span class="n">JobOrder</span>
+
+<span class="kn">from</span> <span class="nn">quacc.calculators.vasp</span> <span class="kn">import</span> <span class="n">SmartVasp</span>
+<span class="kn">from</span> <span class="nn">quacc.recipes.vasp.core</span> <span class="kn">import</span> <span class="n">RelaxJob</span><span class="p">,</span> <span class="n">StaticJob</span>
+<span class="kn">from</span> <span class="nn">quacc.schemas.vasp</span> <span class="kn">import</span> <span class="n">summarize_run</span>
+<span class="kn">from</span> <span class="nn">quacc.util.basics</span> <span class="kn">import</span> <span class="n">merge_dicts</span>
+<span class="kn">from</span> <span class="nn">quacc.util.calc</span> <span class="kn">import</span> <span class="n">run_calc</span>
+<span class="kn">from</span> <span class="nn">quacc.util.slabs</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">get_cleavage_energy</span><span class="p">,</span>
+    <span class="n">make_adsorbate_structures</span><span class="p">,</span>
+    <span class="n">make_max_slabs_from_bulk</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="SlabStaticJob"><a class="viewcode-back" href="../../../../reference/quacc.recipes.vasp.slabs.SlabStaticJob.html#quacc.recipes.vasp.slabs.SlabStaticJob">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">SlabStaticJob</span><span class="p">(</span><span class="n">Maker</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class to carry out a single-point calculation on a slab.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name</span>
+<span class="sd">        Name of the job.</span>
+<span class="sd">    preset</span>
+<span class="sd">        Preset to use.</span>
+<span class="sd">    swaps</span>
+<span class="sd">        Dictionary of custom kwargs for the calculator.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;VASP-SlabStatic&quot;</span>
+    <span class="n">preset</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">swaps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="SlabStaticJob.make"><a class="viewcode-back" href="../../../../reference/quacc.recipes.vasp.slabs.SlabStaticJob.html#quacc.recipes.vasp.slabs.SlabStaticJob.make">[docs]</a>    <span class="nd">@job</span>
+    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Make the run.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        atoms</span>
+<span class="sd">            .Atoms object</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Dict</span>
+<span class="sd">            Summary of the run.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">swaps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">swaps</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="n">defaults</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;auto_dipole&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;ismear&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span>
+            <span class="s2">&quot;isym&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="s2">&quot;laechg&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;lcharg&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;lvhar&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;lwave&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;nedos&quot;</span><span class="p">:</span> <span class="mi">5001</span><span class="p">,</span>
+            <span class="s2">&quot;nsw&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">flags</span> <span class="o">=</span> <span class="n">merge_dicts</span><span class="p">(</span><span class="n">defaults</span><span class="p">,</span> <span class="n">swaps</span><span class="p">)</span>
+
+        <span class="n">atoms</span> <span class="o">=</span> <span class="n">SmartVasp</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">preset</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">preset</span><span class="p">,</span> <span class="o">**</span><span class="n">flags</span><span class="p">)</span>
+        <span class="n">atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+        <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">})</span>
+
+        <span class="k">return</span> <span class="n">summary</span></div></div>
+
+
+<div class="viewcode-block" id="SlabRelaxJob"><a class="viewcode-back" href="../../../../reference/quacc.recipes.vasp.slabs.SlabRelaxJob.html#quacc.recipes.vasp.slabs.SlabRelaxJob">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">SlabRelaxJob</span><span class="p">(</span><span class="n">Maker</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class to relax a slab.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name</span>
+<span class="sd">        Name of the job.</span>
+<span class="sd">    preset</span>
+<span class="sd">        Preset to use.</span>
+<span class="sd">    swaps</span>
+<span class="sd">        Dictionary of custom kwargs for the calculator.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;VASP-SlabRelax&quot;</span>
+    <span class="n">preset</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">swaps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="SlabRelaxJob.make"><a class="viewcode-back" href="../../../../reference/quacc.recipes.vasp.slabs.SlabRelaxJob.html#quacc.recipes.vasp.slabs.SlabRelaxJob.make">[docs]</a>    <span class="nd">@job</span>
+    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Make the run.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        atoms</span>
+<span class="sd">            .Atoms object</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Dict:</span>
+<span class="sd">            Summary of the run.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">swaps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">swaps</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="n">defaults</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;auto_dipole&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;ediffg&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.02</span><span class="p">,</span>
+            <span class="s2">&quot;isif&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="s2">&quot;ibrion&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="s2">&quot;isym&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;lcharg&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s2">&quot;lwave&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s2">&quot;nsw&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">flags</span> <span class="o">=</span> <span class="n">merge_dicts</span><span class="p">(</span><span class="n">defaults</span><span class="p">,</span> <span class="n">swaps</span><span class="p">)</span>
+
+        <span class="n">atoms</span> <span class="o">=</span> <span class="n">SmartVasp</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">preset</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">preset</span><span class="p">,</span> <span class="o">**</span><span class="n">flags</span><span class="p">)</span>
+        <span class="n">atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+        <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">})</span>
+
+        <span class="k">return</span> <span class="n">summary</span></div></div>
+
+
+<div class="viewcode-block" id="BulkToSlabsJob"><a class="viewcode-back" href="../../../../reference/quacc.recipes.vasp.slabs.BulkToSlabsJob.html#quacc.recipes.vasp.slabs.BulkToSlabsJob">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">BulkToSlabsJob</span><span class="p">(</span><span class="n">Maker</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class to convert a bulk structure to slabs,</span>
+<span class="sd">    along with the relaxations and statics for the slabs.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name</span>
+<span class="sd">        Name of the job.</span>
+<span class="sd">    slab_relax_job</span>
+<span class="sd">        Maker to use for the relaxation of the slab.</span>
+<span class="sd">    slab_static_job</span>
+<span class="sd">        Default to use for the static calculation of the slab.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;VASP-BulkToSlabs&quot;</span>
+    <span class="n">slab_relax_job</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">=</span> <span class="n">SlabRelaxJob</span><span class="p">()</span>
+    <span class="n">slab_static_job</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">=</span> <span class="n">SlabStaticJob</span><span class="p">()</span>
+
+<div class="viewcode-block" id="BulkToSlabsJob.make"><a class="viewcode-back" href="../../../../reference/quacc.recipes.vasp.slabs.BulkToSlabsJob.html#quacc.recipes.vasp.slabs.BulkToSlabsJob.make">[docs]</a>    <span class="nd">@job</span>
+    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span> <span class="n">max_slabs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">slabgen_kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Make the run.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        atoms</span>
+<span class="sd">            .Atoms object</span>
+<span class="sd">        max_slabs</span>
+<span class="sd">            Maximum number of slabs to make. None implies no upper limit.</span>
+<span class="sd">        slabgen_kwargs</span>
+<span class="sd">            Additional keyword arguments to pass to make_max_slabs_from_bulk()</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Response</span>
+<span class="sd">            A Flow of relaxation and static jobs for the generated slabs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">slabgen_kwargs</span> <span class="o">=</span> <span class="n">slabgen_kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
+
+        <span class="c1"># Generate all the slab</span>
+        <span class="n">slabs</span> <span class="o">=</span> <span class="n">make_max_slabs_from_bulk</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">max_slabs</span><span class="o">=</span><span class="n">max_slabs</span><span class="p">,</span> <span class="o">**</span><span class="n">slabgen_kwargs</span><span class="p">)</span>
+
+        <span class="c1"># Generate the jobs for each slab</span>
+        <span class="n">jobs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">all_atoms</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">slab</span> <span class="ow">in</span> <span class="n">slabs</span><span class="p">:</span>
+            <span class="n">relax_job</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slab_relax_job</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
+            <span class="n">static_job</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slab_static_job</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="n">relax_job</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">])</span>
+
+            <span class="n">jobs</span> <span class="o">+=</span> <span class="p">[</span><span class="n">relax_job</span><span class="p">,</span> <span class="n">static_job</span><span class="p">]</span>
+            <span class="n">outputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">static_job</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+            <span class="n">all_atoms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">static_job</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">slabs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Response</span><span class="p">(</span>
+                <span class="n">output</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;input_bulk&quot;</span><span class="p">:</span> <span class="n">atoms</span><span class="p">,</span> <span class="s2">&quot;generated_slabs&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+                <span class="n">stop_children</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">Response</span><span class="p">(</span>
+            <span class="n">output</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;input_bulk&quot;</span><span class="p">:</span> <span class="n">atoms</span><span class="p">,</span> <span class="s2">&quot;generated_slabs&quot;</span><span class="p">:</span> <span class="n">slabs</span><span class="p">},</span>
+            <span class="n">replace</span><span class="o">=</span><span class="n">Flow</span><span class="p">(</span>
+                <span class="n">jobs</span><span class="p">,</span>
+                <span class="n">output</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;all_atoms&quot;</span><span class="p">:</span> <span class="n">all_atoms</span><span class="p">,</span> <span class="s2">&quot;all_outputs&quot;</span><span class="p">:</span> <span class="n">outputs</span><span class="p">},</span>
+                <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="n">order</span><span class="o">=</span><span class="n">JobOrder</span><span class="o">.</span><span class="n">LINEAR</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="SlabToAdsorbatesJob"><a class="viewcode-back" href="../../../../reference/quacc.recipes.vasp.slabs.SlabToAdsorbatesJob.html#quacc.recipes.vasp.slabs.SlabToAdsorbatesJob">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">SlabToAdsorbatesJob</span><span class="p">(</span><span class="n">Maker</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class to convert a slab (or slabs) to one with an adsorbate present,</span>
+<span class="sd">    along with the relaxations and statics for the slab-adsorbate systems.</span>
+<span class="sd">    Multiple slab-adsorbate systems will be generated, one for each unique</span>
+<span class="sd">    binding site.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name</span>
+<span class="sd">        Name of the job.</span>
+<span class="sd">    slab_ads_relax_job</span>
+<span class="sd">        Maker to use for the relaxation of the slab-adsorbate system.</span>
+<span class="sd">    slab_ads_static_job</span>
+<span class="sd">        Maker to use for the static calculation of the slab-adsorbate system.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;VASP-SlabToAdsorbates&quot;</span>
+    <span class="n">slab_ads_relax_job</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">=</span> <span class="n">SlabRelaxJob</span><span class="p">()</span>
+    <span class="n">slab_ads_static_job</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">=</span> <span class="n">SlabStaticJob</span><span class="p">()</span>
+
+<div class="viewcode-block" id="SlabToAdsorbatesJob.make"><a class="viewcode-back" href="../../../../reference/quacc.recipes.vasp.slabs.SlabToAdsorbatesJob.html#quacc.recipes.vasp.slabs.SlabToAdsorbatesJob.make">[docs]</a>    <span class="nd">@job</span>
+    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">slabs</span><span class="p">:</span> <span class="n">Atoms</span> <span class="o">|</span> <span class="n">List</span><span class="p">[</span><span class="n">Atoms</span><span class="p">],</span>
+        <span class="n">adsorbates</span><span class="p">:</span> <span class="n">Atoms</span> <span class="o">|</span> <span class="n">List</span><span class="p">[</span><span class="n">Atoms</span><span class="p">],</span>
+        <span class="o">**</span><span class="n">make_ads_kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Make the run.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        slabs</span>
+<span class="sd">            .Atoms object for the slab structure. Also takes a list of Atoms objects</span>
+<span class="sd">            for the creation of a series of slabs with adsorbates.</span>
+<span class="sd">        adsorbates</span>
+<span class="sd">            .Atoms object for the adsorbate. Also takes a list of Atoms objects for</span>
+<span class="sd">            the consideration of multiple different adsorbates.</span>
+<span class="sd">        make_ads_kwargs</span>
+<span class="sd">            Additional keyword arguments to pass to make_adsorbate_structures()</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Response</span>
+<span class="sd">            A Flow of relaxation and static jobs for the generated slabs with adsorbates.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">make_ads_kwargs</span> <span class="o">=</span> <span class="n">make_ads_kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">slabs</span><span class="p">,</span> <span class="n">Atoms</span><span class="p">):</span>
+            <span class="n">slabs_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">slabs</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">slabs_list</span> <span class="o">=</span> <span class="n">slabs</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">adsorbates</span><span class="p">,</span> <span class="n">Atoms</span><span class="p">):</span>
+            <span class="n">adsorbates_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">adsorbates</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">adsorbates_list</span> <span class="o">=</span> <span class="n">adsorbates</span>
+
+        <span class="n">all_ads_slabs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">jobs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">all_atoms</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">slab</span> <span class="ow">in</span> <span class="n">slabs_list</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">adsorbate</span> <span class="ow">in</span> <span class="n">adsorbates_list</span><span class="p">:</span>
+
+                <span class="c1"># Make slab-adsorbate systems</span>
+                <span class="n">ads_slabs</span> <span class="o">=</span> <span class="n">make_adsorbate_structures</span><span class="p">(</span>
+                    <span class="n">slab</span><span class="p">,</span> <span class="n">adsorbate</span><span class="p">,</span> <span class="o">**</span><span class="n">make_ads_kwargs</span>
+                <span class="p">)</span>
+                <span class="n">all_ads_slabs</span><span class="p">[</span><span class="n">adsorbate</span><span class="o">.</span><span class="n">get_chemical_formula</span><span class="p">()]</span> <span class="o">=</span> <span class="n">ads_slabs</span>
+
+                <span class="c1"># Make a relaxation+static job for each slab-adsorbate ysstem</span>
+                <span class="k">for</span> <span class="n">ads_slab</span> <span class="ow">in</span> <span class="n">ads_slabs</span><span class="p">:</span>
+                    <span class="n">relax_job</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slab_ads_relax_job</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="n">ads_slab</span><span class="p">)</span>
+                    <span class="n">static_job</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slab_ads_static_job</span><span class="o">.</span><span class="n">make</span><span class="p">(</span>
+                        <span class="n">relax_job</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">]</span>
+                    <span class="p">)</span>
+
+                    <span class="n">jobs</span> <span class="o">+=</span> <span class="p">[</span><span class="n">relax_job</span><span class="p">,</span> <span class="n">static_job</span><span class="p">]</span>
+                    <span class="n">outputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">static_job</span><span class="o">.</span><span class="n">output</span><span class="p">)</span>
+                    <span class="n">all_atoms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">static_job</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">jobs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Response</span><span class="p">(</span>
+                <span class="n">output</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;input_slabs&quot;</span><span class="p">:</span> <span class="n">slabs</span><span class="p">,</span> <span class="s2">&quot;generated_slab_ads&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+                <span class="n">stop_children</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">Response</span><span class="p">(</span>
+            <span class="n">output</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;input_slabs&quot;</span><span class="p">:</span> <span class="n">slabs</span><span class="p">,</span> <span class="s2">&quot;generated_slab_ads&quot;</span><span class="p">:</span> <span class="n">all_ads_slabs</span><span class="p">},</span>
+            <span class="n">replace</span><span class="o">=</span><span class="n">Flow</span><span class="p">(</span>
+                <span class="n">jobs</span><span class="p">,</span>
+                <span class="n">output</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;all_atoms&quot;</span><span class="p">:</span> <span class="n">all_atoms</span><span class="p">,</span> <span class="s2">&quot;all_outputs&quot;</span><span class="p">:</span> <span class="n">outputs</span><span class="p">},</span>
+                <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="n">order</span><span class="o">=</span><span class="n">JobOrder</span><span class="o">.</span><span class="n">LINEAR</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="BulkToAdsorbatesFlow"><a class="viewcode-back" href="../../../../reference/quacc.recipes.vasp.slabs.BulkToAdsorbatesFlow.html#quacc.recipes.vasp.slabs.BulkToAdsorbatesFlow">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">BulkToAdsorbatesFlow</span><span class="p">(</span><span class="n">Maker</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Flow consisting of:</span>
+<span class="sd">    1. Bulk relaxation (optional)</span>
+<span class="sd">    2. Bulk static (optional)</span>
+<span class="sd">    3. Slab generation</span>
+<span class="sd">    4. Selection of the most stable slab (optional)</span>
+<span class="sd">    5. Addition of adsorbates to the slabs or most stable slab</span>
+<span class="sd">    6. Slab relaxation(s) with adsorbates at multiple binding sites</span>
+<span class="sd">    7. Slab static(s) with adsorbates at multiple binding sites</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name</span>
+<span class="sd">        Name of the job.</span>
+<span class="sd">    bulk_relax_job</span>
+<span class="sd">        Maker to use for the relaxation of the bulk structure.</span>
+<span class="sd">    bulk_static_job</span>
+<span class="sd">        Default to use for the static calculation of the bulk structure.</span>
+<span class="sd">    bulk_to_slabs_job</span>
+<span class="sd">        Maker to use for the BulkToSlabsJob.</span>
+<span class="sd">    slab_to_adsorbate_job</span>
+<span class="sd">        Maker to use for the SlabToAdsorbatesJob.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;VASP-BulkToAdsorbates&quot;</span>
+    <span class="n">bulk_relax_job</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">RelaxJob</span><span class="p">()</span>
+    <span class="n">bulk_static_job</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">StaticJob</span><span class="p">()</span>
+    <span class="n">bulk_to_slabs_job</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">=</span> <span class="n">BulkToSlabsJob</span><span class="p">()</span>
+    <span class="n">slab_to_adsorbates_job</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">=</span> <span class="n">SlabToAdsorbatesJob</span><span class="p">()</span>
+
+<div class="viewcode-block" id="BulkToAdsorbatesFlow.make"><a class="viewcode-back" href="../../../../reference/quacc.recipes.vasp.slabs.BulkToAdsorbatesFlow.html#quacc.recipes.vasp.slabs.BulkToAdsorbatesFlow.make">[docs]</a>    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span>
+        <span class="n">adsorbate</span><span class="p">:</span> <span class="n">Atoms</span> <span class="o">|</span> <span class="n">List</span><span class="p">[</span><span class="n">Atoms</span><span class="p">],</span>
+        <span class="n">n_stable_slabs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">max_slabs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">slabgen_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">make_ads_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Flow</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Make the Flow.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        atoms</span>
+<span class="sd">            .Atoms object for the structure.</span>
+<span class="sd">        adsorbate</span>
+<span class="sd">            .Atoms object for the adsorbate. Can also take a list of adsorbates.</span>
+<span class="sd">        n_stable_slabs</span>
+<span class="sd">            If set to an integer, the n most stable slabs will be considered</span>
+<span class="sd">            for adsorption. If None, then all will be considered.</span>
+<span class="sd">        max_slabs</span>
+<span class="sd">            Maximum number of slabs to make. None implies no upper limit.</span>
+<span class="sd">        slabgen_kwargs</span>
+<span class="sd">            Additional keyword arguments to pass to make_max_slabs_from_bulk()</span>
+<span class="sd">        make_ads_kwargs</span>
+<span class="sd">            Additional keyword arguments to pass to make_adsorbate_structures()</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Flow</span>
+<span class="sd">            The Flow for this process.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">jobs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">slabgen_kwargs</span> <span class="o">=</span> <span class="n">slabgen_kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="n">make_ads_kwargs</span> <span class="o">=</span> <span class="n">make_ads_kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
+
+        <span class="k">if</span> <span class="n">n_stable_slabs</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">bulk_static_job</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot use n_stable_slabs without a bulk_static_job&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bulk_relax_job</span><span class="p">:</span>
+            <span class="n">bulk_relax_job</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bulk_relax_job</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+            <span class="n">atoms</span> <span class="o">=</span> <span class="n">bulk_relax_job</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">]</span>
+            <span class="n">jobs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bulk_relax_job</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bulk_static_job</span><span class="p">:</span>
+            <span class="n">bulk_static_job</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bulk_static_job</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+            <span class="n">atoms</span> <span class="o">=</span> <span class="n">bulk_static_job</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">]</span>
+            <span class="n">jobs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bulk_static_job</span><span class="p">)</span>
+
+        <span class="n">bulk_to_slabs_job</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bulk_to_slabs_job</span><span class="o">.</span><span class="n">make</span><span class="p">(</span>
+            <span class="n">atoms</span><span class="p">,</span> <span class="n">max_slabs</span><span class="o">=</span><span class="n">max_slabs</span><span class="p">,</span> <span class="o">**</span><span class="n">slabgen_kwargs</span>
+        <span class="p">)</span>
+        <span class="n">jobs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bulk_to_slabs_job</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">n_stable_slabs</span><span class="p">:</span>
+            <span class="n">find_stable_slab_job</span> <span class="o">=</span> <span class="n">_get_slab_stability</span><span class="p">(</span>
+                <span class="n">bulk_static_job</span><span class="o">.</span><span class="n">output</span><span class="p">,</span>
+                <span class="n">bulk_to_slabs_job</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;all_outputs&quot;</span><span class="p">],</span>
+                <span class="n">n_stable_slabs</span><span class="o">=</span><span class="n">n_stable_slabs</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">slab_to_adsorbates_job</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slab_to_adsorbates_job</span><span class="o">.</span><span class="n">make</span><span class="p">(</span>
+                <span class="n">find_stable_slab_job</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;stable_slabs&quot;</span><span class="p">][</span><span class="s2">&quot;all_atoms&quot;</span><span class="p">],</span>
+                <span class="n">adsorbate</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">make_ads_kwargs</span>
+            <span class="p">)</span>
+            <span class="n">jobs</span> <span class="o">+=</span> <span class="p">[</span><span class="n">find_stable_slab_job</span><span class="p">,</span> <span class="n">slab_to_adsorbates_job</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">slab_to_adsorbates_job</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slab_to_adsorbates_job</span><span class="o">.</span><span class="n">make</span><span class="p">(</span>
+                <span class="n">bulk_to_slabs_job</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;all_atoms&quot;</span><span class="p">],</span> <span class="n">adsorbate</span><span class="p">,</span> <span class="o">**</span><span class="n">make_ads_kwargs</span>
+            <span class="p">)</span>
+            <span class="n">jobs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">slab_to_adsorbates_job</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">Flow</span><span class="p">(</span>
+            <span class="n">jobs</span><span class="p">,</span>
+            <span class="n">output</span><span class="o">=</span><span class="n">slab_to_adsorbates_job</span><span class="o">.</span><span class="n">output</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">order</span><span class="o">=</span><span class="n">JobOrder</span><span class="o">.</span><span class="n">LINEAR</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
+
+
+<span class="nd">@job</span>
+<span class="k">def</span> <span class="nf">_get_slab_stability</span><span class="p">(</span>
+    <span class="n">bulk_summary</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+    <span class="n">slab_summaries</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+    <span class="n">n_stable_slabs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A job that determine the most stable surface slabs (based on cleavage energy) for</span>
+<span class="sd">    a given bulk summary and list of slab summaries.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    bulk_summary</span>
+<span class="sd">        Output of a VASP job corresponding to the bulk structure.</span>
+<span class="sd">    slab_summaries</span>
+<span class="sd">        List of outputs of VASP jobs corresponding to the slab structures.</span>
+<span class="sd">    n_stable_slabs</span>
+<span class="sd">        The n most stable slabs are returned.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Dict</span>
+<span class="sd">        VASP output summaries for the stable and unstable slabs formatted as</span>
+<span class="sd">        {</span>
+<span class="sd">            {&quot;stable_slabs&quot;: {&quot;all_atoms&quot;: [.Atoms, .Atoms, ...], &quot;all_outputs&quot;: [...],</span>
+<span class="sd">            {&quot;unstable_slabs&quot;: {&quot;all_atoms&quot;: [.Atoms, .Atoms, ...], &quot;all_outputs&quot;: [...]</span>
+<span class="sd">        }</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bulk</span> <span class="o">=</span> <span class="n">bulk_summary</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">]</span>
+    <span class="n">bulk_energy</span> <span class="o">=</span> <span class="n">bulk_summary</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">][</span><span class="s2">&quot;energy&quot;</span><span class="p">]</span>
+    <span class="n">cleavage_energies</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">if</span> <span class="n">n_stable_slabs</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">slab_summaries</span><span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;n_stable_slabs is larger than the number of slabs. Setting n_stable_slabs to the number of slabs.&quot;</span>
+        <span class="p">)</span>
+        <span class="n">n_stable_slabs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">slab_summaries</span><span class="p">)</span>
+
+    <span class="c1"># Iterate through each slab summary and determine the most stable slab</span>
+    <span class="k">for</span> <span class="n">slab_summary</span> <span class="ow">in</span> <span class="n">slab_summaries</span><span class="p">:</span>
+        <span class="n">slab</span> <span class="o">=</span> <span class="n">slab_summary</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">]</span>
+        <span class="n">slab_energy</span> <span class="o">=</span> <span class="n">slab_summary</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">][</span><span class="s2">&quot;energy&quot;</span><span class="p">]</span>
+
+        <span class="c1"># Calculate the cleavage energy</span>
+        <span class="n">cleave_energy</span> <span class="o">=</span> <span class="n">get_cleavage_energy</span><span class="p">(</span><span class="n">bulk</span><span class="p">,</span> <span class="n">slab</span><span class="p">,</span> <span class="n">bulk_energy</span><span class="p">,</span> <span class="n">slab_energy</span><span class="p">)</span>
+
+        <span class="c1"># Insert the cleavage energy into the slab summary</span>
+        <span class="n">slab_summary</span><span class="p">[</span><span class="s2">&quot;cleavage_energy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cleave_energy</span>
+
+        <span class="c1"># Store the slab energy in a convenient dict</span>
+        <span class="n">cleavage_energies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cleave_energy</span><span class="p">)</span>
+
+    <span class="n">slab_summaries_sorted</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">slab_summary</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">slab_summary</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">cleavage_energies</span><span class="p">,</span> <span class="n">slab_summaries</span><span class="p">))</span>
+    <span class="p">]</span>
+    <span class="n">stable_slab_summaries</span> <span class="o">=</span> <span class="n">slab_summaries_sorted</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">n_stable_slabs</span><span class="p">]</span>
+    <span class="n">unstable_slab_summaries</span> <span class="o">=</span> <span class="n">slab_summaries_sorted</span><span class="p">[</span><span class="n">n_stable_slabs</span><span class="p">:]</span>
+
+    <span class="n">output</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;stable_slabs&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;all_atoms&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">summary</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">summary</span> <span class="ow">in</span> <span class="n">stable_slab_summaries</span><span class="p">],</span>
+            <span class="s2">&quot;all_outputs&quot;</span><span class="p">:</span> <span class="n">stable_slab_summaries</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;unstable_slabs&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;all_atoms&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">summary</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">summary</span> <span class="ow">in</span> <span class="n">unstable_slab_summaries</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">unstable_slab_summaries</span>
+            <span class="k">else</span> <span class="p">[],</span>
+            <span class="s2">&quot;all_outputs&quot;</span><span class="p">:</span> <span class="n">unstable_slab_summaries</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">output</span>
+</pre></div>
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+DoubleRelaxJob
+==============
+
+.. currentmodule:: quacc.recipes.vasp.core
+
+.. autoclass:: DoubleRelaxJob
+   :show-inheritance:
+   :members:

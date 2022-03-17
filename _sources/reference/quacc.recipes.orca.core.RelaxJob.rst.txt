@@ -1,0 +1,8 @@
+RelaxJob
+========
+
+.. currentmodule:: quacc.recipes.orca.core
+
+.. autoclass:: RelaxJob
+   :show-inheritance:
+   :members:

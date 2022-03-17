@@ -1,0 +1,6 @@
+merge\_dicts
+============
+
+.. currentmodule:: quacc.util.basics
+
+.. autofunction:: merge_dicts

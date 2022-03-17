@@ -1,0 +1,8 @@
+BulkToAdsorbatesFlow
+====================
+
+.. currentmodule:: quacc.recipes.vasp.slabs
+
+.. autoclass:: BulkToAdsorbatesFlow
+   :show-inheritance:
+   :members:

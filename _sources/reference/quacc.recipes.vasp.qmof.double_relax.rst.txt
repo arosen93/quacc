@@ -1,0 +1,6 @@
+double\_relax
+=============
+
+.. currentmodule:: quacc.recipes.vasp.qmof
+
+.. autofunction:: double_relax

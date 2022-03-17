@@ -1,0 +1,8 @@
+SlabToAdsorbatesJob
+===================
+
+.. currentmodule:: quacc.recipes.vasp.slabs
+
+.. autoclass:: SlabToAdsorbatesJob
+   :show-inheritance:
+   :members:

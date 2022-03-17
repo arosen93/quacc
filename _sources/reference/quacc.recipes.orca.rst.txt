@@ -1,0 +1,42 @@
+quacc.recipes.orca
+==================
+
+.. automodule:: quacc.recipes.orca
+
+   
+
+
+
+   
+
+
+
+   
+
+
+
+   
+   
+   
+   
+   
+   
+   
+
+
+
+
+   
+   
+   
+
+
+
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   quacc.recipes.orca.core
+

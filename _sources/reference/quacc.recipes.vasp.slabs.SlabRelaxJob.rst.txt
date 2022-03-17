@@ -1,0 +1,8 @@
+SlabRelaxJob
+============
+
+.. currentmodule:: quacc.recipes.vasp.slabs
+
+.. autoclass:: SlabRelaxJob
+   :show-inheritance:
+   :members:

@@ -1,0 +1,49 @@
+quacc.recipes.emt.core
+======================
+
+.. automodule:: quacc.recipes.emt.core
+
+   
+
+
+
+   
+
+
+
+   
+
+
+
+   
+      
+   
+   
+      
+   
+   
+   
+   
+   
+   
+   
+
+
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+      :nosignatures:
+   
+      RelaxJob
+      StaticJob
+
+
+
+
+   
+   
+   
+
+
+

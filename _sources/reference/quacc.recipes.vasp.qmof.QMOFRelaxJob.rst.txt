@@ -1,0 +1,8 @@
+QMOFRelaxJob
+============
+
+.. currentmodule:: quacc.recipes.vasp.qmof
+
+.. autoclass:: QMOFRelaxJob
+   :show-inheritance:
+   :members:

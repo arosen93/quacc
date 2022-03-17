@@ -1,0 +1,8 @@
+SlabStaticJob
+=============
+
+.. currentmodule:: quacc.recipes.vasp.slabs
+
+.. autoclass:: SlabStaticJob
+   :show-inheritance:
+   :members:

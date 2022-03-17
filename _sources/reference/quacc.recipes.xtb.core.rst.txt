@@ -1,0 +1,53 @@
+quacc.recipes.xtb.core
+======================
+
+.. automodule:: quacc.recipes.xtb.core
+
+   
+
+
+
+   
+
+
+
+   
+
+
+
+   
+      
+   
+   
+      
+   
+   
+      
+   
+   
+   
+   
+   
+   
+   
+
+
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+      :nosignatures:
+   
+      RelaxJob
+      StaticJob
+      XTB
+
+
+
+
+   
+   
+   
+
+
+

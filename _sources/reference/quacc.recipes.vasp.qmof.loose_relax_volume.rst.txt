@@ -1,0 +1,6 @@
+loose\_relax\_volume
+====================
+
+.. currentmodule:: quacc.recipes.vasp.qmof
+
+.. autofunction:: loose_relax_volume

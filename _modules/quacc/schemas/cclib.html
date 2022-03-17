@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>quacc.schemas.cclib &#8212; quacc</title>
+    
+    <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/pydata-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+    
+    <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../../../index.html">
+<p class="title">quacc</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../user/index.html">
+  User Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../reference/index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../dev/index.html">
+  Developer Guide
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/arosen93/quacc" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <h1>Source code for quacc.schemas.cclib</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="kn">from</span> <span class="nn">ase.atoms</span> <span class="kn">import</span> <span class="n">Atoms</span>
+<span class="kn">from</span> <span class="nn">atomate2.common.schemas.cclib</span> <span class="kn">import</span> <span class="n">TaskDocument</span>
+
+<span class="kn">from</span> <span class="nn">quacc.schemas.atoms</span> <span class="kn">import</span> <span class="n">atoms_to_metadata</span>
+<span class="kn">from</span> <span class="nn">quacc.util.atoms</span> <span class="kn">import</span> <span class="n">prep_next_run</span> <span class="k">as</span> <span class="n">prep_next_run_</span>
+
+
+<div class="viewcode-block" id="summarize_run"><a class="viewcode-back" href="../../../reference/quacc.schemas.cclib.summarize_run.html#quacc.schemas.cclib.summarize_run">[docs]</a><span class="k">def</span> <span class="nf">summarize_run</span><span class="p">(</span>
+    <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span>
+    <span class="n">logfile_extensions</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">dir_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">check_convergence</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">transition_state</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">prep_next_run</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">additional_fields</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get tabulated results from a molecular DFT run and store them in a database-friendly format.</span>
+<span class="sd">    This is meant to be a general parser built on top of cclib.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    atoms</span>
+<span class="sd">        ASE Atoms object following a calculation.</span>
+<span class="sd">    logfile_extensions</span>
+<span class="sd">        Possible extensions of the log file (e.g. &quot;.log&quot;, &quot;.out&quot;, &quot;.txt&quot;, &quot;.chk&quot;). Note that</span>
+<span class="sd">        only a partial match is needed. For instance, `.log` will match `.log.gz` and `.log.1.gz`.</span>
+<span class="sd">        If multiple files with this extension are found, the one with the most recent change time</span>
+<span class="sd">        will be used. For an exact match only, put in the full file name.</span>
+<span class="sd">    dir_name</span>
+<span class="sd">        The path to the folder containing the calculation outputs. A value of None specifies the</span>
+<span class="sd">        current working directory.</span>
+<span class="sd">    check_convergence</span>
+<span class="sd">         Whether to throw an error if convergence is not reached.</span>
+<span class="sd">    transition_state</span>
+<span class="sd">        Whether the calculation is a transition state (used for convergence check).</span>
+<span class="sd">    prep_next_run</span>
+<span class="sd">        Whether the Atoms object storeed in {&quot;atoms&quot;: atoms} should be prepared for the next run.</span>
+<span class="sd">        This clears out any attached calculator and moves the final magmoms to the initial magmoms.</span>
+<span class="sd">    additional_fields</span>
+<span class="sd">        Additional fields to add to the task document.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Dict</span>
+<span class="sd">        Dictionary of tabulated inputs/results</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Make sure there is a calculator with results</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;ASE Atoms object has no attached calculator.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">results</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;ASE Atoms object&#39;s calculator has no results.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">additional_fields</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">additional_fields</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="n">dir_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">dir_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+
+    <span class="c1"># Fortunately, there is already a cclib parser in Atomate2</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">TaskDocument</span><span class="o">.</span><span class="n">from_logfile</span><span class="p">(</span><span class="n">dir_path</span><span class="p">,</span> <span class="n">logfile_extensions</span><span class="p">)</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
+
+    <span class="c1"># Check convergence if requested</span>
+    <span class="k">if</span> <span class="n">check_convergence</span><span class="p">:</span>
+        <span class="c1"># If it&#39;s an opt+freq job, we will just check convergence on the</span>
+        <span class="c1"># frequency step. This is because sometimes the frequency job will</span>
+        <span class="c1"># yield all positive modes, but the optimization tolerances me be</span>
+        <span class="c1"># not entirely met. See https://gaussian.com/faq3.</span>
+        <span class="n">vibfreqs</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s2">&quot;attributes&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;vibfreqs&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">vibfreqs</span><span class="p">:</span>
+            <span class="n">n_imag</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">vibfreq</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">vibfreq</span> <span class="ow">in</span> <span class="n">vibfreqs</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">n_imag</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Too many imaginary modes: </span><span class="si">{</span><span class="n">n_imag</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">n_imag</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">transition_state</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;One imaginary mode, but transition_state = False.&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">n_imag</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">transition_state</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No imaginary modes, but transition_state = True.&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">results</span><span class="p">[</span><span class="s2">&quot;attributes&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;optdone&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Optimization not complete.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Remove some key/vals we don&#39;t actually ever use</span>
+    <span class="n">unused_props</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;task_label&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;tags&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;molecule&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">for</span> <span class="n">unused_prop</span> <span class="ow">in</span> <span class="n">unused_props</span><span class="p">:</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">unused_prop</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="c1"># Get the calculator inputs</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">parameters</span><span class="p">}</span>
+
+    <span class="c1"># Prepares the Atoms object for the next run by moving the</span>
+    <span class="c1"># final magmoms to initial, clearing the calculator state,</span>
+    <span class="c1"># and assigning the resulting Atoms object a unique ID.</span>
+    <span class="k">if</span> <span class="n">prep_next_run</span><span class="p">:</span>
+        <span class="n">atoms</span> <span class="o">=</span> <span class="n">prep_next_run_</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+
+    <span class="c1"># Get tabulated properties of the structure itself</span>
+    <span class="n">atoms_db</span> <span class="o">=</span> <span class="n">atoms_to_metadata</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+
+    <span class="c1"># Create a dictionary of the inputs/outputs</span>
+    <span class="n">task_doc</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">atoms_db</span><span class="p">,</span> <span class="o">**</span><span class="n">inputs</span><span class="p">,</span> <span class="o">**</span><span class="n">results</span><span class="p">,</span> <span class="o">**</span><span class="n">additional_fields</span><span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">task_doc</span></div>
+</pre></div>
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

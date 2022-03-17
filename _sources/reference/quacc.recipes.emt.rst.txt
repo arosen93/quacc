@@ -1,0 +1,42 @@
+quacc.recipes.emt
+=================
+
+.. automodule:: quacc.recipes.emt
+
+   
+
+
+
+   
+
+
+
+   
+
+
+
+   
+   
+   
+   
+   
+   
+   
+
+
+
+
+   
+   
+   
+
+
+
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   quacc.recipes.emt.core
+

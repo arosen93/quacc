@@ -1,0 +1,8 @@
+StaticJob
+=========
+
+.. currentmodule:: quacc.recipes.vasp.core
+
+.. autoclass:: StaticJob
+   :show-inheritance:
+   :members:

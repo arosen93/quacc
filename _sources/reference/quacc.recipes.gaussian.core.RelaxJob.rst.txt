@@ -1,0 +1,8 @@
+RelaxJob
+========
+
+.. currentmodule:: quacc.recipes.gaussian.core
+
+.. autoclass:: RelaxJob
+   :show-inheritance:
+   :members:

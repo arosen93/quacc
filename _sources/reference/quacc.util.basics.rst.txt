@@ -1,0 +1,44 @@
+quacc.util.basics
+=================
+
+.. automodule:: quacc.util.basics
+
+   
+
+
+
+   
+
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+      :nosignatures:
+   
+      merge_dicts
+      remove_dict_empties
+
+
+
+   
+
+
+
+   
+   
+   
+   
+   
+   
+   
+   
+
+
+
+
+   
+   
+   
+
+
+

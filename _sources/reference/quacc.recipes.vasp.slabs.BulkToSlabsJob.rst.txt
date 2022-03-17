@@ -1,0 +1,8 @@
+BulkToSlabsJob
+==============
+
+.. currentmodule:: quacc.recipes.vasp.slabs
+
+.. autoclass:: BulkToSlabsJob
+   :show-inheritance:
+   :members:

@@ -1,0 +1,46 @@
+﻿quacc.recipes
+=============
+
+.. automodule:: quacc.recipes
+
+   
+
+
+
+   
+
+
+
+   
+
+
+
+   
+   
+   
+   
+   
+   
+   
+
+
+
+
+   
+   
+   
+
+
+
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   quacc.recipes.emt
+   quacc.recipes.gaussian
+   quacc.recipes.orca
+   quacc.recipes.vasp
+   quacc.recipes.xtb
+

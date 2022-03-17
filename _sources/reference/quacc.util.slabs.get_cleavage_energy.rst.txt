@@ -1,0 +1,6 @@
+get\_cleavage\_energy
+=====================
+
+.. currentmodule:: quacc.util.slabs
+
+.. autofunction:: get_cleavage_energy

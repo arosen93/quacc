@@ -1,0 +1,42 @@
+quacc.recipes.xtb
+=================
+
+.. automodule:: quacc.recipes.xtb
+
+   
+
+
+
+   
+
+
+
+   
+
+
+
+   
+   
+   
+   
+   
+   
+   
+
+
+
+
+   
+   
+   
+
+
+
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   quacc.recipes.xtb.core
+
