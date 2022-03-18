@@ -209,11 +209,10 @@
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">store_dir</span><span class="p">,</span> <span class="n">f</span><span class="p">)):</span>
             <span class="n">copy</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">store_dir</span><span class="p">,</span> <span class="n">f</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">,</span> <span class="n">f</span><span class="p">))</span>
 
-    <span class="c1"># Leave a note in the run directory for where the tmp is located in case</span>
-    <span class="c1"># the job dies partway through</span>
-    <span class="n">tmp_path_note</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">store_dir</span><span class="p">,</span> <span class="s2">&quot;tmp_path.txt&quot;</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">tmp_path_note</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">)</span>
+    <span class="c1"># Make a symlink to the scratch dir</span>
+    <span class="n">sym_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">store_dir</span><span class="p">,</span> <span class="s2">&quot;scratch_symlink&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;nt&quot;</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">symlink</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">,</span> <span class="n">sym_path</span><span class="p">)</span>
 
     <span class="c1"># Run calculation via get_potential_energy()</span>
     <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">directory</span> <span class="o">=</span> <span class="n">tmp_path</span>
@@ -224,9 +223,9 @@
         <span class="n">gzip_dir</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">)</span>
     <span class="n">copy_r</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">,</span> <span class="n">store_dir</span><span class="p">)</span>
 
-    <span class="c1"># Remove the scratch note and tmp dir</span>
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">tmp_path_note</span><span class="p">):</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">tmp_path_note</span><span class="p">)</span>
+    <span class="c1"># Remove the tmp dir and symlink</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">sym_path</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">sym_path</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">):</span>
         <span class="n">rmtree</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">)</span>
 
