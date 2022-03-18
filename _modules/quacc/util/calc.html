@@ -158,7 +158,11 @@
 
 
 <div class="viewcode-block" id="run_calc"><a class="viewcode-back" href="../../../reference/quacc.util.calc.run_calc.html#quacc.util.calc.run_calc">[docs]</a><span class="k">def</span> <span class="nf">run_calc</span><span class="p">(</span>
-    <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span> <span class="n">store_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scratch_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">gzip</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span>
+    <span class="n">store_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">scratch_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">gzip</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">copy_from_store_dir</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Run a calculation in a scratch directory and copy the results back to the</span>
@@ -172,14 +176,17 @@
 <span class="sd">    atoms : .Atoms</span>
 <span class="sd">        The Atoms object to run the calculation on.</span>
 <span class="sd">    store_dir : str</span>
-<span class="sd">        Path where calculation results should be stored. Also will copy all files</span>
-<span class="sd">        from this directory at runtime. If None, the current working directory will be used.</span>
+<span class="sd">        Path where calculation results should be stored.</span>
+<span class="sd">        If None, the current working directory will be used.</span>
 <span class="sd">    scratch_dir : str</span>
 <span class="sd">        Path to the base directory where a tmp directory will be made for</span>
 <span class="sd">        scratch files. If None, a temporary directory in $SCRATCH will be used.</span>
 <span class="sd">        If $SCRATCH is not present, a tmp directory will be made in store_dir.</span>
 <span class="sd">    gzip : bool</span>
 <span class="sd">        Whether to gzip the output files.</span>
+<span class="sd">    copy_from_store_dir : bool</span>
+<span class="sd">        Whether to copy any pre-existing files from the store_dir to the scratch_dir</span>
+<span class="sd">        before running the calculation.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -205,9 +212,10 @@
     <span class="n">tmp_path</span> <span class="o">=</span> <span class="n">mkdtemp</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="n">scratch_dir</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;quacc-&quot;</span><span class="p">)</span>
 
     <span class="c1"># Copy files to scratch</span>
-    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">store_dir</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">store_dir</span><span class="p">,</span> <span class="n">f</span><span class="p">)):</span>
-            <span class="n">copy</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">store_dir</span><span class="p">,</span> <span class="n">f</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">,</span> <span class="n">f</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">copy_from_store_dir</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">store_dir</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">store_dir</span><span class="p">,</span> <span class="n">f</span><span class="p">)):</span>
+                <span class="n">copy</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">store_dir</span><span class="p">,</span> <span class="n">f</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmp_path</span><span class="p">,</span> <span class="n">f</span><span class="p">))</span>
 
     <span class="c1"># Make a symlink to the scratch dir</span>
     <span class="n">sym_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">store_dir</span><span class="p">,</span> <span class="s2">&quot;scratch_symlink&quot;</span><span class="p">)</span>

@@ -345,7 +345,6 @@
                 <span class="n">jobs</span><span class="p">,</span>
                 <span class="n">output</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;all_atoms&quot;</span><span class="p">:</span> <span class="n">all_atoms</span><span class="p">,</span> <span class="s2">&quot;all_outputs&quot;</span><span class="p">:</span> <span class="n">outputs</span><span class="p">},</span>
                 <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-                <span class="n">order</span><span class="o">=</span><span class="n">JobOrder</span><span class="o">.</span><span class="n">LINEAR</span><span class="p">,</span>
             <span class="p">),</span>
         <span class="p">)</span></div></div>
 
@@ -445,7 +444,6 @@
                 <span class="n">jobs</span><span class="p">,</span>
                 <span class="n">output</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;all_atoms&quot;</span><span class="p">:</span> <span class="n">all_atoms</span><span class="p">,</span> <span class="s2">&quot;all_outputs&quot;</span><span class="p">:</span> <span class="n">outputs</span><span class="p">},</span>
                 <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-                <span class="n">order</span><span class="o">=</span><span class="n">JobOrder</span><span class="o">.</span><span class="n">LINEAR</span><span class="p">,</span>
             <span class="p">),</span>
         <span class="p">)</span></div></div>
 
@@ -555,12 +553,7 @@
             <span class="p">)</span>
             <span class="n">jobs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">slab_to_adsorbates_job</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">Flow</span><span class="p">(</span>
-            <span class="n">jobs</span><span class="p">,</span>
-            <span class="n">output</span><span class="o">=</span><span class="n">slab_to_adsorbates_job</span><span class="o">.</span><span class="n">output</span><span class="p">,</span>
-            <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-            <span class="n">order</span><span class="o">=</span><span class="n">JobOrder</span><span class="o">.</span><span class="n">LINEAR</span><span class="p">,</span>
-        <span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">Flow</span><span class="p">(</span><span class="n">jobs</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">slab_to_adsorbates_job</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div></div>
 
 
 <span class="nd">@job</span>
