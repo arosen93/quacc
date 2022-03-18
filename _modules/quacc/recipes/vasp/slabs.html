@@ -162,7 +162,7 @@
 <span class="kn">from</span> <span class="nn">quacc.util.basics</span> <span class="kn">import</span> <span class="n">merge_dicts</span>
 <span class="kn">from</span> <span class="nn">quacc.util.calc</span> <span class="kn">import</span> <span class="n">run_calc</span>
 <span class="kn">from</span> <span class="nn">quacc.util.slabs</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">get_cleavage_energy</span><span class="p">,</span>
+    <span class="n">get_surface_energy</span><span class="p">,</span>
     <span class="n">make_adsorbate_structures</span><span class="p">,</span>
     <span class="n">make_max_slabs_from_bulk</span><span class="p">,</span>
 <span class="p">)</span>
@@ -563,7 +563,7 @@
     <span class="n">n_stable_slabs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A job that determine the most stable surface slabs (based on cleavage energy) for</span>
+<span class="sd">    A job that determine the most stable surface slabs (based on surface energy) for</span>
 <span class="sd">    a given bulk summary and list of slab summaries.</span>
 
 <span class="sd">    Parameters</span>
@@ -586,7 +586,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">bulk</span> <span class="o">=</span> <span class="n">bulk_summary</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">]</span>
     <span class="n">bulk_energy</span> <span class="o">=</span> <span class="n">bulk_summary</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">][</span><span class="s2">&quot;energy&quot;</span><span class="p">]</span>
-    <span class="n">cleavage_energies</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">surface_energies</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="k">if</span> <span class="n">n_stable_slabs</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">slab_summaries</span><span class="p">):</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
@@ -599,18 +599,18 @@
         <span class="n">slab</span> <span class="o">=</span> <span class="n">slab_summary</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">]</span>
         <span class="n">slab_energy</span> <span class="o">=</span> <span class="n">slab_summary</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">][</span><span class="s2">&quot;energy&quot;</span><span class="p">]</span>
 
-        <span class="c1"># Calculate the cleavage energy</span>
-        <span class="n">cleave_energy</span> <span class="o">=</span> <span class="n">get_cleavage_energy</span><span class="p">(</span><span class="n">bulk</span><span class="p">,</span> <span class="n">slab</span><span class="p">,</span> <span class="n">bulk_energy</span><span class="p">,</span> <span class="n">slab_energy</span><span class="p">)</span>
+        <span class="c1"># Calculate the surface energy</span>
+        <span class="n">surface_energy</span> <span class="o">=</span> <span class="n">get_surface_energy</span><span class="p">(</span><span class="n">bulk</span><span class="p">,</span> <span class="n">slab</span><span class="p">,</span> <span class="n">bulk_energy</span><span class="p">,</span> <span class="n">slab_energy</span><span class="p">)</span>
 
-        <span class="c1"># Insert the cleavage energy into the slab summary</span>
-        <span class="n">slab_summary</span><span class="p">[</span><span class="s2">&quot;cleavage_energy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cleave_energy</span>
+        <span class="c1"># Insert the surface energy into the slab summary</span>
+        <span class="n">slab_summary</span><span class="p">[</span><span class="s2">&quot;avg_surface_energy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">surface_energy</span>
 
         <span class="c1"># Store the slab energy in a convenient dict</span>
-        <span class="n">cleavage_energies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cleave_energy</span><span class="p">)</span>
+        <span class="n">surface_energies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">surface_energy</span><span class="p">)</span>
 
     <span class="n">slab_summaries_sorted</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">slab_summary</span>
-        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">slab_summary</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">cleavage_energies</span><span class="p">,</span> <span class="n">slab_summaries</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">slab_summary</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">surface_energies</span><span class="p">,</span> <span class="n">slab_summaries</span><span class="p">))</span>
     <span class="p">]</span>
     <span class="n">stable_slab_summaries</span> <span class="o">=</span> <span class="n">slab_summaries_sorted</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">n_stable_slabs</span><span class="p">]</span>
     <span class="n">unstable_slab_summaries</span> <span class="o">=</span> <span class="n">slab_summaries_sorted</span><span class="p">[</span><span class="n">n_stable_slabs</span><span class="p">:]</span>

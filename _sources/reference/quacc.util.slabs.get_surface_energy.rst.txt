@@ -1,0 +1,6 @@
+get\_surface\_energy
+====================
+
+.. currentmodule:: quacc.util.slabs
+
+.. autofunction:: get_surface_energy
