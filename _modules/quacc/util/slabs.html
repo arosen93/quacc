@@ -532,7 +532,7 @@
 
     <span class="c1"># Make a Pymatgen structure and molecule</span>
     <span class="n">struct</span> <span class="o">=</span> <span class="n">AseAtomsAdaptor</span><span class="o">.</span><span class="n">get_structure</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
-    <span class="n">mol</span> <span class="o">=</span> <span class="n">AseAtomsAdaptor</span><span class="o">.</span><span class="n">get_molecule</span><span class="p">(</span><span class="n">adsorbate</span><span class="p">)</span>
+    <span class="n">mol</span> <span class="o">=</span> <span class="n">AseAtomsAdaptor</span><span class="o">.</span><span class="n">get_molecule</span><span class="p">(</span><span class="n">adsorbate</span><span class="p">,</span> <span class="n">charge_spin_check</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="c1"># Get the adsorption sites</span>
     <span class="n">ads_finder</span> <span class="o">=</span> <span class="n">AdsorbateSiteFinder</span><span class="p">(</span><span class="n">struct</span><span class="p">,</span> <span class="o">**</span><span class="n">ads_site_finder_kwargs</span><span class="p">)</span>
