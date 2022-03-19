@@ -327,6 +327,10 @@
                 <span class="k">if</span> <span class="n">site</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">&quot;surface_properties&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;surface&quot;</span>
             <span class="p">]</span>
 
+            <span class="c1"># Remove the surface_properties, which are only really meant</span>
+            <span class="c1"># if an adsorbate is present.</span>
+            <span class="n">slab_with_props</span><span class="o">.</span><span class="n">remove_site_property</span><span class="p">(</span><span class="s2">&quot;surface_properties&quot;</span><span class="p">)</span>
+
             <span class="c1"># Check that the desired atoms are on the surface</span>
             <span class="k">if</span> <span class="n">allowed_surface_symbols</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span>
                 <span class="n">allowed_surface_atom</span> <span class="ow">in</span> <span class="n">surface_species</span>
@@ -501,6 +505,8 @@
 <span class="sd">        The structures with adsorbates</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">atoms</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+
     <span class="k">if</span> <span class="n">modes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">modes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ontop&quot;</span><span class="p">,</span> <span class="s2">&quot;bridge&quot;</span><span class="p">,</span> <span class="s2">&quot;hollow&quot;</span><span class="p">]</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">modes</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
