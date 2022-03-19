@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Configuration" href="config.html" /><link rel="prev" title="test" href="install.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Configuration" href="config.html" /><link rel="prev" title="Installation" href="install.html" />
 
     <meta name="generator" content="sphinx-4.4.0, furo 2022.03.04"/>
         <title>DFT Package Setup - quacc</title>
@@ -177,18 +177,18 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Installation Guide</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="install.html">test</a></li>
-<li class="toctree-l2"><a class="reference internal" href="install.html#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="install.html#pre-requisites">Pre-requisites</a></li>
-<li class="toctree-l2"><a class="reference internal" href="install.html#installing-quacc">Installing QuAcc</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Configuring DFT Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">DFT Package Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vasp">VASP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gaussian">Gaussian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#orca">ORCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#xtb">xTB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#other-codes">Other Codes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="config.html">Database configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../user/index.html">User Guide</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../user/running-workflows.html">Running Workflows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user/running-workflows.html#examples">Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user/running-workflows.html#contributing">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/running-workflows.html">Running workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user/writing-workflows.html">Writing workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user/fireworks.html">Fireworks integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user/changelog.html">Change log</a></li>
@@ -330,9 +330,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../dev/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../dev/dev_install.html">Developer Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../dev/tests.html">Writing Tests</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../dev/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -367,30 +365,31 @@
           </label>
         </div>
         <article role="main">
-          <section id="dft-package-setup">
-<span id="codes-vasp"></span><h1>DFT Package Setup<a class="headerlink" href="#dft-package-setup" title="Permalink to this headline">#</a></h1>
+          <hr class="docutils" id="codes-vasp"/>
+<section id="dft-package-setup">
+<h1>DFT Package Setup<a class="headerlink" href="#dft-package-setup" title="Permalink to this headline">#</a></h1>
+</section>
 <section id="vasp">
-<h2>VASP<a class="headerlink" href="#vasp" title="Permalink to this headline">#</a></h2>
-<p>As described in the [ASE VASP documentation](<a class="reference external" href="https://wiki.fysik.dtu.dk/ase/ase/calculators/vasp.html#environment-variables">https://wiki.fysik.dtu.dk/ase/ase/calculators/vasp.html#environment-variables</a>), you will need to define a few environment variables. By default, you do not need to define the <cite>ASE_VASP_COMMAND</cite> (or <cite>VASP_SCRIPT</cite>) environment variable unless you plan to run QuAcc without on-the-fly error-handling using Custodian. However, you do need to define the <cite>VASP_PP_PATH</cite> environment variable that points to your pseudopotential library. Additionally, for the use of van der Waals functionals, you need to define the <cite>ASE_VASP_VDW</cite> environment variable to point to the <cite>vdw_kernel.bindat</cite> file distributed with VASP.</p>
-<p>To run VASP with Custodian (the default behavior in QuAcc), you will need to define a <cite>VASP_PARALLEL_CMD</cite> environment variable that tells Custodian how to parallelize VASP. For instance, this might look something like <cite>export VASP_PARALLEL_CMD=”srun -N 2 –ntasks-per-node 64 -c 4 –cpu_bind=cores”</cite>. Note, the VASP executables are not included in this environment variable.</p>
-<p>By default, Custodian will assume that the VASP executables can be run with <cite>vasp_std</cite> or <cite>vasp_gam</cite> for standard or gamma-point calculations. If you need to use different executable names, create and modify the <cite>vasp_custodian_settings.yaml</cite> file found [here](<a class="reference external" href="https://github.com/arosen93/quacc/blob/main/quacc/defaults/custodian_settings/vasp_custodian_settings.yaml">https://github.com/arosen93/quacc/blob/main/quacc/defaults/custodian_settings/vasp_custodian_settings.yaml</a>) and define the <cite>VASP_CUSTODIAN_SETTINGS</cite> environment variable, which should point to the newly created <cite>vasp_custodian_settings.yaml</cite> file.</p>
+<h1>VASP<a class="headerlink" href="#vasp" title="Permalink to this headline">#</a></h1>
+<p>As described in the <a class="reference external" href="https://wiki.fysik.dtu.dk/ase/ase/calculators/vasp.html#environment-variables">ASE VASP documentation</a>, you will need to define a few environment variables. By default, you do not need to define the <code class="docutils literal notranslate"><span class="pre">ASE_VASP_COMMAND</span></code> (or <code class="docutils literal notranslate"><span class="pre">VASP_SCRIPT</span></code>) environment variable unless you plan to run QuAcc without on-the-fly error-handling using Custodian. However, you do need to define the <code class="docutils literal notranslate"><span class="pre">VASP_PP_PATH</span></code> environment variable that points to your pseudopotential library. Additionally, for the use of van der Waals functionals, you need to define the <code class="docutils literal notranslate"><span class="pre">ASE_VASP_VDW</span></code> environment variable to point to the <code class="docutils literal notranslate"><span class="pre">vdw_kernel.bindat</span></code> file distributed with VASP.</p>
+<p>To run VASP with Custodian (the default behavior in QuAcc), you will need to define a <code class="docutils literal notranslate"><span class="pre">VASP_PARALLEL_CMD</span></code> environment variable that tells Custodian how to parallelize VASP. For instance, this might look something like <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">VASP_PARALLEL_CMD="srun</span> <span class="pre">-N</span> <span class="pre">2</span> <span class="pre">--ntasks-per-node</span> <span class="pre">64</span> <span class="pre">-c</span> <span class="pre">4</span> <span class="pre">--cpu_bind=cores"</span></code>. Note, the VASP executables are not included in this environment variable.</p>
+<p>By default, Custodian will assume that the VASP executables can be run with <code class="docutils literal notranslate"><span class="pre">vasp_std</span></code> or <code class="docutils literal notranslate"><span class="pre">vasp_gam</span></code> for standard or gamma-point calculations. If you need to use different executable names, create and modify the <code class="docutils literal notranslate"><span class="pre">vasp_custodian_settings.yaml</span></code> file found <a class="reference external" href="https://github.com/arosen93/quacc/blob/main/quacc/defaults/custodian_settings/vasp_custodian_settings.yaml">here</a> and define the <code class="docutils literal notranslate"><span class="pre">VASP_CUSTODIAN_SETTINGS</span></code> environment variable, which should point to the newly created <code class="docutils literal notranslate"><span class="pre">vasp_custodian_settings.yaml</span></code> file.</p>
 </section>
 <section id="gaussian">
-<h2>Gaussian<a class="headerlink" href="#gaussian" title="Permalink to this headline">#</a></h2>
-<p>As noted in the [ASE documentation](<a class="reference external" href="https://wiki.fysik.dtu.dk/ase/ase/calculators/gaussian.html">https://wiki.fysik.dtu.dk/ase/ase/calculators/gaussian.html</a>), ASE will look for executables named <cite>g16</cite>, <cite>g09</cite>, or <cite>g03</cite> (in that order). If you want to use a different executable name, you can define the <cite>ASE_GAUSSIAN_COMMAND</cite> environment variable accordingly.</p>
+<h1>Gaussian<a class="headerlink" href="#gaussian" title="Permalink to this headline">#</a></h1>
+<p>As noted in the <a class="reference external" href="https://wiki.fysik.dtu.dk/ase/ase/calculators/gaussian.html">ASE documentation</a>, ASE will look for executables named <code class="docutils literal notranslate"><span class="pre">g16</span></code>, <code class="docutils literal notranslate"><span class="pre">g09</span></code>, or <code class="docutils literal notranslate"><span class="pre">g03</span></code> (in that order). If you want to use a different executable name, you can define the <code class="docutils literal notranslate"><span class="pre">ASE_GAUSSIAN_COMMAND</span></code> environment variable accordingly.</p>
 </section>
 <section id="orca">
-<h2>ORCA<a class="headerlink" href="#orca" title="Permalink to this headline">#</a></h2>
-<p>As noted in the [ASE documentation](<a class="reference external" href="https://wiki.fysik.dtu.dk/ase/ase/calculators/orca.html">https://wiki.fysik.dtu.dk/ase/ase/calculators/orca.html</a>), to use ORCA in parallel mode, you will need to define an environment variable named <cite>ASE_ORCA_COMMAND</cite> that is the full path to the ORCA executable.</p>
+<h1>ORCA<a class="headerlink" href="#orca" title="Permalink to this headline">#</a></h1>
+<p>As noted in the <a class="reference external" href="https://wiki.fysik.dtu.dk/ase/ase/calculators/orca.html">ASE documentation</a>, to use ORCA in parallel mode, you will need to define an environment variable named <code class="docutils literal notranslate"><span class="pre">ASE_ORCA_COMMAND</span></code> that is the full path to the ORCA executable.</p>
 </section>
 <section id="xtb">
-<h2>xTB<a class="headerlink" href="#xtb" title="Permalink to this headline">#</a></h2>
-<p>If you plan to use xTB with QuAcc, you will need to install the [xtb-python](<a class="reference external" href="https://github.com/grimme-lab/xtb-python">https://github.com/grimme-lab/xtb-python</a>) interface. This can be done via <cite>conda install -c conda-force xtb-python</cite>.</p>
+<h1>xTB<a class="headerlink" href="#xtb" title="Permalink to this headline">#</a></h1>
+<p>If you plan to use xTB with QuAcc, you will need to install the <a class="reference external" href="https://github.com/grimme-lab/xtb-python">xtb-python</a> interface. This can be done via <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">-c</span> <span class="pre">conda-force</span> <span class="pre">xtb-python</span></code>.</p>
 </section>
 <section id="other-codes">
-<h2>Other Codes<a class="headerlink" href="#other-codes" title="Permalink to this headline">#</a></h2>
-<p>For any other code, simply make sure to follow the instructions in [ASE’s documentation](<a class="reference external" href="https://wiki.fysik.dtu.dk/ase/ase/calculators/calculators.html#supported-calculators">https://wiki.fysik.dtu.dk/ase/ase/calculators/calculators.html#supported-calculators</a>) for setting up your desired calculator.</p>
-</section>
+<h1>Other Codes<a class="headerlink" href="#other-codes" title="Permalink to this headline">#</a></h1>
+<p>For any other code, simply make sure to follow the instructions in <a class="reference external" href="https://wiki.fysik.dtu.dk/ase/ase/calculators/calculators.html#supported-calculators">ASE’s documentation</a> for setting up your desired calculator.</p>
 </section>
 
         </article>
@@ -414,7 +413,7 @@
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">test</div>
+                <div class="title">Installation</div>
                 
               </div>
             </a>
@@ -449,14 +448,12 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">DFT Package Setup</a><ul>
+<li><a class="reference internal" href="#">DFT Package Setup</a></li>
 <li><a class="reference internal" href="#vasp">VASP</a></li>
 <li><a class="reference internal" href="#gaussian">Gaussian</a></li>
 <li><a class="reference internal" href="#orca">ORCA</a></li>
 <li><a class="reference internal" href="#xtb">xTB</a></li>
 <li><a class="reference internal" href="#other-codes">Other Codes</a></li>
-</ul>
-</li>
 </ul>
 
           </div>

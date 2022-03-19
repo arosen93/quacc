@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="test" href="install.html" /><link rel="prev" title="QuAcc documentation" href="../index.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Installation" href="install.html" /><link rel="prev" title="QuAcc Documentation" href="../index.html" />
 
     <meta name="generator" content="sphinx-4.4.0, furo 2022.03.04"/>
         <title>Installation Guide - quacc</title>
@@ -177,18 +177,18 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
 <li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">Installation Guide</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="install.html">test</a></li>
-<li class="toctree-l2"><a class="reference internal" href="install.html#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="install.html#pre-requisites">Pre-requisites</a></li>
-<li class="toctree-l2"><a class="reference internal" href="install.html#installing-quacc">Installing QuAcc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="codes.html">Configuring DFT Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="codes.html">DFT Package Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="codes.html#vasp">VASP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="codes.html#gaussian">Gaussian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="codes.html#orca">ORCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="codes.html#xtb">xTB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="codes.html#other-codes">Other Codes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="config.html">Database configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../user/index.html">User Guide</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../user/running-workflows.html">Running Workflows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user/running-workflows.html#examples">Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user/running-workflows.html#contributing">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/running-workflows.html">Running workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user/writing-workflows.html">Writing workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user/fireworks.html">Fireworks integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user/changelog.html">Change log</a></li>
@@ -330,9 +330,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../dev/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../dev/dev_install.html">Developer Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../dev/tests.html">Writing Tests</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../dev/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -373,18 +371,17 @@
 <h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline">#</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="install.html">test</a></li>
-<li class="toctree-l1"><a class="reference internal" href="install.html#installation">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="install.html#pre-requisites">Pre-requisites</a></li>
-<li class="toctree-l1"><a class="reference internal" href="install.html#installing-quacc">Installing QuAcc</a></li>
-<li class="toctree-l1"><a class="reference internal" href="codes.html">Configuring DFT Packages</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="codes.html#vasp">VASP</a></li>
-<li class="toctree-l2"><a class="reference internal" href="codes.html#gaussian">Gaussian</a></li>
-<li class="toctree-l2"><a class="reference internal" href="codes.html#orca">ORCA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="codes.html#xtb">xTB</a></li>
-<li class="toctree-l2"><a class="reference internal" href="codes.html#other-codes">Other Codes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install.html#pre-requisites">Pre-Requisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#installing-quacc">Installing QuAcc</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="codes.html">DFT Package Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codes.html#vasp">VASP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codes.html#gaussian">Gaussian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codes.html#orca">ORCA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codes.html#xtb">xTB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codes.html#other-codes">Other Codes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="config.html">Database configuration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="config.html#database-setup">Database Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="config.html#jobflow-db-setup">Jobflow DB Setup</a></li>
@@ -408,7 +405,7 @@
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">test</div>
+                <div class="title">Installation</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>

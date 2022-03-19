@@ -177,18 +177,18 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../install/index.html">Installation Guide</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../install/install.html">test</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../install/install.html#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../install/install.html#pre-requisites">Pre-requisites</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../install/install.html#installing-quacc">Installing QuAcc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../install/codes.html">Configuring DFT Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install/install.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install/codes.html">DFT Package Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install/codes.html#vasp">VASP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install/codes.html#gaussian">Gaussian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install/codes.html#orca">ORCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install/codes.html#xtb">xTB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install/codes.html#other-codes">Other Codes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../install/config.html">Database configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">User Guide</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Running Workflows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#contributing">Contributing</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Running workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="writing-workflows.html">Writing workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fireworks.html">Fireworks integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html">Change log</a></li>
@@ -330,9 +330,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../dev/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../dev/dev_install.html">Developer Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../dev/tests.html">Writing Tests</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../dev/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -368,55 +366,64 @@
         </div>
         <article role="main">
           <section id="running-workflows">
-<span id="id1"></span><h1>Running Workflows<a class="headerlink" href="#running-workflows" title="Permalink to this headline">#</a></h1>
+<h1>Running Workflows<a class="headerlink" href="#running-workflows" title="Permalink to this headline">#</a></h1>
 <section id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h2>
 </section>
-</section>
 <section id="examples">
-<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">#</a></h1>
-<p><a href="#id2"><span class="problematic" id="id3">``</span></a><a href="#id4"><span class="problematic" id="id5">`</span></a>python
-from ase.build import bulk
-from jobflow.managers.local import run_locally</p>
-<p>from quacc.recipes.vasp.core import RelaxJob as VaspRelaxJob</p>
-<p># Make a bulk Cu structure
-atoms = bulk(“Cu”)</p>
-<p># Make a job consisting of a VASP relaxation using a pre-defined input set.
-# By default, VASP will be run using Custodian for on-the-fly error handling.
-job = VaspRelaxJob(preset=”BulkSet”).make(atoms)</p>
-<p># Run the job locally, with all output data stored in a convenient schema
-responses = run_locally(job, create_folders=True)
-<a href="#id6"><span class="problematic" id="id7">``</span></a><a href="#id8"><span class="problematic" id="id9">`</span></a></p>
-<p><a href="#id10"><span class="problematic" id="id11">``</span></a><a href="#id12"><span class="problematic" id="id13">`</span></a>python
-from ase.build import molecule
-from fireworks import LaunchPad
-from jobflow import Flow
-from jobflow.managers.fireworks import flow_to_workflow</p>
-<p>from quacc.recipes.xtb.core import RelaxJob as XTBRelaxJob
-from quacc.recipes.gaussian.core import RelaxJob as GaussianRelaxJob
-from quacc.recipes.orca.core import StaticJob as OrcaStaticJob</p>
-<p># Make an H2 molecule
-atoms = molecule(“H2”)</p>
-<p># Make a flow consisting of a GFN2-xTB relaxation followed by a Gaussian relaxation
-# and then an ORCA static calculation
-job1 = XTBRelaxJob(method=”GFN2-xTB”).make(atoms)
-job2 = GaussianRelaxJob(xc=”PBE”).make(job1.output[“atoms”])
-job3 = OrcaStaticJob(xc=”wB97M-V”).make(job2.output[“atoms”])</p>
-<p>flow = Flow([job1, job2, job3])</p>
-<p># Instead of running locally, we will run the workflow via Fireworks here.
-# The commands below convert the flow to a FireWorks workflow and adds it to
-# the launchpad. Database-friendly results will be deposited in your JobFlow DB
-wf = flow_to_workflow(flow)
-lpad = LaunchPad.auto_load()
-lpad.add_wf(wf)
-<a href="#id14"><span class="problematic" id="id15">``</span></a><a href="#id16"><span class="problematic" id="id17">`</span></a></p>
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ase.build</span> <span class="kn">import</span> <span class="n">bulk</span>
+<span class="kn">from</span> <span class="nn">jobflow.managers.local</span> <span class="kn">import</span> <span class="n">run_locally</span>
+
+<span class="kn">from</span> <span class="nn">quacc.recipes.vasp.core</span> <span class="kn">import</span> <span class="n">RelaxJob</span> <span class="k">as</span> <span class="n">VaspRelaxJob</span>
+
+<span class="c1"># Make a bulk Cu structure</span>
+<span class="n">atoms</span> <span class="o">=</span> <span class="n">bulk</span><span class="p">(</span><span class="s2">"Cu"</span><span class="p">)</span>
+
+<span class="c1"># Make a job consisting of a VASP relaxation using a pre-defined input set.</span>
+<span class="c1"># By default, VASP will be run using Custodian for on-the-fly error handling.</span>
+<span class="n">job</span> <span class="o">=</span> <span class="n">VaspRelaxJob</span><span class="p">(</span><span class="n">preset</span><span class="o">=</span><span class="s2">"BulkSet"</span><span class="p">)</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+
+<span class="c1"># Run the job locally, with all output data stored in a convenient schema</span>
+<span class="n">responses</span> <span class="o">=</span> <span class="n">run_locally</span><span class="p">(</span><span class="n">job</span><span class="p">,</span> <span class="n">create_folders</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ase.build</span> <span class="kn">import</span> <span class="n">molecule</span>
+<span class="kn">from</span> <span class="nn">fireworks</span> <span class="kn">import</span> <span class="n">LaunchPad</span>
+<span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">Flow</span>
+<span class="kn">from</span> <span class="nn">jobflow.managers.fireworks</span> <span class="kn">import</span> <span class="n">flow_to_workflow</span>
+
+<span class="kn">from</span> <span class="nn">quacc.recipes.xtb.core</span> <span class="kn">import</span> <span class="n">RelaxJob</span> <span class="k">as</span> <span class="n">XTBRelaxJob</span>
+<span class="kn">from</span> <span class="nn">quacc.recipes.gaussian.core</span> <span class="kn">import</span> <span class="n">RelaxJob</span> <span class="k">as</span> <span class="n">GaussianRelaxJob</span>
+<span class="kn">from</span> <span class="nn">quacc.recipes.orca.core</span> <span class="kn">import</span> <span class="n">StaticJob</span> <span class="k">as</span> <span class="n">OrcaStaticJob</span>
+
+<span class="c1"># Make an H2 molecule</span>
+<span class="n">atoms</span> <span class="o">=</span> <span class="n">molecule</span><span class="p">(</span><span class="s2">"H2"</span><span class="p">)</span>
+
+<span class="c1"># Make a flow consisting of a GFN2-xTB relaxation followed by a Gaussian relaxation</span>
+<span class="c1"># and then an ORCA static calculation</span>
+<span class="n">job1</span> <span class="o">=</span> <span class="n">XTBRelaxJob</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s2">"GFN2-xTB"</span><span class="p">)</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+<span class="n">job2</span> <span class="o">=</span> <span class="n">GaussianRelaxJob</span><span class="p">(</span><span class="n">xc</span><span class="o">=</span><span class="s2">"PBE"</span><span class="p">)</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="n">job1</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">"atoms"</span><span class="p">])</span>
+<span class="n">job3</span> <span class="o">=</span> <span class="n">OrcaStaticJob</span><span class="p">(</span><span class="n">xc</span><span class="o">=</span><span class="s2">"wB97M-V"</span><span class="p">)</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="n">job2</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">"atoms"</span><span class="p">])</span>
+
+<span class="n">flow</span> <span class="o">=</span> <span class="n">Flow</span><span class="p">([</span><span class="n">job1</span><span class="p">,</span> <span class="n">job2</span><span class="p">,</span> <span class="n">job3</span><span class="p">])</span>
+
+<span class="c1"># Instead of running locally, we will run the workflow via Fireworks here.</span>
+<span class="c1"># The commands below convert the flow to a FireWorks workflow and adds it to</span>
+<span class="c1"># the launchpad. Database-friendly results will be deposited in your JobFlow DB</span>
+<span class="n">wf</span> <span class="o">=</span> <span class="n">flow_to_workflow</span><span class="p">(</span><span class="n">flow</span><span class="p">)</span>
+<span class="n">lpad</span> <span class="o">=</span> <span class="n">LaunchPad</span><span class="o">.</span><span class="n">auto_load</span><span class="p">()</span>
+<span class="n">lpad</span><span class="o">.</span><span class="n">add_wf</span><span class="p">(</span><span class="n">wf</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <section id="contributing">
-<h1>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">#</a></h1>
-<p>To contribute to QuAcc, we recommend installing QuAcc in editable mode so that your changes are reflected every time you run QuAcc. This can be done by using the <cite>-e</cite> flag when running <cite>pip install</cite>. Also, you will need to install the development dependencies via <cite>pip install .[dev]</cite>.</p>
-<p>To ensure a consistent formatting style, we use <cite>isort</cite> and <cite>black</cite> to format the code. In the base directory of <cite>quacc</cite>, simply run <cite>isort .</cite> and then <cite>black .</cite> (in that order) to format the code. This will ensure your contributions pass the linting check.</p>
-<p>To ensure that any changes you have made do not break unit tests, run <cite>pytest</cite> from the the <cite>quacc/tests</cite> directory.</p>
-<p>Any new features that you propose to add to QuAcc must have accompanying unit tests. In certain cases, we have monkeypatched certain functions to change their behavior during testing. For instance, we do not want to run VASP directly during unit tests and have mocked the <cite>atoms.get_potential_energy()</cite> function to always return a value of -1.0 during unit tests. Any mocked functions can be found in the <cite>conftest.py</cite> files of the testing directory.</p>
+<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">#</a></h2>
+<p>To contribute to QuAcc, we recommend installing QuAcc in editable mode so that your changes are reflected every time you run QuAcc. This can be done by using the <code class="docutils literal notranslate"><span class="pre">-e</span></code> flag when running <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code>. Also, you will need to install the development dependencies via <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">.[dev]</span></code>.</p>
+<p>To ensure a consistent formatting style, we use <code class="docutils literal notranslate"><span class="pre">isort</span></code> and <code class="docutils literal notranslate"><span class="pre">black</span></code> to format the code. In the base directory of <code class="docutils literal notranslate"><span class="pre">quacc</span></code>, simply run <code class="docutils literal notranslate"><span class="pre">isort</span> <span class="pre">.</span></code> and then <code class="docutils literal notranslate"><span class="pre">black</span> <span class="pre">.</span></code> (in that order) to format the code. This will ensure your contributions pass the linting check.</p>
+<p>To ensure that any changes you have made do not break unit tests, run <code class="docutils literal notranslate"><span class="pre">pytest</span></code> from the the <code class="docutils literal notranslate"><span class="pre">quacc/tests</span></code> directory.</p>
+<p>Any new features that you propose to add to QuAcc must have accompanying unit tests. In certain cases, we have monkeypatched certain functions to change their behavior during testing. For instance, we do not want to run VASP directly during unit tests and have mocked the <code class="docutils literal notranslate"><span class="pre">atoms.get_potential_energy()</span></code> function to always return a value of -1.0 during unit tests. Any mocked functions can be found in the <code class="docutils literal notranslate"><span class="pre">conftest.py</span></code> files of the testing directory.</p>
+</section>
 </section>
 
         </article>
@@ -477,10 +484,10 @@ lpad.add_wf(wf)
             <ul>
 <li><a class="reference internal" href="#">Running Workflows</a><ul>
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
 <li><a class="reference internal" href="#contributing">Contributing</a></li>
+</ul>
+</li>
 </ul>
 
           </div>

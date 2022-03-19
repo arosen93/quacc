@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="DFT Package Setup" href="codes.html" /><link rel="prev" title="Installation Guide" href="index.html" />
 
     <meta name="generator" content="sphinx-4.4.0, furo 2022.03.04"/>
-        <title>test - quacc</title>
+        <title>Installation - quacc</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=935aa2abcc5c1da4283d1dc201fb1f0add16d23a" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
@@ -177,18 +177,18 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Installation Guide</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">test</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pre-requisites">Pre-requisites</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#installing-quacc">Installing QuAcc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="codes.html">Configuring DFT Packages</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="codes.html">DFT Package Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="codes.html#vasp">VASP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="codes.html#gaussian">Gaussian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="codes.html#orca">ORCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="codes.html#xtb">xTB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="codes.html#other-codes">Other Codes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="config.html">Database configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../user/index.html">User Guide</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../user/running-workflows.html">Running Workflows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user/running-workflows.html#examples">Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user/running-workflows.html#contributing">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../user/running-workflows.html">Running workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user/writing-workflows.html">Writing workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user/fireworks.html">Fireworks integration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user/changelog.html">Change log</a></li>
@@ -330,9 +330,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../dev/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../dev/dev_install.html">Developer Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../dev/tests.html">Writing Tests</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../dev/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -367,24 +365,19 @@
           </label>
         </div>
         <article role="main">
-          <section id="test">
-<h1>test<a class="headerlink" href="#test" title="Permalink to this headline">#</a></h1>
-</section>
-<hr class="docutils"/>
-<section id="installation">
+          <section id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">#</a></h1>
-</section>
 <section id="pre-requisites">
-<h1>Pre-requisites<a class="headerlink" href="#pre-requisites" title="Permalink to this headline">#</a></h1>
+<h2>Pre-Requisites<a class="headerlink" href="#pre-requisites" title="Permalink to this headline">#</a></h2>
 <p>To use QuAcc, you must have a Python 3.10+ environment set up. For this, we recommend using an environment manager, such as Miniconda. To install Python 3.10 via Miniconda, download and run your operating system’s <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda installer</a>.</p>
-<p>With Miniconda installed, create a fresh environment by running the following command:
-<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">create</span> <span class="pre">-n</span> <span class="pre">quacc</span> <span class="pre">python=3.10</span></code></p>
+<p>With Miniconda installed, create a fresh environment by running <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">create</span> <span class="pre">-n</span> <span class="pre">quacc</span> <span class="pre">python=3.10</span></code></p>
 <p>You can then activate this environment via
 <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">quacc</span></code>.</p>
 </section>
 <section id="installing-quacc">
-<h1>Installing QuAcc<a class="headerlink" href="#installing-quacc" title="Permalink to this headline">#</a></h1>
+<h2>Installing QuAcc<a class="headerlink" href="#installing-quacc" title="Permalink to this headline">#</a></h2>
 <p>In your new conda environment, you can install QuAcc and its related dependencies by using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">quacc</span></code>. For the development version of QuAcc, you can instead use <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+https://github.com/arosen93/quacc.git</span></code>.</p>
+</section>
 </section>
 
         </article>
@@ -443,10 +436,11 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">test</a></li>
-<li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#pre-requisites">Pre-requisites</a></li>
+<li><a class="reference internal" href="#">Installation</a><ul>
+<li><a class="reference internal" href="#pre-requisites">Pre-Requisites</a></li>
 <li><a class="reference internal" href="#installing-quacc">Installing QuAcc</a></li>
+</ul>
+</li>
 </ul>
 
           </div>

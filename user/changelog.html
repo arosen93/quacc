@@ -177,18 +177,18 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../install/index.html">Installation Guide</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../install/install.html">test</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../install/install.html#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../install/install.html#pre-requisites">Pre-requisites</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../install/install.html#installing-quacc">Installing QuAcc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../install/codes.html">Configuring DFT Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install/install.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install/codes.html">DFT Package Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install/codes.html#vasp">VASP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install/codes.html#gaussian">Gaussian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install/codes.html#orca">ORCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install/codes.html#xtb">xTB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install/codes.html#other-codes">Other Codes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../install/config.html">Database configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">User Guide</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="running-workflows.html">Running Workflows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="running-workflows.html#examples">Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="running-workflows.html#contributing">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="running-workflows.html">Running workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="writing-workflows.html">Writing workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fireworks.html">Fireworks integration</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Change log</a></li>
@@ -330,9 +330,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../dev/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../dev/dev_install.html">Developer Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../dev/tests.html">Writing Tests</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../dev/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -371,10 +369,12 @@
 <h1>Change log<a class="headerlink" href="#change-log" title="Permalink to this headline">#</a></h1>
 <section id="v0-0-2">
 <h2>v0.0.2<a class="headerlink" href="#v0-0-2" title="Permalink to this headline">#</a></h2>
-<p>Many changes are included in this release. The main ones include:
-* Support for basic xTB, ORCA, Gaussian, and EMT “recipes”.
-* Optional on-the-fly Bader analysis when generating VASP task documents.
-* Vastly increased test coverage</p>
+<p>Many changes are included in this release. The main ones include:</p>
+<ul class="simple">
+<li><p>Support for basic xTB, ORCA, Gaussian, and EMT “recipes”.</p></li>
+<li><p>Optional on-the-fly Bader analysis when generating VASP task documents.</p></li>
+<li><p>Vastly increased test coverage</p></li>
+</ul>
 </section>
 <section id="v0-0-1">
 <h2>v0.0.1<a class="headerlink" href="#v0-0-1" title="Permalink to this headline">#</a></h2>
