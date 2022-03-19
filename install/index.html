@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>DFT Package Setup &#8212; quacc</title>
+    <title>Installation Guide &#8212; quacc</title>
     
     <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -38,8 +38,8 @@
     <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Configuration" href="config.html" />
-    <link rel="prev" title="Installation" href="install.html" />
+    <link rel="next" title="test" href="install.html" />
+    <link rel="prev" title="QuAcc documentation" href="../index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -75,7 +75,13 @@
       <div class="navbar-center-item">
         <ul id="navbar-main-elements" class="navbar-nav">
     <li class="toctree-l1 current active nav-item">
- <a class="reference internal nav-link" href="index.html">
+ <a class="current reference internal nav-link" href="#">
+  Installation Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../user/index.html">
   User Guide
  </a>
 </li>
@@ -126,57 +132,20 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
-    <ul class="current nav bd-sidenav">
+    <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="install.html">
-   Installation
+   test
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="codes.html">
    Configuring DFT Packages
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="config.html">
    Database configuration
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="running-workflows.html">
-   Running Workflows
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="writing-workflows.html">
-   Writing workflows
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="fireworks.html">
-   Fireworks integration
-  </a>
- </li>
-</ul>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="changelog.html">
-   Change log
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="contributors.html">
-   Contributors
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="contributing.html">
-   Contributing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="license.html">
-   License
   </a>
  </li>
 </ul>
@@ -203,29 +172,11 @@
 <nav id="bd-toc-nav">
     <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#vasp">
-   VASP
+  <a class="reference internal nav-link" href="#table-of-contents">
+   Table of Contents
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#gaussian">
-   Gaussian
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#orca">
-   ORCA
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#xtb">
-   xTB
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#other-codes">
-   Other Codes
-  </a>
+  <ul class="nav section-nav flex-column">
+  </ul>
  </li>
 </ul>
 
@@ -248,29 +199,34 @@
               
               <div>
                 
-  <section id="dft-package-setup">
-<span id="codes-vasp"></span><h1>DFT Package Setup<a class="headerlink" href="#dft-package-setup" title="Permalink to this headline">¶</a></h1>
-<section id="vasp">
-<h2>VASP<a class="headerlink" href="#vasp" title="Permalink to this headline">¶</a></h2>
-<p>As described in the [ASE VASP documentation](<a class="reference external" href="https://wiki.fysik.dtu.dk/ase/ase/calculators/vasp.html#environment-variables">https://wiki.fysik.dtu.dk/ase/ase/calculators/vasp.html#environment-variables</a>), you will need to define a few environment variables. By default, you do not need to define the <cite>ASE_VASP_COMMAND</cite> (or <cite>VASP_SCRIPT</cite>) environment variable unless you plan to run QuAcc without on-the-fly error-handling using Custodian. However, you do need to define the <cite>VASP_PP_PATH</cite> environment variable that points to your pseudopotential library. Additionally, for the use of van der Waals functionals, you need to define the <cite>ASE_VASP_VDW</cite> environment variable to point to the <cite>vdw_kernel.bindat</cite> file distributed with VASP.</p>
-<p>To run VASP with Custodian (the default behavior in QuAcc), you will need to define a <cite>VASP_PARALLEL_CMD</cite> environment variable that tells Custodian how to parallelize VASP. For instance, this might look something like <cite>export VASP_PARALLEL_CMD=”srun -N 2 –ntasks-per-node 64 -c 4 –cpu_bind=cores”</cite>. Note, the VASP executables are not included in this environment variable.</p>
-<p>By default, Custodian will assume that the VASP executables can be run with <cite>vasp_std</cite> or <cite>vasp_gam</cite> for standard or gamma-point calculations. If you need to use different executable names, create and modify the <cite>vasp_custodian_settings.yaml</cite> file found [here](<a class="reference external" href="https://github.com/arosen93/quacc/blob/main/quacc/defaults/custodian_settings/vasp_custodian_settings.yaml">https://github.com/arosen93/quacc/blob/main/quacc/defaults/custodian_settings/vasp_custodian_settings.yaml</a>) and define the <cite>VASP_CUSTODIAN_SETTINGS</cite> environment variable, which should point to the newly created <cite>vasp_custodian_settings.yaml</cite> file.</p>
-</section>
-<section id="gaussian">
-<h2>Gaussian<a class="headerlink" href="#gaussian" title="Permalink to this headline">¶</a></h2>
-<p>As noted in the [ASE documentation](<a class="reference external" href="https://wiki.fysik.dtu.dk/ase/ase/calculators/gaussian.html">https://wiki.fysik.dtu.dk/ase/ase/calculators/gaussian.html</a>), ASE will look for executables named <cite>g16</cite>, <cite>g09</cite>, or <cite>g03</cite> (in that order). If you want to use a different executable name, you can define the <cite>ASE_GAUSSIAN_COMMAND</cite> environment variable accordingly.</p>
-</section>
-<section id="orca">
-<h2>ORCA<a class="headerlink" href="#orca" title="Permalink to this headline">¶</a></h2>
-<p>As noted in the [ASE documentation](<a class="reference external" href="https://wiki.fysik.dtu.dk/ase/ase/calculators/orca.html">https://wiki.fysik.dtu.dk/ase/ase/calculators/orca.html</a>), to use ORCA in parallel mode, you will need to define an environment variable named <cite>ASE_ORCA_COMMAND</cite> that is the full path to the ORCA executable.</p>
-</section>
-<section id="xtb">
-<h2>xTB<a class="headerlink" href="#xtb" title="Permalink to this headline">¶</a></h2>
-<p>If you plan to use xTB with QuAcc, you will need to install the [xtb-python](<a class="reference external" href="https://github.com/grimme-lab/xtb-python">https://github.com/grimme-lab/xtb-python</a>) interface. This can be done via <cite>conda install -c conda-force xtb-python</cite>.</p>
-</section>
-<section id="other-codes">
-<h2>Other Codes<a class="headerlink" href="#other-codes" title="Permalink to this headline">¶</a></h2>
-<p>For any other code, simply make sure to follow the instructions in [ASE’s documentation](<a class="reference external" href="https://wiki.fysik.dtu.dk/ase/ase/calculators/calculators.html#supported-calculators">https://wiki.fysik.dtu.dk/ase/ase/calculators/calculators.html#supported-calculators</a>) for setting up your desired calculator.</p>
+  <section id="installation-guide">
+<span id="user"></span><h1>Installation Guide<a class="headerlink" href="#installation-guide" title="Permalink to this headline">¶</a></h1>
+<section id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html#pre-requisites">Pre-requisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html#installing-quacc">Installing QuAcc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="codes.html">Configuring DFT Packages</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="codes.html#vasp">VASP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="codes.html#gaussian">Gaussian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="codes.html#orca">ORCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="codes.html#xtb">xTB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="codes.html#other-codes">Other Codes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Database configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="config.html#database-setup">Database Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#jobflow-db-setup">Jobflow DB Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#fireworks-db-setup">FireWorks DB Setup</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+</div>
 </section>
 </section>
 
@@ -280,17 +236,17 @@
               
               <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="install.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="../index.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Installation</p>
+            <p class="prev-next-title">QuAcc documentation</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="config.html" title="next page">
+    <a class='right-next' id="next-link" href="install.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Configuration</p>
+        <p class="prev-next-title">test</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

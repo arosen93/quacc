@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Installation &#8212; quacc</title>
+    <title>test &#8212; quacc</title>
     
     <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -39,7 +39,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="DFT Package Setup" href="codes.html" />
-    <link rel="prev" title="User Guide" href="index.html" />
+    <link rel="prev" title="Installation Guide" href="index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -76,6 +76,12 @@
         <ul id="navbar-main-elements" class="navbar-nav">
     <li class="toctree-l1 current active nav-item">
  <a class="reference internal nav-link" href="index.html">
+  Installation Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../user/index.html">
   User Guide
  </a>
 </li>
@@ -129,7 +135,7 @@
     <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Installation
+   test
   </a>
  </li>
  <li class="toctree-l1">
@@ -140,43 +146,6 @@
  <li class="toctree-l1">
   <a class="reference internal" href="config.html">
    Database configuration
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="running-workflows.html">
-   Running Workflows
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="writing-workflows.html">
-   Writing workflows
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="fireworks.html">
-   Fireworks integration
-  </a>
- </li>
-</ul>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="changelog.html">
-   Change log
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="contributors.html">
-   Contributors
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="contributing.html">
-   Contributing
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="license.html">
-   License
   </a>
  </li>
 </ul>
@@ -202,12 +171,22 @@
 
 <nav id="bd-toc-nav">
     <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   test
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#installation">
+   Installation
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#pre-requisites">
    Pre-requisites
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
+ <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#installing-quacc">
    Installing QuAcc
   </a>
@@ -233,20 +212,24 @@
               
               <div>
                 
-  <section id="installation">
-<span id="installation-tutorial"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+  <section id="test">
+<h1>test<a class="headerlink" href="#test" title="Permalink to this headline">¶</a></h1>
+</section>
+<hr class="docutils" />
+<section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+</section>
 <section id="pre-requisites">
-<h2>Pre-requisites<a class="headerlink" href="#pre-requisites" title="Permalink to this headline">¶</a></h2>
-<p>To use QuAcc, you must have a Python 3.10+ environment set up. For this, we recommend using an environment manager, such as Miniconda. To install Python 3.10 via Miniconda, download and run your operating system’s [Miniconda installer](<a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">https://docs.conda.io/en/latest/miniconda.html</a>).</p>
+<h1>Pre-requisites<a class="headerlink" href="#pre-requisites" title="Permalink to this headline">¶</a></h1>
+<p>To use QuAcc, you must have a Python 3.10+ environment set up. For this, we recommend using an environment manager, such as Miniconda. To install Python 3.10 via Miniconda, download and run your operating system’s <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda installer</a>.</p>
 <p>With Miniconda installed, create a fresh environment by running the following command:
-<cite>conda create -n quacc python=3.10</cite></p>
+<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">create</span> <span class="pre">-n</span> <span class="pre">quacc</span> <span class="pre">python=3.10</span></code></p>
 <p>You can then activate this environment via
-<cite>conda activate quacc</cite>.</p>
+<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">quacc</span></code>.</p>
 </section>
 <section id="installing-quacc">
-<h2>Installing QuAcc<a class="headerlink" href="#installing-quacc" title="Permalink to this headline">¶</a></h2>
-<p>In your new conda environment, you can install QuAcc and its related dependencies by using <cite>pip install quacc</cite>. For the development version of QuAcc, you can instead use <cite>pip install git+https://github.com/arosen93/quacc.git</cite>.</p>
-</section>
+<h1>Installing QuAcc<a class="headerlink" href="#installing-quacc" title="Permalink to this headline">¶</a></h1>
+<p>In your new conda environment, you can install QuAcc and its related dependencies by using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">quacc</span></code>. For the development version of QuAcc, you can instead use <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+https://github.com/arosen93/quacc.git</span></code>.</p>
 </section>
 
 
@@ -259,7 +242,7 @@
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">User Guide</p>
+            <p class="prev-next-title">Installation Guide</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="codes.html" title="next page">
