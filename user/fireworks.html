@@ -38,7 +38,7 @@
     <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="DFT Codes" href="codes/index.html" />
+    <link rel="next" title="Change log" href="changelog.html" />
     <link rel="prev" title="Running Workflows" href="writing-workflows.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -133,8 +133,18 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="codes.html">
+   Configuring DFT Packages
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="config.html">
+   Database configuration
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="running-workflows.html">
-   Running workflows
+   Running Workflows
   </a>
  </li>
  <li class="toctree-l1">
@@ -146,23 +156,6 @@
   <a class="current reference internal" href="#">
    Fireworks integration
   </a>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="codes/index.html">
-   DFT Codes
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="codes/vasp.html">
-     VASP
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 <ul class="nav bd-sidenav">
@@ -178,7 +171,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="contributing.html">
-   Contributing to QuAcc
+   Contributing
   </a>
  </li>
  <li class="toctree-l1">
@@ -227,7 +220,25 @@
                 
   <section id="using-quacc-with-fireworks">
 <span id="quacc-fireworks"></span><h1>Using QuAcc with FireWorks<a class="headerlink" href="#using-quacc-with-fireworks" title="Permalink to this headline">¶</a></h1>
-<p>This tutorial will document how to configure <cite>QuAcc</cite> with FireWorks. FireWorks allows you to easily submit and manage thousands of jobs at once.</p>
+<p>[FireWorks](<a class="reference external" href="https://materialsproject.github.io/fireworks/">https://materialsproject.github.io/fireworks/</a>) is a powerful software package to manage and execute complex workflows. It is particularly useful for high-throughput computational screening efforts to efficiently manage large numbers of compute jobs.</p>
+<p>Jobflow comes with native support to convert a <cite>job</cite> or <cite>flow</cite> into a FireWorks <cite>firework</cite> or <cite>workflow</cite>, respectively.</p>
+<p>To convert a <cite>job</cite> to a <cite>firework</cite> and add it to your launch pad:
+<a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>python
+from fireworks import LaunchPad
+from jobflow.managers.fireworks import job_to_firework</p>
+<p>fw = job_to_firework(job)
+lpad = LaunchPad.auto_load()
+lpad.add_wf(wf)
+<a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
+<p>To concert a <cite>flow</cite> to a <cite>workflow</cite> and add it to your launch pad:
+<a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a>python
+from fireworks import LaunchPad
+from jobflow.managers.fireworks import flow_to_workflow</p>
+<p>wf = flow_to_firework(job)
+lpad = LaunchPad.auto_load()
+lpad.add_wf(wf)
+<a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a></p>
+<p>For additional options, see the [Jobflow API](<a class="reference external" href="https://materialsproject.github.io/jobflow/jobflow.managers.html#module-jobflow.managers.fireworks">https://materialsproject.github.io/jobflow/jobflow.managers.html#module-jobflow.managers.fireworks</a>).</p>
 </section>
 
 
@@ -243,10 +254,10 @@
             <p class="prev-next-title">Running Workflows</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="codes/index.html" title="next page">
+    <a class='right-next' id="next-link" href="changelog.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">DFT Codes</p>
+        <p class="prev-next-title">Change log</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
@@ -264,7 +275,7 @@
     
     <div class="footer-item">
       <p class="copyright">
-    &copy; Copyright 2022.<br>
+    &copy; Copyright 2021.<br>
 </p>
     </div>
     

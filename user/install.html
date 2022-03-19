@@ -38,7 +38,7 @@
     <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Running Workflows" href="running-workflows.html" />
+    <link rel="next" title="DFT Package Setup" href="codes.html" />
     <link rel="prev" title="User Guide" href="index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -133,8 +133,18 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="codes.html">
+   Configuring DFT Packages
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="config.html">
+   Database configuration
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="running-workflows.html">
-   Running workflows
+   Running Workflows
   </a>
  </li>
  <li class="toctree-l1">
@@ -146,23 +156,6 @@
   <a class="reference internal" href="fireworks.html">
    Fireworks integration
   </a>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="codes/index.html">
-   DFT Codes
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="codes/vasp.html">
-     VASP
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 <ul class="nav bd-sidenav">
@@ -178,7 +171,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="contributing.html">
-   Contributing to QuAcc
+   Contributing
   </a>
  </li>
  <li class="toctree-l1">
@@ -203,9 +196,24 @@
               
               <div class="toc-item">
                 
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
 
 <nav id="bd-toc-nav">
-    
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pre-requisites">
+   Pre-requisites
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#installing-quacc">
+   Installing QuAcc
+  </a>
+ </li>
+</ul>
+
 </nav>
               </div>
               
@@ -227,6 +235,18 @@
                 
   <section id="installation">
 <span id="installation-tutorial"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<section id="pre-requisites">
+<h2>Pre-requisites<a class="headerlink" href="#pre-requisites" title="Permalink to this headline">¶</a></h2>
+<p>To use QuAcc, you must have a Python 3.10+ environment set up. For this, we recommend using an environment manager, such as Miniconda. To install Python 3.10 via Miniconda, download and run your operating system’s [Miniconda installer](<a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">https://docs.conda.io/en/latest/miniconda.html</a>).</p>
+<p>With Miniconda installed, create a fresh environment by running the following command:
+<cite>conda create -n quacc python=3.10</cite></p>
+<p>You can then activate this environment via
+<cite>conda activate quacc</cite>.</p>
+</section>
+<section id="installing-quacc">
+<h2>Installing QuAcc<a class="headerlink" href="#installing-quacc" title="Permalink to this headline">¶</a></h2>
+<p>In your new conda environment, you can install QuAcc and its related dependencies by using <cite>pip install quacc</cite>. For the development version of QuAcc, you can instead use <cite>pip install git+https://github.com/arosen93/quacc.git</cite>.</p>
+</section>
 </section>
 
 
@@ -242,10 +262,10 @@
             <p class="prev-next-title">User Guide</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="running-workflows.html" title="next page">
+    <a class='right-next' id="next-link" href="codes.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Running Workflows</p>
+        <p class="prev-next-title">DFT Package Setup</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
@@ -263,7 +283,7 @@
     
     <div class="footer-item">
       <p class="copyright">
-    &copy; Copyright 2022.<br>
+    &copy; Copyright 2021.<br>
 </p>
     </div>
     

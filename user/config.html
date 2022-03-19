@@ -1,0 +1,400 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Configuration &#8212; quacc</title>
+    
+    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/pydata-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    
+    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Running Workflows" href="running-workflows.html" />
+    <link rel="prev" title="DFT Package Setup" href="codes.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../index.html">
+<p class="title">quacc</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="index.html">
+  User Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../reference/index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../dev/index.html">
+  Developer Guide
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/arosen93/quacc" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="install.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="codes.html">
+   Configuring DFT Packages
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Database configuration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="running-workflows.html">
+   Running Workflows
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="writing-workflows.html">
+   Writing workflows
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="fireworks.html">
+   Fireworks integration
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="changelog.html">
+   Change log
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="contributors.html">
+   Contributors
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="contributing.html">
+   Contributing
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="license.html">
+   License
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#database-setup">
+   Database Setup
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#jobflow-db-setup">
+   Jobflow DB Setup
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fireworks-db-setup">
+   FireWorks DB Setup
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <section id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
+<section id="database-setup">
+<h2>Database Setup<a class="headerlink" href="#database-setup" title="Permalink to this headline">¶</a></h2>
+<p>One of the main advantages of using QuAcc is the ability to have all of your calculation inputs and outputs automatically deposited in a database of your choosing for easy querying. While this is not a requirement for using QuAcc, it is highly recommended. It is also the only way to use QuAcc with the [FireWorks](<a class="reference external" href="https://materialsproject.github.io/fireworks/">https://materialsproject.github.io/fireworks/</a>) job management system.</p>
+<p>QuAcc relies on reading and writing to a Mongo Database (MongoDB). If you have never made a Mongo Database, there are many options to choose from. If you are new to MongoDB, the easiest route is to use a cloud storage solution called [MongoDB Atlas](<a class="reference external" href="https://www.mongodb.com/atlas">https://www.mongodb.com/atlas</a>), which has a free tier. To set up your MongoDB with MongoDB Atlas, sign up for a free account. Once logged in, select the “Build a Database” option under the “Database Deployments” section and choose the “Shared” free option. Then can click “Create Cluster” and enter your desired login credentials that will use to access your database. After waiting a minute or two, your cluster will be created, which is essentially a mini computer in the cloud. The last step is to go to the “Collections” tab of your cluster and create a new database. Give the database a unique name (e.g. “LastName_db”) and create a collection where your QuAcc data will be stored (e.g. “quacc”). If using MongoDB Atlas, the last step is to find your MongoDB URI, which is the address of your MongoDB cluster. You can find your database’s URI by clicking the “Database” section in the sidebar and then selecting “Connect &gt; Connect Your Application &gt; Driver &gt; Python &gt; 3.11 or later” and copying the link that appears. It will be of the form “mongodb+srv://&lt;username&gt;:&lt;password&gt;&#64;&lt;host&gt;/&lt;database_name&gt;”</p>
+<p>If you already are using MongoDB and have a database available, you do not need to follow the above steps. Simply have your login credentials ready.</p>
+</section>
+<section id="jobflow-db-setup">
+<h2>Jobflow DB Setup<a class="headerlink" href="#jobflow-db-setup" title="Permalink to this headline">¶</a></h2>
+<p>If you completed the above database setup, then QuAcc can store all the input and output data for each calculation in the database you made. While this is optional, it is the best way to take advantage of the features in QuAcc.</p>
+<p>To tell QuAcc where to store your calculations, you will need to make a <cite>jobflow.yaml</cite> file. This file will be formatted as follows:
+<a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>yaml
+JOB_STORE:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>docs_store:</dt><dd><p>type: MongoStore
+host: &lt;host name&gt;
+port: &lt;port&gt;
+username: &lt;username&gt;
+password: &lt;port&gt;
+database: &lt;database name&gt;
+collection_name: &lt;collection name&gt;</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><a href="#id5"><span class="problematic" id="id6">``</span></a>`
+Fill in the above fields with the appropriate values for your MongoDB cluster.</p>
+<p>If you are using MongoDB Atlas or any other cloud service with a provided URI, then you will instead have a <cite>jobflow.yaml</cite> file that looks like
+<a href="#id7"><span class="problematic" id="id8">``</span></a><a href="#id9"><span class="problematic" id="id10">`</span></a>yaml
+JOB_STORE:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>docs_store:</dt><dd><p>type: MongoStore
+host: &lt;URI&gt;
+port: &lt;port&gt;
+database: &lt;database name&gt;
+collection_name: &lt;collection name&gt;</p>
+</dd>
+</dl>
+</div></blockquote>
+<p><a href="#id11"><span class="problematic" id="id12">``</span></a>`
+Here, you will put the full URI in the <cite>host</cite> field. The username and password are part of the URI and so should not be included elsewhere in the YAML file.</p>
+<p>Additional information about setting up your <cite>jobflow.yaml</cite> file can be found in the official [jobflow documentation](<a class="reference external" href="https://materialsproject.github.io/jobflow/jobflow.settings.html">https://materialsproject.github.io/jobflow/jobflow.settings.html</a>).</p>
+<p>With your <cite>jobflow.yaml</cite> file completed, you will need to define a <cite>JOBFLOW_CONFIG_FILE</cite> environment variable pointing to the file you made. For instance, in your <cite>~/.bashrc</cite> file, add the following line:
+<cite>export JOBFLOW_CONFIG_FILE=”/path/to/my/jobflow.yaml”</cite>.</p>
+<p>When a QuAcc calculation completes, all the data will be stored in the database you have specified above.</p>
+</section>
+<section id="fireworks-db-setup">
+<h2>FireWorks DB Setup<a class="headerlink" href="#fireworks-db-setup" title="Permalink to this headline">¶</a></h2>
+<p>If you plan to use FireWorks, you will also need to make a few configuration files: <cite>FW_config.yaml</cite>, <cite>my_fworker.yaml</cite>, <cite>my_launchpad.yaml</cite>, and <cite>my_qadapter.yaml</cite>.</p>
+<p>Make a directory called <cite>fw_config</cite> where you will store the above four files.</p>
+<p>For the <cite>FW_config.yaml</cite>, you can use the following template:
+<code class="docutils literal notranslate"><span class="pre">`yaml</span>
+<span class="pre">CONFIG_FILE_DIR:</span> <span class="pre">/path/to/fw_config</span>
+<span class="pre">QUEUE_UPDATE_INTERVAL:</span> <span class="pre">2</span>
+<span class="pre">`</span></code>
+Make sure to update the path to the <cite>fw_config</cite> folder you just made.</p>
+<p>For the <cite>my_fworker.yaml</cite>, you can use the following template:
+<code class="docutils literal notranslate"><span class="pre">`yaml</span>
+<span class="pre">name:</span> <span class="pre">quacc_fworker</span>
+<span class="pre">category:</span> <span class="pre">''</span>
+<span class="pre">query:</span> <span class="pre">'{}'</span>
+<span class="pre">`</span></code></p>
+<p>For the <cite>my_launchpad.yaml</cite>, you can use the following template:
+<code class="docutils literal notranslate"><span class="pre">`yaml</span>
+<span class="pre">host:</span> <span class="pre">&lt;host</span> <span class="pre">name&gt;</span>
+<span class="pre">port:</span> <span class="pre">&lt;port&gt;</span>
+<span class="pre">name:</span> <span class="pre">&lt;database</span> <span class="pre">name&gt;</span>
+<span class="pre">username:</span> <span class="pre">&lt;username&gt;</span>
+<span class="pre">password:</span> <span class="pre">&lt;password&gt;</span>
+<span class="pre">logdir:</span> <span class="pre">null</span>
+<span class="pre">Istrm_lvl:</span> <span class="pre">DEBUG</span>
+<span class="pre">user_indices:</span> <span class="pre">[]</span>
+<span class="pre">wf_user_indices:</span> <span class="pre">[]</span>
+<span class="pre">`</span></code>
+Replace the entries in &lt;&gt; with the appropriate values for your Mongo database. If you don’t know your <cite>port</cite> value, you can likely use 27017.</p>
+<p>If you are accessing your MongoDB via a URI (e.g. as with MongoDB Atlas), then you will use the following <cite>my_launchpad.yaml</cite> template instead:
+<code class="docutils literal notranslate"><span class="pre">`yaml</span>
+<span class="pre">host:</span> <span class="pre">&lt;URI&gt;</span>
+<span class="pre">port:</span> <span class="pre">&lt;port&gt;</span>
+<span class="pre">name:</span> <span class="pre">&lt;database</span> <span class="pre">name&gt;</span>
+<span class="pre">uri_store:</span> <span class="pre">true</span>
+<span class="pre">logdir:</span> <span class="pre">null</span>
+<span class="pre">Istrm_lvl:</span> <span class="pre">DEBUG</span>
+<span class="pre">user_indices:</span> <span class="pre">[]</span>
+<span class="pre">wf_user_indices:</span> <span class="pre">[]</span>
+<span class="pre">`</span></code></p>
+<p>Assuming you plan to use a queuing system for your compute jobs, you will need to make a <cite>my_qadapter.yaml</cite> file. For this, you will need to follow the instructions in the [FireWorks documentation](<a class="reference external" href="https://materialsproject.github.io/fireworks/qadapter_programming.html">https://materialsproject.github.io/fireworks/qadapter_programming.html</a>) for your specific job scheduling system. An example <cite>my_qadapter.yaml</cite> file is shown below for SLURM.
+<a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a>yaml
+_fw_name: CommonAdapter
+_fw_q_type: SLURM
+rocket_launch: rlaunch -w /path/to/fw_config/my_fworker.yaml singleshot
+nodes: 2
+walltime: 00:30:00
+account: &lt;account&gt;
+job_name: quacc_firework
+qos: regular
+pre_rocket: |</p>
+<blockquote>
+<div><p>module load vasp
+export OMP_PROC_BIND=true
+export OMP_PLACES=threads
+export OMP_NUM_THREADS=1</p>
+</div></blockquote>
+<p><a href="#id17"><span class="problematic" id="id18">``</span></a><a href="#id19"><span class="problematic" id="id20">`</span></a></p>
+<p>In the above example, you would need to change the path in the <cite>rocket_launch</cite> field to the correct <cite>fw_config</cite> path. The nodes, walltime, account, and qos are the corresponding parameters for your queuing system. Finally, anything in the <cite>pre_rocket</cite> field will be executed before the job begins running. It is a good place to load modules and set environment variables. A representative example has been provided above.</p>
+<p>Finally, you will need to define a <cite>FW_CONFIG_FILE</cite> environment variable pointing to the <cite>FW_config.yaml</cite> file you made. For instance, in your <cite>~/.bashrc</cite> file, add the following line:
+<cite>export FW_CONFIG_FILE=”/path/to/config/fw_config/FW_config.yaml”</cite>.</p>
+</section>
+</section>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="codes.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">DFT Package Setup</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="running-workflows.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Running Workflows</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2021.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>
