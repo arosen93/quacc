@@ -363,11 +363,16 @@
 <span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span>
 
+<span class="kn">from</span> <span class="nn">monty.tempfile</span> <span class="kn">import</span> <span class="n">ScratchDir</span>
 <span class="kn">from</span> <span class="nn">pymatgen.command_line.bader_caller</span> <span class="kn">import</span> <span class="n">bader_analysis_from_path</span>
 <span class="kn">from</span> <span class="nn">pymatgen.command_line.chargemol_caller</span> <span class="kn">import</span> <span class="n">ChargemolAnalysis</span>
 
+<span class="kn">from</span> <span class="nn">quacc</span> <span class="kn">import</span> <span class="n">SETTINGS</span>
 
-<div class="viewcode-block" id="run_bader"><a class="viewcode-back" href="../../../reference/quacc.util.pop_analysis.run_bader.html#quacc.util.pop_analysis.run_bader">[docs]</a><span class="k">def</span> <span class="nf">run_bader</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+
+<div class="viewcode-block" id="run_bader"><a class="viewcode-back" href="../../../reference/quacc.util.pop_analysis.run_bader.html#quacc.util.pop_analysis.run_bader">[docs]</a><span class="k">def</span> <span class="nf">run_bader</span><span class="p">(</span>
+    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scratch_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">SCRATCH_DIR</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
     <span class="sd">"""</span>
 <span class="sd">    Runs a Bader partial charge and spin moment analysis using the VASP</span>
 <span class="sd">    output files in the given path. This function requires that `bader`</span>
@@ -383,6 +388,8 @@
 <span class="sd">        Must include CHGCAR, AECCAR0, AECCAR2, and POTCAR files. These</span>
 <span class="sd">        files can be gzip'd or not -- it doesn't matter.</span>
 <span class="sd">        If None, the current working directory is used.</span>
+<span class="sd">    scratch_dir</span>
+<span class="sd">        The path where the Bader analysis will be run.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -399,8 +406,8 @@
 <span class="sd">            }</span>
 <span class="sd">    """</span>
 
-    <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">path</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+    <span class="n">scratch_dir</span> <span class="o">=</span> <span class="n">scratch_dir</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
 
     <span class="c1"># Make sure files are present.</span>
     <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"CHGCAR"</span><span class="p">,</span> <span class="s2">"AECCAR0"</span><span class="p">,</span> <span class="s2">"AECCAR2"</span><span class="p">,</span> <span class="s2">"POTCAR"</span><span class="p">]:</span>
@@ -410,7 +417,13 @@
             <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Could not find </span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2"> in </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
 
     <span class="c1"># Run Bader analysis</span>
-    <span class="n">bader_stats</span> <span class="o">=</span> <span class="n">bader_analysis_from_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">ScratchDir</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">scratch_dir</span><span class="p">),</span>
+        <span class="n">copy_from_current_on_enter</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">copy_to_current_on_exit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">delete_removed_files</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">bader_stats</span> <span class="o">=</span> <span class="n">bader_analysis_from_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 
     <span class="c1"># Store the partial charge, which is much more useful than the</span>
     <span class="c1"># raw charge and is more intuitive than the charge transferred.</span>
@@ -430,7 +443,9 @@
 
 
 <div class="viewcode-block" id="run_chargemol"><a class="viewcode-back" href="../../../reference/quacc.util.pop_analysis.run_chargemol.html#quacc.util.pop_analysis.run_chargemol">[docs]</a><span class="k">def</span> <span class="nf">run_chargemol</span><span class="p">(</span>
-    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">atomic_densities_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">atomic_densities_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">scratch_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">SCRATCH_DIR</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
     <span class="sd">"""</span>
 <span class="sd">    Runs a Chargemol (i.e. DDEC6 + CM5) analysis using the VASP output files</span>
@@ -453,6 +468,8 @@
 <span class="sd">        If None, we assume that this directory is defined in an environment variable</span>
 <span class="sd">        named DDEC6_ATOMIC_DENSITIES_DIR.</span>
 <span class="sd">        See the Chargemol documentation for more information.</span>
+<span class="sd">    scratch_dir</span>
+<span class="sd">        The path where the Chargemol analysis will be run.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -471,8 +488,8 @@
 <span class="sd">                        }</span>
 <span class="sd">            }</span>
 <span class="sd">    """</span>
-    <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">path</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+    <span class="n">scratch_dir</span> <span class="o">=</span> <span class="n">scratch_dir</span> <span class="ow">or</span> <span class="n">path</span>
 
     <span class="c1"># Make sure files are present.</span>
     <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"CHGCAR"</span><span class="p">,</span> <span class="s2">"AECCAR0"</span><span class="p">,</span> <span class="s2">"AECCAR2"</span><span class="p">,</span> <span class="s2">"POTCAR"</span><span class="p">]:</span>
@@ -486,10 +503,16 @@
         <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s2">"DDEC6_ATOMIC_DENSITIES_DIR environment variable not defined."</span><span class="p">)</span>
 
     <span class="c1"># Run Chargemol analysis</span>
-    <span class="n">chargemol_stats</span> <span class="o">=</span> <span class="n">ChargemolAnalysis</span><span class="p">(</span>
-        <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
-        <span class="n">atomic_densities_path</span><span class="o">=</span><span class="n">atomic_densities_path</span><span class="p">,</span>
-    <span class="p">)</span>
+    <span class="k">with</span> <span class="n">ScratchDir</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">scratch_dir</span><span class="p">),</span>
+        <span class="n">copy_from_current_on_enter</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">copy_to_current_on_exit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">delete_removed_files</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">chargemol_stats</span> <span class="o">=</span> <span class="n">ChargemolAnalysis</span><span class="p">(</span>
+            <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+            <span class="n">atomic_densities_path</span><span class="o">=</span><span class="n">atomic_densities_path</span><span class="p">,</span>
+        <span class="p">)</span>
 
     <span class="c1"># Some cleanup of the returned dictionary</span>
     <span class="n">chargemol_stats</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"rsquared_moments"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>

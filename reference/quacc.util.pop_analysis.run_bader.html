@@ -364,7 +364,7 @@
 <h1>run_bader<a class="headerlink" href="#run-bader" title="Permalink to this headline">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="quacc.util.pop_analysis.run_bader">
-<span class="sig-prename descclassname"><span class="pre">quacc.util.pop_analysis.</span></span><span class="sig-name descname"><span class="pre">run_bader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/util/pop_analysis.html#run_bader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.util.pop_analysis.run_bader" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">quacc.util.pop_analysis.</span></span><span class="sig-name descname"><span class="pre">run_bader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/util/pop_analysis.html#run_bader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.util.pop_analysis.run_bader" title="Permalink to this definition">#</a></dt>
 <dd><p>Runs a Bader partial charge and spin moment analysis using the VASP
 output files in the given path. This function requires that <cite>bader</cite>
 is located in your PATH environment variable. See
@@ -373,10 +373,13 @@ Note: If you want to use Bader on a code other than VASP, this function
 will need to be slightly modified.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – The path where the VASP output files are located.
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – The path where the VASP output files are located.
 Must include CHGCAR, AECCAR0, AECCAR2, and POTCAR files. These
 files can be gzip’d or not – it doesn’t matter.
-If None, the current working directory is used.</p>
+If None, the current working directory is used.</p></li>
+<li><p><strong>scratch_dir</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The path where the Bader analysis will be run.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><dl>

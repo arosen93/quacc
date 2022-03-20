@@ -364,7 +364,7 @@
 <h1>run_chargemol<a class="headerlink" href="#run-chargemol" title="Permalink to this headline">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="quacc.util.pop_analysis.run_chargemol">
-<span class="sig-prename descclassname"><span class="pre">quacc.util.pop_analysis.</span></span><span class="sig-name descname"><span class="pre">run_chargemol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atomic_densities_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/util/pop_analysis.html#run_chargemol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.util.pop_analysis.run_chargemol" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">quacc.util.pop_analysis.</span></span><span class="sig-name descname"><span class="pre">run_chargemol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atomic_densities_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/util/pop_analysis.html#run_chargemol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.util.pop_analysis.run_chargemol" title="Permalink to this definition">#</a></dt>
 <dd><p>Runs a Chargemol (i.e. DDEC6 + CM5) analysis using the VASP output files
 in the given path. This function requires that the chargemol executable,
 given by the name <cite>Chargemol_09_26_2017_linux_parallel</cite>,
@@ -383,6 +383,7 @@ If None, the current working directory is used.</p></li>
 If None, we assume that this directory is defined in an environment variable
 named DDEC6_ATOMIC_DENSITIES_DIR.
 See the Chargemol documentation for more information.</p></li>
+<li><p><strong>scratch_dir</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The path where the Chargemol analysis will be run.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
