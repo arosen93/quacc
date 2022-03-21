@@ -363,7 +363,6 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">ase.atoms</span> <span class="kn">import</span> <span class="n">Atoms</span>
 <span class="kn">from</span> <span class="nn">ase.calculators.vasp</span> <span class="kn">import</span> <span class="n">Vasp</span>
-<span class="kn">from</span> <span class="nn">ase.calculators.vasp</span> <span class="kn">import</span> <span class="n">Vasp</span> <span class="k">as</span> <span class="n">Vasp_</span>
 <span class="kn">from</span> <span class="nn">ase.calculators.vasp.setups</span> <span class="kn">import</span> <span class="n">_setups_defaults</span> <span class="k">as</span> <span class="n">ase_default_setups</span>
 <span class="kn">from</span> <span class="nn">ase.constraints</span> <span class="kn">import</span> <span class="n">FixAtoms</span>
 <span class="kn">from</span> <span class="nn">pymatgen.io.ase</span> <span class="kn">import</span> <span class="n">AseAtomsAdaptor</span>
@@ -527,7 +526,7 @@
     <span class="n">user_calc_params</span> <span class="o">=</span> <span class="n">remove_unused_flags</span><span class="p">(</span><span class="n">user_calc_params</span><span class="p">)</span>
 
     <span class="c1"># Instantiate the calculator!</span>
-    <span class="n">calc</span> <span class="o">=</span> <span class="n">Vasp_</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">user_calc_params</span><span class="p">)</span>
+    <span class="n">calc</span> <span class="o">=</span> <span class="n">Vasp</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">user_calc_params</span><span class="p">)</span>
 
     <span class="c1"># Handle INCAR swaps as needed</span>
     <span class="k">if</span> <span class="n">incar_copilot</span><span class="p">:</span>
