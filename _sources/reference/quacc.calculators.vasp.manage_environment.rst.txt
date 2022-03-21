@@ -1,6 +1,6 @@
 manage\_environment
 ===================
 
-.. currentmodule:: quacc.calculators.vasp_utils
+.. currentmodule:: quacc.calculators.vasp
 
 .. autofunction:: manage_environment

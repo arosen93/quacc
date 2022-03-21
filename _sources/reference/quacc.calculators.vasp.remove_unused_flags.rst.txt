@@ -1,6 +1,6 @@
 remove\_unused\_flags
 =====================
 
-.. currentmodule:: quacc.calculators.vasp_utils
+.. currentmodule:: quacc.calculators.vasp
 
 .. autofunction:: remove_unused_flags

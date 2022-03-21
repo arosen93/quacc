@@ -39,5 +39,4 @@
    :recursive:
 
    quacc.calculators.vasp
-   quacc.calculators.vasp_utils
 
