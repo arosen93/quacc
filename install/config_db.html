@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="User Guide" href="../user/index.html" /><link rel="prev" title="Settings" href="settings.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Settings" href="settings.html" /><link rel="prev" title="DFT Package Setup" href="codes.html" />
 
     <meta name="generator" content="sphinx-4.4.0, furo 2022.03.04"/>
-        <title>Configuration - quacc</title>
+        <title>Database Configuration - quacc</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=935aa2abcc5c1da4283d1dc201fb1f0add16d23a" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
@@ -179,8 +179,8 @@
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Installation Guide</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="codes.html">Configuring DFT Packages</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Database Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="settings.html">QuAcc Settings</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Database configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../user/index.html">User Guide</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -193,10 +193,6 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../reference/quacc.calculators.html">quacc.calculators</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../reference/quacc.calculators.vasp.html">quacc.calculators.vasp</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../reference/quacc.calculators.vasp.SmartVasp.html">SmartVasp</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../reference/quacc.calculators.vasp.calc_swaps.html">calc_swaps</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../reference/quacc.calculators.vasp.convert_auto_kpts.html">convert_auto_kpts</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../reference/quacc.calculators.vasp.manage_environment.html">manage_environment</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../reference/quacc.calculators.vasp.remove_unused_flags.html">remove_unused_flags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../reference/quacc.calculators.vasp.DEFAULT_CALCS_DIR.html">DEFAULT_CALCS_DIR</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../reference/quacc.calculators.vasp.ase_default_setups.html">ase_default_setups</a></li>
 </ul>
@@ -361,10 +357,10 @@
           </label>
         </div>
         <article role="main">
-          <section id="configuration">
-<h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">#</a></h1>
-<section id="database-setup">
-<h2>Database Setup<a class="headerlink" href="#database-setup" title="Permalink to this headline">#</a></h2>
+          <section id="database-configuration">
+<h1>Database Configuration<a class="headerlink" href="#database-configuration" title="Permalink to this headline">#</a></h1>
+<section id="mongodb-setup">
+<h2>MongoDB Setup<a class="headerlink" href="#mongodb-setup" title="Permalink to this headline">#</a></h2>
 <section id="introduction">
 <h3>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h3>
 <p>One of the main advantages of using QuAcc is the ability to have all of your calculation inputs and outputs automatically deposited in a database of your choosing for easy querying. While this is not a requirement for using QuAcc, it is highly recommended. It is also the only way to use QuAcc with the <a class="reference external" href="https://materialsproject.github.io/fireworks/">FireWorks</a> job management system.</p>
@@ -376,7 +372,7 @@
 <ol class="arabic simple">
 <li><p>Sign up for a free account on <a class="reference external" href="https://www.mongodb.com/atlas">MongoDB Atlas</a>.</p></li>
 <li><p>Once logged in, select the “Build a Database” option under the “Database Deployments” section and choose the “Shared” free option.</p></li>
-<li><p>Can click “Create Cluster” and enter your desired login credentials that will use to access your database. After waiting a minute or two, your cluster will be created, which is essentially a mini computer in the cloud.</p></li>
+<li><p>Select “Create Cluster” and enter your desired login credentials that will use to access your database. After waiting a minute or two, your cluster will be created, which is essentially a mini computer in the cloud.</p></li>
 <li><p>Go to the “Collections” tab of your cluster and create a new database. Give the database a unique name (e.g. “LastName_db”) and create a collection where your QuAcc data will be stored (e.g. “quacc”).</p></li>
 <li><p>Retrieve your MongoDB URI, which is the address of your MongoDB cluster. You can find your database’s URI by clicking the “Database” section in the sidebar and then selecting “Connect &gt; Connect Your Application &gt; Driver &gt; Python &gt; 3.11 or later” and copying the link that appears. It will be of the form <code class="docutils literal notranslate"><span class="pre">mongodb+srv://&lt;username&gt;:&lt;password&gt;@&lt;host&gt;/&lt;database_name&gt;</span></code>. Don’t forget to include the <span class="raw-html-m2r"><database_name></database_name></span> at the end, which you selected in Step 4.</p></li>
 </ol>
@@ -396,7 +392,7 @@
 <span class="w">      </span><span class="nt">collection_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;collection name&gt;</span><span class="w"></span>
 </pre></div>
 </div>
-<p>If you are using a URI (e.g. as in the MongoDB Atlas instructions above), then you will instead have a <code class="docutils literal notranslate"><span class="pre">jobflow.yaml</span></code> file that instead looks like the example below. Here, you will put the full URI in the <code class="docutils literal notranslate"><span class="pre">host</span></code> field. The <code class="docutils literal notranslate"><span class="pre">username</span></code> and <code class="docutils literal notranslate"><span class="pre">password</span></code> are part of the URI and so should not be included elsewhere in the YAML file.</p>
+<p>If you are using a URI (e.g. as in the MongoDB Atlas instructions above), then you will instead have a <code class="docutils literal notranslate"><span class="pre">jobflow.yaml</span></code> file that looks like the example below. Here, you will put the full URI in the <code class="docutils literal notranslate"><span class="pre">host</span></code> field. The <code class="docutils literal notranslate"><span class="pre">username</span></code> and <code class="docutils literal notranslate"><span class="pre">password</span></code> are part of the URI and so should not be included elsewhere in the YAML file.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">JOB_STORE</span><span class="p">:</span><span class="w"></span>
 <span class="w">    </span><span class="nt">docs_store</span><span class="p">:</span><span class="w"></span>
 <span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MongoStore</span><span class="w"></span>
@@ -485,23 +481,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../user/index.html">
+          <a class="next-page" href="settings.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">User Guide</div>
+                <div class="title">Settings</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="settings.html">
+          <a class="prev-page" href="codes.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Settings</div>
+                <div class="title">DFT Package Setup</div>
                 
               </div>
             </a>
@@ -536,8 +532,8 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Configuration</a><ul>
-<li><a class="reference internal" href="#database-setup">Database Setup</a><ul>
+<li><a class="reference internal" href="#">Database Configuration</a><ul>
+<li><a class="reference internal" href="#mongodb-setup">MongoDB Setup</a><ul>
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
 <li><a class="reference internal" href="#setting-up-a-mongo-database">Setting up a Mongo Database</a></li>
 </ul>

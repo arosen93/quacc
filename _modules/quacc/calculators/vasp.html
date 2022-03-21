@@ -178,8 +178,8 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../install/index.html">Installation Guide</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../install/install.html">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../install/codes.html">Configuring DFT Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install/config_db.html">Database Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../install/settings.html">QuAcc Settings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../install/config_db.html">Database configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../user/index.html">User Guide</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -192,10 +192,6 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/quacc.calculators.html">quacc.calculators</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../reference/quacc.calculators.vasp.html">quacc.calculators.vasp</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.calculators.vasp.SmartVasp.html">SmartVasp</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.calculators.vasp.calc_swaps.html">calc_swaps</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.calculators.vasp.convert_auto_kpts.html">convert_auto_kpts</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.calculators.vasp.manage_environment.html">manage_environment</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.calculators.vasp.remove_unused_flags.html">remove_unused_flags</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.calculators.vasp.DEFAULT_CALCS_DIR.html">DEFAULT_CALCS_DIR</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.calculators.vasp.ase_default_setups.html">ase_default_setups</a></li>
 </ul>
@@ -401,7 +397,7 @@
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Atoms</span><span class="p">:</span>
     <span class="sd">"""</span>
-<span class="sd">    This is a wrapper around the VASP calculator that adjusts INCAR parameters on-the-fly,</span>
+<span class="sd">    This is a wrapper around the Vasp calculator that adjusts INCAR parameters on-the-fly,</span>
 <span class="sd">    allows for ASE to run VASP via Custodian, and supports several automatic k-point generation schemes</span>
 <span class="sd">    from Pymatgen.</span>
 
@@ -457,7 +453,7 @@
 
     <span class="c1"># Get VASP executable command, if necessary, and specify child environment</span>
     <span class="c1"># variables</span>
-    <span class="n">command</span> <span class="o">=</span> <span class="n">manage_environment</span><span class="p">(</span><span class="n">custodian</span><span class="p">)</span>
+    <span class="n">command</span> <span class="o">=</span> <span class="n">_manage_environment</span><span class="p">(</span><span class="n">custodian</span><span class="p">)</span>
 
     <span class="c1"># Get user-defined preset parameters for the calculator</span>
     <span class="k">if</span> <span class="n">preset</span><span class="p">:</span>
@@ -507,7 +503,7 @@
 
     <span class="c1"># Make automatic k-point mesh</span>
     <span class="k">if</span> <span class="n">auto_kpts</span><span class="p">:</span>
-        <span class="n">kpts</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">reciprocal</span> <span class="o">=</span> <span class="n">convert_auto_kpts</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">auto_kpts</span><span class="p">)</span>
+        <span class="n">kpts</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">reciprocal</span> <span class="o">=</span> <span class="n">_convert_auto_kpts</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">auto_kpts</span><span class="p">)</span>
         <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"kpts"</span><span class="p">]</span> <span class="o">=</span> <span class="n">kpts</span>
         <span class="k">if</span> <span class="n">reciprocal</span> <span class="ow">and</span> <span class="n">user_calc_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"reciprocal"</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"reciprocal"</span><span class="p">]</span> <span class="o">=</span> <span class="n">reciprocal</span>
@@ -534,14 +530,14 @@
     <span class="p">)</span>
 
     <span class="c1"># Remove unused INCAR flags</span>
-    <span class="n">user_calc_params</span> <span class="o">=</span> <span class="n">remove_unused_flags</span><span class="p">(</span><span class="n">user_calc_params</span><span class="p">)</span>
+    <span class="n">user_calc_params</span> <span class="o">=</span> <span class="n">_remove_unused_flags</span><span class="p">(</span><span class="n">user_calc_params</span><span class="p">)</span>
 
     <span class="c1"># Instantiate the calculator!</span>
     <span class="n">calc</span> <span class="o">=</span> <span class="n">Vasp</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">user_calc_params</span><span class="p">)</span>
 
     <span class="c1"># Handle INCAR swaps as needed</span>
     <span class="k">if</span> <span class="n">incar_copilot</span><span class="p">:</span>
-        <span class="n">calc</span> <span class="o">=</span> <span class="n">calc_swaps</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">calc</span><span class="p">,</span> <span class="n">auto_kpts</span><span class="o">=</span><span class="n">auto_kpts</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+        <span class="n">calc</span> <span class="o">=</span> <span class="n">_calc_swaps</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">calc</span><span class="p">,</span> <span class="n">auto_kpts</span><span class="o">=</span><span class="n">auto_kpts</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
 
     <span class="c1"># This is important! We want to make sure that setting</span>
     <span class="c1"># a new VASP parameter throws away the prior calculator results</span>
@@ -555,7 +551,7 @@
     <span class="k">return</span> <span class="n">atoms</span></div>
 
 
-<div class="viewcode-block" id="manage_environment"><a class="viewcode-back" href="../../../reference/quacc.calculators.vasp.manage_environment.html#quacc.calculators.vasp.manage_environment">[docs]</a><span class="k">def</span> <span class="nf">manage_environment</span><span class="p">(</span><span class="n">custodian</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">_manage_environment</span><span class="p">(</span><span class="n">custodian</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Manage the environment for the VASP calculator.</span>
 
@@ -588,10 +584,10 @@
             <span class="p">)</span>
         <span class="n">command</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">return</span> <span class="n">command</span></div>
+    <span class="k">return</span> <span class="n">command</span>
 
 
-<div class="viewcode-block" id="convert_auto_kpts"><a class="viewcode-back" href="../../../reference/quacc.calculators.vasp.convert_auto_kpts.html#quacc.calculators.vasp.convert_auto_kpts">[docs]</a><span class="k">def</span> <span class="nf">convert_auto_kpts</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">_convert_auto_kpts</span><span class="p">(</span>
     <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span>
     <span class="n">auto_kpts</span><span class="p">:</span> <span class="kc">None</span>
     <span class="o">|</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
@@ -678,10 +674,10 @@
         <span class="n">kpts</span> <span class="o">=</span> <span class="n">pmg_kpts</span><span class="o">.</span><span class="n">kpts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">gamma</span> <span class="o">=</span> <span class="n">pmg_kpts</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"gamma"</span>
 
-    <span class="k">return</span> <span class="n">kpts</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">reciprocal</span></div>
+    <span class="k">return</span> <span class="n">kpts</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">reciprocal</span>
 
 
-<div class="viewcode-block" id="remove_unused_flags"><a class="viewcode-back" href="../../../reference/quacc.calculators.vasp.remove_unused_flags.html#quacc.calculators.vasp.remove_unused_flags">[docs]</a><span class="k">def</span> <span class="nf">remove_unused_flags</span><span class="p">(</span><span class="n">user_calc_params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">_remove_unused_flags</span><span class="p">(</span><span class="n">user_calc_params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
     <span class="sd">"""</span>
 <span class="sd">    Removes unused flags in the INCAR, like EDIFFG if you are doing NSW = 0.</span>
 
@@ -718,10 +714,10 @@
         <span class="k">for</span> <span class="n">ldau_flag</span> <span class="ow">in</span> <span class="n">ldau_flags</span><span class="p">:</span>
             <span class="n">user_calc_params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">ldau_flag</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">user_calc_params</span></div>
+    <span class="k">return</span> <span class="n">user_calc_params</span>
 
 
-<div class="viewcode-block" id="calc_swaps"><a class="viewcode-back" href="../../../reference/quacc.calculators.vasp.calc_swaps.html#quacc.calculators.vasp.calc_swaps">[docs]</a><span class="k">def</span> <span class="nf">calc_swaps</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">_calc_swaps</span><span class="p">(</span>
     <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span>
     <span class="n">calc</span><span class="p">:</span> <span class="n">Vasp</span><span class="p">,</span>
     <span class="n">auto_kpts</span><span class="p">:</span> <span class="kc">None</span>
@@ -976,7 +972,7 @@
     <span class="k">if</span> <span class="n">calc</span><span class="o">.</span><span class="n">bool_params</span><span class="p">[</span><span class="s2">"luse_vdw"</span><span class="p">]</span> <span class="ow">and</span> <span class="s2">"ASE_VASP_VDW"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"ASE_VASP_VDW was not set, yet you requested a vdW functional."</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">calc</span></div>
+    <span class="k">return</span> <span class="n">calc</span>
 </pre></div>
         </article>
       </div>

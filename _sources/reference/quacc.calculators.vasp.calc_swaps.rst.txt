@@ -1,6 +1,0 @@
-calc\_swaps
-===========
-
-.. currentmodule:: quacc.calculators.vasp
-
-.. autofunction:: calc_swaps

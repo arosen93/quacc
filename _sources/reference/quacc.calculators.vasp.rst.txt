@@ -16,10 +16,6 @@ quacc.calculators.vasp
       :nosignatures:
    
       SmartVasp
-      calc_swaps
-      convert_auto_kpts
-      manage_environment
-      remove_unused_flags
 
 
 
@@ -38,11 +34,11 @@ quacc.calculators.vasp
    
    
    
+   
+   
+   
+   
       
-   
-   
-   
-   
    
 
 

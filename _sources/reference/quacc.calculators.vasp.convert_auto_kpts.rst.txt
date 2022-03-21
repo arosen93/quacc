@@ -1,6 +1,0 @@
-convert\_auto\_kpts
-===================
-
-.. currentmodule:: quacc.calculators.vasp
-
-.. autofunction:: convert_auto_kpts
