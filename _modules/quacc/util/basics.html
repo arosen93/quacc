@@ -291,6 +291,7 @@
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../reference/quacc.util.basics.html">quacc.util.basics</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.util.basics.load_yaml_calc.html">load_yaml_calc</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.util.basics.merge_dicts.html">merge_dicts</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.util.basics.remove_dict_empties.html">remove_dict_empties</a></li>
 </ul>
@@ -312,16 +313,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.util.slabs.make_slabs_from_bulk.html">make_slabs_from_bulk</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../reference/quacc.util.yaml.html">quacc.util.yaml</a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" role="switch" type="checkbox"/><label for="toctree-checkbox-31"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.util.yaml.load_yaml_calc.html">load_yaml_calc</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.util.yaml.load_yaml_settings.html">load_yaml_settings</a></li>
 </ul>
 </li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../dev/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../dev/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" role="switch" type="checkbox"/><label for="toctree-checkbox-31"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../dev/contributing.html">Contributing Guide</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../dev/contributors.html">Contributors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../dev/changelog.html">Changelog</a></li>
@@ -361,7 +357,10 @@
         </div>
         <article role="main">
           <h1>Source code for quacc.util.basics</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span>
+
+<span class="kn">import</span> <span class="nn">yaml</span>
 
 
 <div class="viewcode-block" id="merge_dicts"><a class="viewcode-back" href="../../../reference/quacc.util.basics.merge_dicts.html#quacc.util.basics.merge_dicts">[docs]</a><span class="k">def</span> <span class="nf">merge_dicts</span><span class="p">(</span>
@@ -421,6 +420,56 @@
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">remove_dict_empties</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">d</span></div>
+
+
+<div class="viewcode-block" id="load_yaml_calc"><a class="viewcode-back" href="../../../reference/quacc.util.basics.load_yaml_calc.html#quacc.util.basics.load_yaml_calc">[docs]</a><span class="k">def</span> <span class="nf">load_yaml_calc</span><span class="p">(</span><span class="n">yaml_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Loads a YAML file containing ASE VASP calcultor settings.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    yaml_path</span>
+<span class="sd">        Path to the YAML file.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Dict</span>
+<span class="sd">        The calculator configuration (i.e. settings).</span>
+<span class="sd">    """</span>
+
+    <span class="n">_</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">yaml_path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">ext</span><span class="p">:</span>
+        <span class="n">yaml_path</span> <span class="o">+=</span> <span class="s2">".yaml"</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">yaml_path</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Cannot find </span><span class="si">{</span><span class="n">yaml_path</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
+
+    <span class="c1"># Load YAML file</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">yaml_path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+
+    <span class="c1"># Inherit arguments from any parent YAML files</span>
+    <span class="c1"># but do not overwrite those in the child file.</span>
+    <span class="k">for</span> <span class="n">config_arg</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">copy</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s2">"parent"</span> <span class="ow">in</span> <span class="n">config_arg</span><span class="p">:</span>
+            <span class="n">parent_config</span> <span class="o">=</span> <span class="n">load_yaml_calc</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">yaml_path</span><span class="p">),</span> <span class="n">config</span><span class="p">[</span><span class="n">config_arg</span><span class="p">])</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">parent_config</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">config</span><span class="p">:</span>
+                    <span class="n">config</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">v_new</span> <span class="o">=</span> <span class="n">parent_config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="p">{})</span>
+                    <span class="k">for</span> <span class="n">kk</span><span class="p">,</span> <span class="n">vv</span> <span class="ow">in</span> <span class="n">v_new</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                        <span class="k">if</span> <span class="n">kk</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">config</span><span class="p">[</span><span class="n">k</span><span class="p">]:</span>
+                            <span class="n">config</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">kk</span><span class="p">]</span> <span class="o">=</span> <span class="n">vv</span>
+
+    <span class="c1"># Allow for either "Cu_pv" and "_pv" style setups</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">config</span><span class="p">[</span><span class="s2">"inputs"</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"setups"</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+            <span class="n">config</span><span class="p">[</span><span class="s2">"inputs"</span><span class="p">][</span><span class="s2">"setups"</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">k</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">config</span></div>
 </pre></div>
         </article>
       </div>

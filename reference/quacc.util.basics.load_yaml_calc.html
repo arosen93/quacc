@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="load_yaml_settings" href="quacc.util.yaml.load_yaml_settings.html" /><link rel="prev" title="quacc.util.yaml" href="quacc.util.yaml.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="merge_dicts" href="quacc.util.basics.merge_dicts.html" /><link rel="prev" title="quacc.util.basics" href="quacc.util.basics.html" />
 
     <meta name="generator" content="sphinx-4.4.0, furo 2022.03.04"/>
         <title>load_yaml_calc - quacc</title>
@@ -291,7 +291,8 @@
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.atoms.set_magmoms.html">set_magmoms</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="quacc.util.basics.html">quacc.util.basics</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 current has-children"><a class="reference internal" href="quacc.util.basics.html">quacc.util.basics</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l4 current current-page"><a class="current reference internal" href="#">load_yaml_calc</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.basics.merge_dicts.html">merge_dicts</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.basics.remove_dict_empties.html">remove_dict_empties</a></li>
 </ul>
@@ -313,16 +314,11 @@
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.slabs.make_slabs_from_bulk.html">make_slabs_from_bulk</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current has-children"><a class="reference internal" href="quacc.util.yaml.html">quacc.util.yaml</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" role="switch" type="checkbox"/><label for="toctree-checkbox-31"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l4 current current-page"><a class="current reference internal" href="#">load_yaml_calc</a></li>
-<li class="toctree-l4"><a class="reference internal" href="quacc.util.yaml.load_yaml_settings.html">load_yaml_settings</a></li>
 </ul>
 </li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../dev/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../dev/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" role="switch" type="checkbox"/><label for="toctree-checkbox-31"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html">Contributing Guide</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dev/contributors.html">Contributors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../dev/changelog.html">Changelog</a></li>
@@ -364,8 +360,8 @@
           <section id="load-yaml-calc">
 <h1>load_yaml_calc<a class="headerlink" href="#load-yaml-calc" title="Permalink to this headline">#</a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="quacc.util.yaml.load_yaml_calc">
-<span class="sig-prename descclassname"><span class="pre">quacc.util.yaml.</span></span><span class="sig-name descname"><span class="pre">load_yaml_calc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yaml_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/util/yaml.html#load_yaml_calc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.util.yaml.load_yaml_calc" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="quacc.util.basics.load_yaml_calc">
+<span class="sig-prename descclassname"><span class="pre">quacc.util.basics.</span></span><span class="sig-name descname"><span class="pre">load_yaml_calc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yaml_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/util/basics.html#load_yaml_calc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.util.basics.load_yaml_calc" title="Permalink to this definition">#</a></dt>
 <dd><p>Loads a YAML file containing ASE VASP calcultor settings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -386,23 +382,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="quacc.util.yaml.load_yaml_settings.html">
+          <a class="next-page" href="quacc.util.basics.merge_dicts.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">load_yaml_settings</div>
+                <div class="title">merge_dicts</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="quacc.util.yaml.html">
+          <a class="prev-page" href="quacc.util.basics.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">quacc.util.yaml</div>
+                <div class="title">quacc.util.basics</div>
                 
               </div>
             </a>

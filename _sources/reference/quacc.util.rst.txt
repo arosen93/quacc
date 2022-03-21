@@ -43,5 +43,4 @@
    quacc.util.calc
    quacc.util.pop_analysis
    quacc.util.slabs
-   quacc.util.yaml
 

@@ -1,6 +1,6 @@
 load\_yaml\_calc
 ================
 
-.. currentmodule:: quacc.util.yaml
+.. currentmodule:: quacc.util.basics
 
 .. autofunction:: load_yaml_calc
