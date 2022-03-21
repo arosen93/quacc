@@ -1,0 +1,6 @@
+run\_custodian
+==============
+
+.. currentmodule:: quacc.custodian.vasp
+
+.. autofunction:: run_custodian

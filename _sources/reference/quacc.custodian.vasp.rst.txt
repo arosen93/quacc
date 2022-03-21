@@ -1,0 +1,42 @@
+quacc.custodian.vasp
+====================
+
+.. automodule:: quacc.custodian.vasp
+
+   
+
+
+
+   
+
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+      :nosignatures:
+   
+      run_custodian
+
+
+
+   
+
+
+
+   
+   
+   
+   
+   
+   
+   
+
+
+
+
+   
+   
+   
+
+
+
