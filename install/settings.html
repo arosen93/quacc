@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="User Guide" href="../user/index.html" /><link rel="prev" title="DFT Package Setup" href="codes.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Configuration" href="config_db.html" /><link rel="prev" title="DFT Package Setup" href="codes.html" />
 
     <meta name="generator" content="sphinx-4.4.0, furo 2022.03.04"/>
-        <title>Configuration - quacc</title>
+        <title>Settings - quacc</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=935aa2abcc5c1da4283d1dc201fb1f0add16d23a" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
@@ -179,17 +179,14 @@
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Installation Guide</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="codes.html">Configuring DFT Packages</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Database configuration</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">QuAcc Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_db.html">Database configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../user/index.html">User Guide</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../user/running-workflows.html">Running workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user/writing-workflows.html">Writing workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user/fireworks.html">Fireworks integration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user/changelog.html">Change log</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user/contributors.html">Contributors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user/contributing.html">Contributing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user/license.html">License</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -325,7 +322,11 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../dev/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../dev/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html">Contributing Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributors.html">Contributors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/changelog.html">Changelog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/license.html">License</a></li>
 </ul>
 </li>
 </ul>
@@ -360,105 +361,23 @@
           </label>
         </div>
         <article role="main">
-          <section id="configuration">
-<h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">#</a></h1>
-<section id="database-setup">
-<h2>Database Setup<a class="headerlink" href="#database-setup" title="Permalink to this headline">#</a></h2>
-<p>One of the main advantages of using QuAcc is the ability to have all of your calculation inputs and outputs automatically deposited in a database of your choosing for easy querying. While this is not a requirement for using QuAcc, it is highly recommended. It is also the only way to use QuAcc with the <a class="reference external" href="https://materialsproject.github.io/fireworks/">FireWorks</a> job management system.</p>
-<p>QuAcc relies on reading and writing to a Mongo Database (MongoDB). If you have never made a Mongo Database, there are many options to choose from. If you are new to MongoDB, the easiest route is to use a cloud storage solution called <a class="reference external" href="https://www.mongodb.com/atlas">MongoDB Atlas</a>, which has a free tier. To set up your MongoDB with MongoDB Atlas, sign up for a free account. Once logged in, select the “Build a Database” option under the “Database Deployments” section and choose the “Shared” free option. Then can click “Create Cluster” and enter your desired login credentials that will use to access your database. After waiting a minute or two, your cluster will be created, which is essentially a mini computer in the cloud. The last step is to go to the “Collections” tab of your cluster and create a new database. Give the database a unique name (e.g. “LastName_db”) and create a collection where your QuAcc data will be stored (e.g. “quacc”). If using MongoDB Atlas, the last step is to find your MongoDB URI, which is the address of your MongoDB cluster. You can find your database’s URI by clicking the “Database” section in the sidebar and then selecting “Connect &gt; Connect Your Application &gt; Driver &gt; Python &gt; 3.11 or later” and copying the link that appears. It will be of the form “mongodb+srv://<span class="raw-html-m2r"><username></username></span>:&lt;password&gt;@<span class="raw-html-m2r"><host></host></span>/<span class="raw-html-m2r"><database_name></database_name></span>“</p>
-<p>If you already are using MongoDB and have a database available, you do not need to follow the above steps. Simply have your login credentials ready.</p>
+          <section id="settings">
+<h1>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">#</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h2>
+<p>If you’ve completed the prior instructions, you’re done and can run QuAcc! As you use QuAcc, there may be a few default settings you wish to change. We discuss how to do so here.</p>
+<p>By defualt, the global QuAcc settings can be found in the <code class="docutils literal notranslate"><span class="pre">settings.py</span></code> file <a class="reference external" href="https://github.com/arosen93/quacc/blob/main/quacc/settings.py">here</a>. For instance, you can see that by default, <code class="docutils literal notranslate"><span class="pre">GZIP_FILES</span></code> is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, which means that QuAcc will automatically compress the output files from the calculation. Similarly, you can see that <code class="docutils literal notranslate"><span class="pre">SCRATCH_DIR</span></code> is set to the <code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code> environment variable if it exists.</p>
 </section>
-<section id="jobflow-db-setup">
-<h2>Jobflow DB Setup<a class="headerlink" href="#jobflow-db-setup" title="Permalink to this headline">#</a></h2>
-<p>If you completed the above database setup, then QuAcc can store all the input and output data for each calculation in the database you made. While this is optional, it is the best way to take advantage of the features in QuAcc.</p>
-<p>To tell QuAcc where to store your calculations, you will need to make a <code class="docutils literal notranslate"><span class="pre">jobflow.yaml</span></code> file. This file will be formatted as follows:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">JOB_STORE</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">docs_store</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MongoStore</span><span class="w"></span>
-<span class="w">      </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;host name&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;port&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;username&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;port&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">database</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;database name&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">collection_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;collection name&gt;</span><span class="w"></span>
+<section id="modifying-the-default-settings">
+<h2>Modifying the Default Settings<a class="headerlink" href="#modifying-the-default-settings" title="Permalink to this headline">#</a></h2>
+<p>If you wish to modify any of the QuAcc settings, there are several ways to do so.</p>
+<p>The easiest way is to create a file <code class="docutils literal notranslate"><span class="pre">~/quacc.yaml</span></code>. For instance, it might looke something like the following to modify the aforementioned settings.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">SCRATCH_DIR</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/tmp</span><span class="w"></span>
+<span class="nt">GZIP_FILES</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
 </pre></div>
 </div>
-<p>Fill in the above fields with the appropriate values for your MongoDB cluster.</p>
-<p>If you are using MongoDB Atlas or any other cloud service with a provided URI, then you will instead have a <code class="docutils literal notranslate"><span class="pre">jobflow.yaml</span></code> file that looks like</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">JOB_STORE</span><span class="p">:</span><span class="w"></span>
-<span class="w">    </span><span class="nt">docs_store</span><span class="p">:</span><span class="w"></span>
-<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MongoStore</span><span class="w"></span>
-<span class="w">      </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;URI&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;port&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">database</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;database name&gt;</span><span class="w"></span>
-<span class="w">      </span><span class="nt">collection_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;collection name&gt;</span><span class="w"></span>
-</pre></div>
-</div>
-<p>Here, you will put the full URI in the <code class="docutils literal notranslate"><span class="pre">host</span></code> field. The username and password are part of the URI and so should not be included elsewhere in the YAML file.</p>
-<p>Additional information about setting up your <code class="docutils literal notranslate"><span class="pre">jobflow.yaml</span></code> file can be found in the official <a class="reference external" href="https://materialsproject.github.io/jobflow/jobflow.settings.html">jobflow documentation</a>.</p>
-<p>With your <code class="docutils literal notranslate"><span class="pre">jobflow.yaml</span></code> file completed, you will need to define a <code class="docutils literal notranslate"><span class="pre">JOBFLOW_CONFIG_FILE</span></code> environment variable pointing to the file you made. For instance, in your <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> file, add the following line:
-<code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">JOBFLOW_CONFIG_FILE="/path/to/my/jobflow.yaml"</span></code>.</p>
-<p>When a QuAcc calculation completes, all the data will be stored in the database you have specified above.</p>
-</section>
-<section id="fireworks-db-setup">
-<h2>FireWorks DB Setup<a class="headerlink" href="#fireworks-db-setup" title="Permalink to this headline">#</a></h2>
-<p>If you plan to use FireWorks, you will also need to make a few configuration files: <code class="docutils literal notranslate"><span class="pre">FW_config.yaml</span></code>, <code class="docutils literal notranslate"><span class="pre">my_fworker.yaml</span></code>, <code class="docutils literal notranslate"><span class="pre">my_launchpad.yaml</span></code>, and <code class="docutils literal notranslate"><span class="pre">my_qadapter.yaml</span></code>.</p>
-<p>Make a directory called <code class="docutils literal notranslate"><span class="pre">fw_config</span></code> where you will store the above four files.</p>
-<p>For the <code class="docutils literal notranslate"><span class="pre">FW_config.yaml</span></code>, you can use the following template:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">CONFIG_FILE_DIR</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/path/to/fw_config</span><span class="w"></span>
-<span class="nt">QUEUE_UPDATE_INTERVAL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
-</pre></div>
-</div>
-<p>Make sure to update the path to the <code class="docutils literal notranslate"><span class="pre">fw_config</span></code> folder you just made.</p>
-<p>For the <code class="docutils literal notranslate"><span class="pre">my_fworker.yaml</span></code>, you can use the following template:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quacc_fworker</span><span class="w"></span>
-<span class="nt">category</span><span class="p">:</span><span class="w"> </span><span class="s">''</span><span class="w"></span>
-<span class="nt">query</span><span class="p">:</span><span class="w"> </span><span class="s">'{}'</span><span class="w"></span>
-</pre></div>
-</div>
-<p>For the <code class="docutils literal notranslate"><span class="pre">my_launchpad.yaml</span></code>, you can use the following template:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;host name&gt;</span><span class="w"></span>
-<span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;port&gt;</span><span class="w"></span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;database name&gt;</span><span class="w"></span>
-<span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;username&gt;</span><span class="w"></span>
-<span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;password&gt;</span><span class="w"></span>
-<span class="nt">logdir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">Istrm_lvl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEBUG</span><span class="w"></span>
-<span class="nt">user_indices</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span><span class="w"></span>
-<span class="nt">wf_user_indices</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span><span class="w"></span>
-</pre></div>
-</div>
-<p>Replace the entries in &lt;&gt; with the appropriate values for your Mongo database. If you don’t know your <code class="docutils literal notranslate"><span class="pre">port</span></code> value, you can likely use 27017.</p>
-<p>If you are accessing your MongoDB via a URI (e.g. as with MongoDB Atlas), then you will use the following <code class="docutils literal notranslate"><span class="pre">my_launchpad.yaml</span></code> template instead:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;URI&gt;</span><span class="w"></span>
-<span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;port&gt;</span><span class="w"></span>
-<span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;database name&gt;</span><span class="w"></span>
-<span class="nt">uri_store</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
-<span class="nt">logdir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
-<span class="nt">Istrm_lvl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DEBUG</span><span class="w"></span>
-<span class="nt">user_indices</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span><span class="w"></span>
-<span class="nt">wf_user_indices</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span><span class="w"></span>
-</pre></div>
-</div>
-<p>Assuming you plan to use a queuing system for your compute jobs, you will need to make a <code class="docutils literal notranslate"><span class="pre">my_qadapter.yaml</span></code> file. For this, you will need to follow the instructions in the <a class="reference external" href="https://materialsproject.github.io/fireworks/qadapter_programming.html">FireWorks documentation</a> for your specific job scheduling system. An example <code class="docutils literal notranslate"><span class="pre">my_qadapter.yaml</span></code> file is shown below for SLURM.</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">_fw_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommonAdapter</span><span class="w"></span>
-<span class="nt">_fw_q_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SLURM</span><span class="w"></span>
-<span class="nt">rocket_launch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rlaunch -w /path/to/fw_config/my_fworker.yaml singleshot</span><span class="w"></span>
-<span class="nt">nodes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
-<span class="nt">walltime</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">00:30:00</span><span class="w"></span>
-<span class="nt">account</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;account&gt;</span><span class="w"></span>
-<span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quacc_firework</span><span class="w"></span>
-<span class="nt">qos</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">regular</span><span class="w"></span>
-<span class="nt">pre_rocket</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
-<span class="w">            </span><span class="no">module load vasp</span><span class="w"></span>
-<span class="w">            </span><span class="no">export OMP_PROC_BIND=true</span><span class="w"></span>
-<span class="w">            </span><span class="no">export OMP_PLACES=threads</span><span class="w"></span>
-<span class="w">            </span><span class="no">export OMP_NUM_THREADS=1</span><span class="w"></span>
-</pre></div>
-</div>
-<p>In the above example, you would need to change the path in the <code class="docutils literal notranslate"><span class="pre">rocket_launch</span></code> field to the correct <code class="docutils literal notranslate"><span class="pre">fw_config</span></code> path. The nodes, walltime, account, and qos are the corresponding parameters for your queuing system. Finally, anything in the <code class="docutils literal notranslate"><span class="pre">pre_rocket</span></code> field will be executed before the job begins running. It is a good place to load modules and set environment variables. A representative example has been provided above.</p>
-<p>Finally, you will need to define a <code class="docutils literal notranslate"><span class="pre">FW_CONFIG_FILE</span></code> environment variable pointing to the <code class="docutils literal notranslate"><span class="pre">FW_config.yaml</span></code> file you made. For instance, in your <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> file, add the following line:
-<code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">FW_CONFIG_FILE="/path/to/config/fw_config/FW_config.yaml"</span></code>.</p>
+<p>If you wish to store the <code class="docutils literal notranslate"><span class="pre">quacc.yaml</span></code> file somewhere else, you can define the environment variable <code class="docutils literal notranslate"><span class="pre">QUACC_CONFIG_FILE</span></code> and point it to the <code class="docutils literal notranslate"><span class="pre">quacc.yaml</span></code> path of your choosing.</p>
+<p>Finally, you can also modify the settings by defining individual environment variables with the <code class="docutils literal notranslate"><span class="pre">QUACC</span></code> prefix (e.g. <code class="docutils literal notranslate"><span class="pre">QUACC_SCRATCH_DIR=/tmp</span></code>).</p>
 </section>
 </section>
 
@@ -467,12 +386,12 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../user/index.html">
+          <a class="next-page" href="config_db.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">User Guide</div>
+                <div class="title">Configuration</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -518,10 +437,9 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Configuration</a><ul>
-<li><a class="reference internal" href="#database-setup">Database Setup</a></li>
-<li><a class="reference internal" href="#jobflow-db-setup">Jobflow DB Setup</a></li>
-<li><a class="reference internal" href="#fireworks-db-setup">FireWorks DB Setup</a></li>
+<li><a class="reference internal" href="#">Settings</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#modifying-the-default-settings">Modifying the Default Settings</a></li>
 </ul>
 </li>
 </ul>

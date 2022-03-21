@@ -179,17 +179,14 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../install/index.html">Installation Guide</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../install/install.html">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../install/codes.html">Configuring DFT Packages</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../install/config.html">Database configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install/settings.html">QuAcc Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install/config_db.html">Database configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">User Guide</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Running workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="writing-workflows.html">Writing workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fireworks.html">Fireworks integration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html">Change log</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contributors.html">Contributors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html">Contributing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -325,7 +322,11 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../dev/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../dev/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html">Contributing Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributors.html">Contributors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/changelog.html">Changelog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/license.html">License</a></li>
 </ul>
 </li>
 </ul>
@@ -412,13 +413,6 @@
 </pre></div>
 </div>
 </section>
-<section id="contributing">
-<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">#</a></h2>
-<p>To contribute to QuAcc, we recommend installing QuAcc in editable mode so that your changes are reflected every time you run QuAcc. This can be done by using the <code class="docutils literal notranslate"><span class="pre">-e</span></code> flag when running <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code>. Also, you will need to install the development dependencies via <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">.[dev]</span></code>.</p>
-<p>To ensure a consistent formatting style, we use <code class="docutils literal notranslate"><span class="pre">isort</span></code> and <code class="docutils literal notranslate"><span class="pre">black</span></code> to format the code. In the base directory of <code class="docutils literal notranslate"><span class="pre">quacc</span></code>, simply run <code class="docutils literal notranslate"><span class="pre">isort</span> <span class="pre">.</span></code> and then <code class="docutils literal notranslate"><span class="pre">black</span> <span class="pre">.</span></code> (in that order) to format the code. This will ensure your contributions pass the linting check.</p>
-<p>To ensure that any changes you have made do not break unit tests, run <code class="docutils literal notranslate"><span class="pre">pytest</span></code> from the the <code class="docutils literal notranslate"><span class="pre">quacc/tests</span></code> directory.</p>
-<p>Any new features that you propose to add to QuAcc must have accompanying unit tests. In certain cases, we have monkeypatched certain functions to change their behavior during testing. For instance, we do not want to run VASP directly during unit tests and have mocked the <code class="docutils literal notranslate"><span class="pre">atoms.get_potential_energy()</span></code> function to always return a value of -1.0 during unit tests. Any mocked functions can be found in the <code class="docutils literal notranslate"><span class="pre">conftest.py</span></code> files of the testing directory.</p>
-</section>
 </section>
 
         </article>
@@ -480,7 +474,6 @@
 <li><a class="reference internal" href="#">Running Workflows</a><ul>
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
-<li><a class="reference internal" href="#contributing">Contributing</a></li>
 </ul>
 </li>
 </ul>

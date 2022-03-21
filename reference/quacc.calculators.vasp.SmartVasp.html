@@ -179,17 +179,14 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../install/index.html">Installation Guide</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../install/install.html">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../install/codes.html">Configuring DFT Packages</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../install/config.html">Database configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install/settings.html">QuAcc Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../install/config_db.html">Database configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../user/index.html">User Guide</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../user/running-workflows.html">Running workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user/writing-workflows.html">Writing workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user/fireworks.html">Fireworks integration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user/changelog.html">Change log</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user/contributors.html">Contributors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user/contributing.html">Contributing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user/license.html">License</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
@@ -325,7 +322,11 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../dev/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../dev/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html">Contributing Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributors.html">Contributors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/changelog.html">Changelog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/license.html">License</a></li>
 </ul>
 </li>
 </ul>
@@ -364,7 +365,7 @@
 <h1>SmartVasp<a class="headerlink" href="#smartvasp" title="Permalink to this headline">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="quacc.calculators.vasp.SmartVasp">
-<span class="sig-prename descclassname"><span class="pre">quacc.calculators.vasp.</span></span><span class="sig-name descname"><span class="pre">SmartVasp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custodian</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">incar_copilot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy_magmoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mag_default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mag_cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/calculators/vasp.html#SmartVasp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.calculators.vasp.SmartVasp" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">quacc.calculators.vasp.</span></span><span class="sig-name descname"><span class="pre">SmartVasp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custodian</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">incar_copilot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy_magmoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preset_mag_default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mag_cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/calculators/vasp.html#SmartVasp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.calculators.vasp.SmartVasp" title="Permalink to this definition">#</a></dt>
 <dd><p>This is a wrapper around the VASP calculator that adjusts INCAR parameters on-the-fly,
 allows for ASE to run VASP via Custodian, and supports several automatic k-point generation schemes
 from Pymatgen.</p>
@@ -372,21 +373,21 @@ from Pymatgen.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>atoms</strong> (<em>ase.atoms.Atoms</em>) – The Atoms object to be used for the calculation.</p></li>
-<li><p><strong>custodian</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to use Custodian to run VASP. If True, the Custodian settings will (by default) be
-adopted from quacc.defaults.custodian_settings.vasp_custodian_settings.yaml. To override
-these default Custodian settings, you can define your own .yaml file and set the path in
-the VASP_CUSTODIAN_SETTINGS environment variable at runtime. If set to False, ASE will
-run VASP without Custodian, in which case you must have a valid ASE_VASP_COMMAND set per
-the ASE documentation.</p></li>
 <li><p><strong>preset</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Union" title="(in Python v3.10)"><em>Union</em></a><em>[</em><em>None</em><em>, </em><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – The path to a .yaml file containing a list of INCAR parameters to use as a “preset”
 for the calculator. If no filepath is present, it will look in quacc/defaults/calcs/vasp, such
 that preset=”BulkRelaxSet” is supported. It will append .yaml at the end if not present.
 Note that any specific kwargs take precedence over the flags set in the preset dictionary.</p></li>
-<li><p><strong>incar_copilot</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, the INCAR parameters will be adjusted if they go against the VASP manual.</p></li>
+<li><p><strong>custodian</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to use Custodian to run VASP.
+Default is True in settings.</p></li>
+<li><p><strong>incar_copilot</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, the INCAR parameters will be adjusted if they go against the VASP manual.
+Default is True in settings.</p></li>
 <li><p><strong>copy_magmoms</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, any pre-existing atoms.get_magnetic_moments() will be set in atoms.set_initial_magnetic_moments().
 Set this to False if you want to use a preset’s magnetic moments every time.</p></li>
-<li><p><strong>mag_default</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Default magmom value for sites without one in the preset. Use 0.6 for MP settings or 1.0 for VASP default.</p></li>
-<li><p><strong>mag_cutoff</strong> (<em>None</em><em> | </em><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Set all initial magmoms to 0 if all have a magnitude below this value.</p></li>
+<li><p><strong>preset_mag_default</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Default magmom value for sites without one explicitly specified in the preset. Only used if a preset is
+specified with an elemental_mags_dict key-value pair.
+Default is 1.0 in settings.</p></li>
+<li><p><strong>mag_cutoff</strong> (<em>None</em><em> | </em><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Set all initial magmoms to 0 if all have a magnitude below this value.
+Default is 0.05 in settings.</p></li>
 <li><p><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, warnings will be raised when INCAR parameters are changed.</p></li>
 <li><p><strong>**kwargs</strong> – Additional arguments to be passed to the VASP calculator, e.g. xc=’PBE’, encut=520. Takes all valid
 ASE calculator arguments, in addition to those custom to QuAcc.</p></li>

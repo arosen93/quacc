@@ -179,17 +179,14 @@
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Installation Guide</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="codes.html">Configuring DFT Packages</a></li>
-<li class="toctree-l2"><a class="reference internal" href="config.html">Database configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="settings.html">QuAcc Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config_db.html">Database configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../user/index.html">User Guide</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../user/running-workflows.html">Running workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user/writing-workflows.html">Writing workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../user/fireworks.html">Fireworks integration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user/changelog.html">Change log</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user/contributors.html">Contributors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user/contributing.html">Contributing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../user/license.html">License</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -325,7 +322,11 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../dev/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../dev/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributing.html">Contributing Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/contributors.html">Contributors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/changelog.html">Changelog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../dev/license.html">License</a></li>
 </ul>
 </li>
 </ul>
@@ -365,13 +366,11 @@
 <section id="pre-requisites">
 <h2>Pre-Requisites<a class="headerlink" href="#pre-requisites" title="Permalink to this headline">#</a></h2>
 <p>To use QuAcc, you must have a Python 3.10+ environment set up. For this, we recommend using an environment manager, such as Miniconda. To install Python 3.10 via Miniconda, download and run your operating system’s <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">Miniconda installer</a>.</p>
-<p>With Miniconda installed, create a fresh environment by running <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">create</span> <span class="pre">-n</span> <span class="pre">quacc</span> <span class="pre">python=3.10</span></code></p>
-<p>You can then activate this environment via
-<code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">quacc</span></code>.</p>
+<p>With Miniconda installed, create a fresh environment by running <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">create</span> <span class="pre">-n</span> <span class="pre">quacc</span> <span class="pre">python=3.10</span></code>. You can then activate this environment via <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">quacc</span></code>.</p>
 </section>
 <section id="installing-quacc">
 <h2>Installing QuAcc<a class="headerlink" href="#installing-quacc" title="Permalink to this headline">#</a></h2>
-<p>In your new conda environment, you can install QuAcc and its related dependencies by using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">quacc</span></code>. For the development version of QuAcc, you can instead use <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+https://github.com/arosen93/quacc.git</span></code>.</p>
+<p>In your new activated conda environment, you can install QuAcc and its related dependencies by using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">quacc</span></code>. For the development version of QuAcc, you can instead use <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+https://github.com/arosen93/quacc.git</span></code>.</p>
 </section>
 </section>
 

@@ -178,17 +178,14 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../install/index.html">Installation Guide</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../install/install.html">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../install/codes.html">Configuring DFT Packages</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../install/config.html">Database configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install/settings.html">QuAcc Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install/config_db.html">Database configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../user/index.html">User Guide</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../user/running-workflows.html">Running workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../user/writing-workflows.html">Writing workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../user/fireworks.html">Fireworks integration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../user/changelog.html">Change log</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../user/contributors.html">Contributors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../user/contributing.html">Contributing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../user/license.html">License</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -324,7 +321,11 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../dev/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../dev/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev/contributing.html">Contributing Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev/contributors.html">Contributors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev/changelog.html">Changelog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev/license.html">License</a></li>
 </ul>
 </li>
 </ul>
@@ -363,7 +364,7 @@
 <span></span><span class="kn">import</span> <span class="nn">hashlib</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">ase.atoms</span> <span class="kn">import</span> <span class="n">Atoms</span>
@@ -468,9 +469,9 @@
 
 <div class="viewcode-block" id="set_magmoms"><a class="viewcode-back" href="../../../reference/quacc.util.atoms.set_magmoms.html#quacc.util.atoms.set_magmoms">[docs]</a><span class="k">def</span> <span class="nf">set_magmoms</span><span class="p">(</span>
     <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span>
-    <span class="n">elemental_mags_dict</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">elemental_mags_dict</span><span class="p">:</span> <span class="n">Dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">elemental_mags_default</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
     <span class="n">copy_magmoms</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">mag_default</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
     <span class="n">mag_cutoff</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Atoms</span><span class="p">:</span>
     <span class="sd">"""</span>
@@ -482,8 +483,8 @@
 <span class="sd">    - If there is no converged set of magnetic moments but the user has set initial magmoms,</span>
 <span class="sd">    those are simply used as is.</span>
 <span class="sd">    - If there are no converged magnetic moments or initial magnetic moments, then</span>
-<span class="sd">    the default magnetic moments from the preset (if specified) are set as the</span>
-<span class="sd">    initial magnetic moments.</span>
+<span class="sd">    the default magnetic moments from the preset elemental_mags_dict (if specified)</span>
+<span class="sd">    are set as the initial magnetic moments.</span>
 <span class="sd">    - For any of the above scenarios, if mag_cutoff is not None, the newly set</span>
 <span class="sd">    initial magnetic moments are checked. If all have a magnitude below mag_cutoff,</span>
 <span class="sd">    then they are all set to 0 (no spin polarization).</span>
@@ -495,10 +496,12 @@
 <span class="sd">    elemental_mags_dict</span>
 <span class="sd">        Dictionary of elemental symbols and their corresponding magnetic moments to set.</span>
 <span class="sd">        If None, no default values will be used.</span>
+<span class="sd">    elemental_mags_default</span>
+<span class="sd">        Default magnetic moment on an element if no magnetic moment is specified in the elemental_mags_dict.</span>
+<span class="sd">        Only used if elemental_mags_dict is not None. This kwarg is mainly a convenience so that you don't need to</span>
+<span class="sd">        list every single element in the elemental_mags_dict.</span>
 <span class="sd">    copy_magmoms</span>
 <span class="sd">        Whether to copy the magnetic moments from the converged set of magnetic moments to the initial magnetic moments.</span>
-<span class="sd">    mag_default</span>
-<span class="sd">        Default magnetic moment to use if no magnetic moment is specified in the preset for a given element.</span>
 <span class="sd">    mag_cutoff</span>
 <span class="sd">        Magnitude below which the magnetic moments are considered to be zero. If None, no cutoff will be applied</span>
 
@@ -533,7 +536,7 @@
             <span class="k">if</span> <span class="n">elemental_mags_dict</span><span class="p">:</span>
                 <span class="n">initial_mags</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
                     <span class="p">[</span>
-                        <span class="n">elemental_mags_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atom</span><span class="o">.</span><span class="n">symbol</span><span class="p">,</span> <span class="n">mag_default</span><span class="p">)</span>
+                        <span class="n">elemental_mags_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">atom</span><span class="o">.</span><span class="n">symbol</span><span class="p">,</span> <span class="n">elemental_mags_default</span><span class="p">)</span>
                         <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">atoms</span>
                     <span class="p">]</span>
                 <span class="p">)</span>

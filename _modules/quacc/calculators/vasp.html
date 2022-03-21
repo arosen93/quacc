@@ -178,17 +178,14 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../install/index.html">Installation Guide</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../install/install.html">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../install/codes.html">Configuring DFT Packages</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../install/config.html">Database configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install/settings.html">QuAcc Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../install/config_db.html">Database configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../user/index.html">User Guide</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../user/running-workflows.html">Running workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../user/writing-workflows.html">Writing workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../user/fireworks.html">Fireworks integration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../user/changelog.html">Change log</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../user/contributors.html">Contributors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../user/contributing.html">Contributing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../user/license.html">License</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -324,7 +321,11 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../dev/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../dev/index.html">Developer Guide</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev/contributing.html">Contributing Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev/contributors.html">Contributors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev/changelog.html">Changelog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../dev/license.html">License</a></li>
 </ul>
 </li>
 </ul>
@@ -368,6 +369,7 @@
 <span class="kn">from</span> <span class="nn">ase.calculators.vasp.setups</span> <span class="kn">import</span> <span class="n">_setups_defaults</span> <span class="k">as</span> <span class="n">ase_default_setups</span>
 <span class="kn">from</span> <span class="nn">ase.constraints</span> <span class="kn">import</span> <span class="n">FixAtoms</span>
 
+<span class="kn">from</span> <span class="nn">quacc</span> <span class="kn">import</span> <span class="n">SETTINGS</span>
 <span class="kn">from</span> <span class="nn">quacc.calculators.vasp_utils</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">calc_swaps</span><span class="p">,</span>
     <span class="n">convert_auto_kpts</span><span class="p">,</span>
@@ -383,12 +385,12 @@
 
 <div class="viewcode-block" id="SmartVasp"><a class="viewcode-back" href="../../../reference/quacc.calculators.vasp.SmartVasp.html#quacc.calculators.vasp.SmartVasp">[docs]</a><span class="k">def</span> <span class="nf">SmartVasp</span><span class="p">(</span>
     <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span>
-    <span class="n">custodian</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">preset</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">incar_copilot</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">custodian</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">VASP_CUSTODIAN</span><span class="p">,</span>
+    <span class="n">incar_copilot</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">INCAR_COPILOT</span><span class="p">,</span>
     <span class="n">copy_magmoms</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">mag_default</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
-    <span class="n">mag_cutoff</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
+    <span class="n">preset_mag_default</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">VASP_PRESET_MAG_DEFAULT</span><span class="p">,</span>
+    <span class="n">mag_cutoff</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">VASP_MAG_CUTOFF</span><span class="p">,</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Atoms</span><span class="p">:</span>
@@ -401,27 +403,27 @@
 <span class="sd">    ----------</span>
 <span class="sd">    atoms</span>
 <span class="sd">        The Atoms object to be used for the calculation.</span>
-<span class="sd">    custodian</span>
-<span class="sd">        Whether to use Custodian to run VASP. If True, the Custodian settings will (by default) be</span>
-<span class="sd">        adopted from quacc.defaults.custodian_settings.vasp_custodian_settings.yaml. To override</span>
-<span class="sd">        these default Custodian settings, you can define your own .yaml file and set the path in</span>
-<span class="sd">        the VASP_CUSTODIAN_SETTINGS environment variable at runtime. If set to False, ASE will</span>
-<span class="sd">        run VASP without Custodian, in which case you must have a valid ASE_VASP_COMMAND set per</span>
-<span class="sd">        the ASE documentation.</span>
 <span class="sd">    preset</span>
 <span class="sd">        The path to a .yaml file containing a list of INCAR parameters to use as a "preset"</span>
 <span class="sd">        for the calculator. If no filepath is present, it will look in quacc/defaults/calcs/vasp, such</span>
 <span class="sd">        that preset="BulkRelaxSet" is supported. It will append .yaml at the end if not present.</span>
 <span class="sd">        Note that any specific kwargs take precedence over the flags set in the preset dictionary.</span>
+<span class="sd">    custodian</span>
+<span class="sd">        Whether to use Custodian to run VASP.</span>
+<span class="sd">        Default is True in settings.</span>
 <span class="sd">    incar_copilot</span>
 <span class="sd">        If True, the INCAR parameters will be adjusted if they go against the VASP manual.</span>
+<span class="sd">        Default is True in settings.</span>
 <span class="sd">    copy_magmoms</span>
 <span class="sd">        If True, any pre-existing atoms.get_magnetic_moments() will be set in atoms.set_initial_magnetic_moments().</span>
 <span class="sd">        Set this to False if you want to use a preset's magnetic moments every time.</span>
-<span class="sd">    mag_default</span>
-<span class="sd">        Default magmom value for sites without one in the preset. Use 0.6 for MP settings or 1.0 for VASP default.</span>
+<span class="sd">    preset_mag_default</span>
+<span class="sd">        Default magmom value for sites without one explicitly specified in the preset. Only used if a preset is</span>
+<span class="sd">        specified with an elemental_mags_dict key-value pair.</span>
+<span class="sd">        Default is 1.0 in settings.</span>
 <span class="sd">    mag_cutoff</span>
 <span class="sd">        Set all initial magmoms to 0 if all have a magnitude below this value.</span>
+<span class="sd">        Default is 0.05 in settings.</span>
 <span class="sd">    verbose</span>
 <span class="sd">        If True, warnings will be raised when INCAR parameters are changed.</span>
 <span class="sd">    **kwargs</span>
@@ -521,7 +523,7 @@
         <span class="n">atoms</span><span class="p">,</span>
         <span class="n">elemental_mags_dict</span><span class="o">=</span><span class="n">elemental_mags_dict</span><span class="p">,</span>
         <span class="n">copy_magmoms</span><span class="o">=</span><span class="n">copy_magmoms</span><span class="p">,</span>
-        <span class="n">mag_default</span><span class="o">=</span><span class="n">mag_default</span><span class="p">,</span>
+        <span class="n">elemental_mags_default</span><span class="o">=</span><span class="n">preset_mag_default</span><span class="p">,</span>
         <span class="n">mag_cutoff</span><span class="o">=</span><span class="n">mag_cutoff</span><span class="p">,</span>
     <span class="p">)</span>
 
