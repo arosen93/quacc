@@ -641,7 +641,8 @@
     <span class="p">)</span>
 
     <span class="k">if</span> <span class="n">randomize</span><span class="p">:</span>
-        <span class="n">slabs</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">slabs</span><span class="p">,</span> <span class="n">max_slabs</span><span class="p">)</span>
+        <span class="n">subsample</span> <span class="o">=</span> <span class="n">max_slabs</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">slabs</span><span class="p">)</span>
+        <span class="n">slabs</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">slabs</span><span class="p">,</span> <span class="n">subsample</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">slabs</span>
 
     <span class="c1"># Try to reduce the number of slabs if the user really wants it...</span>
