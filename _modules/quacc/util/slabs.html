@@ -519,39 +519,33 @@
     <span class="n">slabs_with_props</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">slab</span> <span class="ow">in</span> <span class="n">slabs</span><span class="p">:</span>
 
-        <span class="c1"># Supercell creation (if necessary)</span>
-        <span class="n">a_factor</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">min_length_width</span> <span class="o">/</span> <span class="n">slab</span><span class="o">.</span><span class="n">lattice</span><span class="o">.</span><span class="n">abc</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-        <span class="n">b_factor</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">min_length_width</span> <span class="o">/</span> <span class="n">slab</span><span class="o">.</span><span class="n">lattice</span><span class="o">.</span><span class="n">abc</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
-        <span class="n">slab_with_props</span> <span class="o">=</span> <span class="n">slab</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="n">slab_with_props</span><span class="o">.</span><span class="n">make_supercell</span><span class="p">([</span><span class="n">a_factor</span><span class="p">,</span> <span class="n">b_factor</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="c1"># Make sure desired atoms are on surface</span>
+        <span class="k">if</span> <span class="n">allowed_surface_symbols</span><span class="p">:</span>
 
-        <span class="c1"># Apply constraints by distance from top surface</span>
-        <span class="c1"># This does not actually create an adsorbate. It is just a</span>
-        <span class="c1"># useful function for finding surface vs. subsurface sites</span>
-        <span class="k">if</span> <span class="n">z_fix</span><span class="p">:</span>
-            <span class="n">slab_with_props</span> <span class="o">=</span> <span class="n">AdsorbateSiteFinder</span><span class="p">(</span>
-                <span class="n">slab_with_props</span><span class="p">,</span> <span class="n">selective_dynamics</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">z_fix</span>
-            <span class="p">)</span><span class="o">.</span><span class="n">slab</span>
+            <span class="c1"># Find atoms at surface</span>
+            <span class="n">surf_sites</span> <span class="o">=</span> <span class="n">AdsorbateSiteFinder</span><span class="p">(</span><span class="n">slab</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span><span class="o">.</span><span class="n">surface_sites</span>
+            <span class="n">surface_species</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">specie</span><span class="o">.</span><span class="n">symbol</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">surf_sites</span><span class="p">]</span>
 
-            <span class="n">surface_species</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="n">site</span><span class="o">.</span><span class="n">specie</span><span class="o">.</span><span class="n">symbol</span>
-                <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="n">slab_with_props</span>
-                <span class="k">if</span> <span class="n">site</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="s2">"surface_properties"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"surface"</span>
-            <span class="p">]</span>
-
-            <span class="c1"># Remove the surface_properties, which are only really meant</span>
-            <span class="c1"># if an adsorbate is present.</span>
-            <span class="n">slab_with_props</span><span class="o">.</span><span class="n">remove_site_property</span><span class="p">(</span><span class="s2">"surface_properties"</span><span class="p">)</span>
-
-            <span class="c1"># Check that the desired atoms are on the surface</span>
             <span class="k">if</span> <span class="n">allowed_surface_symbols</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span>
                 <span class="n">allowed_surface_atom</span> <span class="ow">in</span> <span class="n">surface_species</span>
                 <span class="k">for</span> <span class="n">allowed_surface_atom</span> <span class="ow">in</span> <span class="n">allowed_surface_symbols</span>
             <span class="p">):</span>
                 <span class="k">continue</span>
 
+        <span class="c1"># Supercell creation (if necessary)</span>
+        <span class="n">a_factor</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">min_length_width</span> <span class="o">/</span> <span class="n">slab</span><span class="o">.</span><span class="n">lattice</span><span class="o">.</span><span class="n">abc</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="n">b_factor</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">min_length_width</span> <span class="o">/</span> <span class="n">slab</span><span class="o">.</span><span class="n">lattice</span><span class="o">.</span><span class="n">abc</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="n">slab</span><span class="o">.</span><span class="n">make_supercell</span><span class="p">([</span><span class="n">a_factor</span><span class="p">,</span> <span class="n">b_factor</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+        <span class="c1"># Add constraints. Note: This does not actually add an adsorbate</span>
+        <span class="k">if</span> <span class="n">z_fix</span><span class="p">:</span>
+            <span class="n">sel_dyn</span> <span class="o">=</span> <span class="n">AdsorbateSiteFinder</span><span class="p">(</span>
+                <span class="n">slab</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">selective_dynamics</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">z_fix</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">slab</span><span class="o">.</span><span class="n">site_properties</span><span class="p">[</span><span class="s2">"selective_dynamics"</span><span class="p">]</span>
+            <span class="n">slab</span><span class="o">.</span><span class="n">add_site_property</span><span class="p">(</span><span class="s2">"selective_dynamics"</span><span class="p">,</span> <span class="n">sel_dyn</span><span class="p">)</span>
+
         <span class="c1"># Add slab to list</span>
-        <span class="n">slabs_with_props</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">slab_with_props</span><span class="p">)</span>
+        <span class="n">slabs_with_props</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
 
     <span class="n">final_slabs</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">slabs_with_props</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -852,8 +846,8 @@
 <span class="sd">    """</span>
 
     <span class="n">alpha</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">bulk</span><span class="p">)</span>
-    <span class="n">matrix</span> <span class="o">=</span> <span class="n">slab</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">array</span>
-    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]))</span>
+    <span class="n">cell</span> <span class="o">=</span> <span class="n">slab</span><span class="o">.</span><span class="n">get_cell</span><span class="p">()</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">cell</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cell</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
     <span class="n">surface_energy</span> <span class="o">=</span> <span class="p">(</span><span class="n">slab_energy</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">bulk_energy</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">A</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">surface_energy</span></div>
