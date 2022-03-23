@@ -360,6 +360,7 @@
 <span></span><span class="sd">"""</span>
 <span class="sd">Custodian runner for VASP</span>
 <span class="sd">"""</span>
+<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">shlex</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
 
@@ -427,6 +428,8 @@
 <span class="sd">        Any remaining keyword arguments to pass to Custodian. Defaults to None.</span>
 <span class="sd">    """</span>
     <span class="c1"># Adapted from https://github.com/materialsproject/atomate2/blob/main/src/atomate2/vasp/run.py</span>
+
+    <span class="n">vasp_parallel_cmd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expandvars</span><span class="p">(</span><span class="n">vasp_parallel_cmd</span><span class="p">)</span>
 
     <span class="c1"># Handlers for VASP</span>
     <span class="n">handlers</span> <span class="o">=</span> <span class="p">[]</span>
