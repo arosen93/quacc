@@ -358,13 +358,16 @@
         <article role="main">
           <h1>Source code for quacc.recipes.vasp.qmof</h1><div class="highlight"><pre>
 <span></span><span class="sd">"""QMOF-compatible recipes"""</span>
+<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span>
 
 <span class="kn">from</span> <span class="nn">ase.atoms</span> <span class="kn">import</span> <span class="n">Atoms</span>
 <span class="kn">from</span> <span class="nn">ase.optimize</span> <span class="kn">import</span> <span class="n">BFGSLineSearch</span>
 <span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">Maker</span><span class="p">,</span> <span class="n">job</span>
+<span class="kn">from</span> <span class="nn">monty.tempfile</span> <span class="kn">import</span> <span class="n">ScratchDir</span>
 
+<span class="kn">from</span> <span class="nn">quacc</span> <span class="kn">import</span> <span class="n">SETTINGS</span>
 <span class="kn">from</span> <span class="nn">quacc.calculators.vasp</span> <span class="kn">import</span> <span class="n">SmartVasp</span>
 <span class="kn">from</span> <span class="nn">quacc.schemas.calc</span> <span class="kn">import</span> <span class="n">summarize_run</span> <span class="k">as</span> <span class="n">summarize_ase_run</span>
 <span class="kn">from</span> <span class="nn">quacc.schemas.vasp</span> <span class="kn">import</span> <span class="n">summarize_run</span>
@@ -495,8 +498,15 @@
     <span class="p">}</span>
     <span class="n">flags</span> <span class="o">=</span> <span class="n">merge_dicts</span><span class="p">(</span><span class="n">defaults</span><span class="p">,</span> <span class="n">swaps</span><span class="p">)</span>
     <span class="n">atoms</span> <span class="o">=</span> <span class="n">SmartVasp</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">preset</span><span class="o">=</span><span class="n">preset</span><span class="p">,</span> <span class="o">**</span><span class="n">flags</span><span class="p">)</span>
-    <span class="n">dyn</span> <span class="o">=</span> <span class="n">BFGSLineSearch</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="s2">"prerelax.log"</span><span class="p">,</span> <span class="n">trajectory</span><span class="o">=</span><span class="s2">"prerelax.traj"</span><span class="p">)</span>
-    <span class="n">dyn</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">fmax</span><span class="o">=</span><span class="n">fmax</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">ScratchDir</span><span class="p">(</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">SETTINGS</span><span class="o">.</span><span class="n">SCRATCH_DIR</span><span class="p">),</span>
+        <span class="n">create_symbolic_link</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">"nt"</span><span class="p">,</span>
+        <span class="n">copy_to_current_on_exit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">gzip_on_exit</span><span class="o">=</span><span class="n">SETTINGS</span><span class="o">.</span><span class="n">GZIP_FILES</span><span class="p">,</span>
+        <span class="n">delete_removed_files</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">dyn</span> <span class="o">=</span> <span class="n">BFGSLineSearch</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="s2">"prerelax.log"</span><span class="p">,</span> <span class="n">trajectory</span><span class="o">=</span><span class="s2">"prerelax.traj"</span><span class="p">)</span>
+        <span class="n">dyn</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">fmax</span><span class="o">=</span><span class="n">fmax</span><span class="p">)</span>
 
     <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_ase_run</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
 
