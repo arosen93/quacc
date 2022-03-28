@@ -703,13 +703,15 @@
 <span class="sd">        Note: It will be placed on the surface in the exact input orientation provided by the user (the adsorption mode is</span>
 <span class="sd">        along the c axis and the coordinating atom is the one in the -z direction).</span>
 <span class="sd">    min_distance</span>
-<span class="sd">        The distance between the adsorbate and the surface site.</span>
+<span class="sd">        The (minimum) distance to set between the adsorbate and the surface site.</span>
 <span class="sd">    modes</span>
 <span class="sd">        The adsorption mode(s) to consider. Options include: "ontop", "bridge", "hollow", "subsurface".</span>
 <span class="sd">    allowed_surface_symbols</span>
 <span class="sd">        The symbols of surface atoms to consider. If None, will use all surface atoms.</span>
+<span class="sd">        Note: This method could be improved for bridge/hollow sites.</span>
 <span class="sd">    allowed_surface_indices</span>
 <span class="sd">        The indices of surface atoms to consider. If None, will use all surface atoms. Generally used if a specific site is to be excluded from the set.</span>
+<span class="sd">        Note: This method could be improved for bridge/hollow sites.</span>
 <span class="sd">    ads_site_finder_kwargs</span>
 <span class="sd">        The keyword arguments to pass to the AdsorbateSiteFinder().</span>
 <span class="sd">    find_ads_sites_kwargs</span>
@@ -789,16 +791,16 @@
             <span class="n">atoms_with_adsorbate</span> <span class="o">=</span> <span class="n">AseAtomsAdaptor</span><span class="o">.</span><span class="n">get_atoms</span><span class="p">(</span><span class="n">struct_with_adsorbate</span><span class="p">)</span>
 
             <span class="c1"># Get distance matrix between adsorbate binding atom and surface</span>
-            <span class="n">adsorbate_index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">atom</span><span class="o">.</span><span class="n">z</span> <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">adsorbate</span><span class="p">)</span>
-            <span class="n">d</span> <span class="o">=</span> <span class="n">atoms_with_adsorbate</span><span class="o">.</span><span class="n">get_all_distances</span><span class="p">(</span><span class="n">mic</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="n">d</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">atom_indices</span><span class="p">,</span> <span class="p">:]</span>
-            <span class="n">d</span> <span class="o">=</span> <span class="n">d</span><span class="p">[:,</span> <span class="n">adsorbate_index</span><span class="p">]</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">atoms_with_adsorbate</span><span class="o">.</span><span class="n">get_all_distances</span><span class="p">(</span><span class="n">mic</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span>
+                <span class="mi">0</span> <span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="p">:</span>
+            <span class="p">]</span>
 
             <span class="c1"># Find closest surface atoms</span>
-            <span class="n">min_d</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-            <span class="n">surface_atom_indices</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">min_d</span> <span class="o">-</span> <span class="mf">0.01</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">val</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">min_d</span> <span class="o">+</span> <span class="mf">0.01</span><span class="p">)</span>
-            <span class="p">]</span>
+            <span class="n">min_d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+            <span class="n">surface_atom_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">d</span> <span class="o">&gt;=</span> <span class="n">min_d</span> <span class="o">-</span> <span class="n">min_d</span> <span class="o">*</span> <span class="mf">0.1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">d</span> <span class="o">&lt;=</span> <span class="n">min_d</span> <span class="o">+</span> <span class="n">min_d</span> <span class="o">*</span> <span class="mf">0.1</span><span class="p">)</span>
+            <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
             <span class="n">surface_atom_symbols</span> <span class="o">=</span> <span class="n">atoms_with_adsorbate</span><span class="p">[</span>
                 <span class="n">surface_atom_indices</span>
             <span class="p">]</span><span class="o">.</span><span class="n">get_chemical_symbols</span><span class="p">()</span>
