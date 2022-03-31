@@ -359,7 +359,7 @@
           <h1>Source code for quacc.recipes.vasp.slabs</h1><div class="highlight"><pre>
 <span></span><span class="sd">"""Recipes for slabs"""</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
 
 <span class="kn">from</span> <span class="nn">ase.atoms</span> <span class="kn">import</span> <span class="n">Atoms</span>
@@ -502,8 +502,8 @@
 <span class="sd">    """</span>
 
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"VASP-BulkToSlabs"</span>
-    <span class="n">slab_relax_job</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">=</span> <span class="n">SlabRelaxJob</span><span class="p">()</span>
-    <span class="n">slab_static_job</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">=</span> <span class="n">SlabStaticJob</span><span class="p">()</span>
+    <span class="n">slab_relax_job</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">SlabRelaxJob</span><span class="p">)</span>
+    <span class="n">slab_static_job</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">SlabStaticJob</span><span class="p">)</span>
 
 <div class="viewcode-block" id="BulkToSlabsJob.make"><a class="viewcode-back" href="../../../../reference/quacc.recipes.vasp.slabs.BulkToSlabsJob.html#quacc.recipes.vasp.slabs.BulkToSlabsJob.make">[docs]</a>    <span class="nd">@job</span>
     <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span> <span class="n">max_slabs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">slabgen_kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
@@ -576,8 +576,8 @@
 <span class="sd">    """</span>
 
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"VASP-SlabToAdsorbates"</span>
-    <span class="n">slab_ads_relax_job</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">=</span> <span class="n">SlabRelaxJob</span><span class="p">()</span>
-    <span class="n">slab_ads_static_job</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">=</span> <span class="n">SlabStaticJob</span><span class="p">()</span>
+    <span class="n">slab_ads_relax_job</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">SlabRelaxJob</span><span class="p">)</span>
+    <span class="n">slab_ads_static_job</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">SlabStaticJob</span><span class="p">)</span>
 
 <div class="viewcode-block" id="SlabToAdsorbatesJob.make"><a class="viewcode-back" href="../../../../reference/quacc.recipes.vasp.slabs.SlabToAdsorbatesJob.html#quacc.recipes.vasp.slabs.SlabToAdsorbatesJob.make">[docs]</a>    <span class="nd">@job</span>
     <span class="k">def</span> <span class="nf">make</span><span class="p">(</span>
@@ -683,10 +683,10 @@
 <span class="sd">    """</span>
 
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"VASP-BulkToAdsorbates"</span>
-    <span class="n">bulk_relax_job</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">RelaxJob</span><span class="p">()</span>
-    <span class="n">bulk_static_job</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">StaticJob</span><span class="p">()</span>
-    <span class="n">bulk_to_slabs_job</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">=</span> <span class="n">BulkToSlabsJob</span><span class="p">()</span>
-    <span class="n">slab_to_adsorbates_job</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">=</span> <span class="n">SlabToAdsorbatesJob</span><span class="p">()</span>
+    <span class="n">bulk_relax_job</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">RelaxJob</span><span class="p">)</span>
+    <span class="n">bulk_static_job</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">StaticJob</span><span class="p">)</span>
+    <span class="n">bulk_to_slabs_job</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">BulkToSlabsJob</span><span class="p">)</span>
+    <span class="n">slab_to_adsorbates_job</span><span class="p">:</span> <span class="n">Maker</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">SlabToAdsorbatesJob</span><span class="p">)</span>
 
 <div class="viewcode-block" id="BulkToAdsorbatesFlow.make"><a class="viewcode-back" href="../../../../reference/quacc.recipes.vasp.slabs.BulkToAdsorbatesFlow.html#quacc.recipes.vasp.slabs.BulkToAdsorbatesFlow.make">[docs]</a>    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
