@@ -359,7 +359,7 @@
           <h1>Source code for quacc.recipes.orca.core</h1><div class="highlight"><pre>
 <span></span><span class="sd">"""Core recipes for ORCA"""</span>
 <span class="kn">import</span> <span class="nn">multiprocessing</span>
-<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span>
 
 <span class="kn">from</span> <span class="nn">ase.atoms</span> <span class="kn">import</span> <span class="n">Atoms</span>
@@ -397,8 +397,8 @@
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"ORCA-Static"</span>
     <span class="n">xc</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"wb97x-d3bj"</span>
     <span class="n">basis</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"def2-tzvp"</span>
-    <span class="n">input_swaps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">block_swaps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">input_swaps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="n">block_swaps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
 
 <div class="viewcode-block" id="StaticJob.make"><a class="viewcode-back" href="../../../../reference/quacc.recipes.orca.core.StaticJob.html#quacc.recipes.orca.core.StaticJob.make">[docs]</a>    <span class="nd">@job</span>
     <span class="k">def</span> <span class="nf">make</span><span class="p">(</span>
@@ -423,11 +423,9 @@
 <span class="sd">        Dict</span>
 <span class="sd">            Summary of the run.</span>
 <span class="sd">        """</span>
-        <span class="n">input_swaps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_swaps</span> <span class="ow">or</span> <span class="p">{}</span>
-        <span class="n">block_swaps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_swaps</span> <span class="ow">or</span> <span class="p">{}</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">block_swaps</span> <span class="k">if</span> <span class="s2">"nprocs"</span> <span class="ow">in</span> <span class="n">k</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_swaps</span> <span class="k">if</span> <span class="s2">"nprocs"</span> <span class="ow">in</span> <span class="n">k</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>
             <span class="n">nprocs</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span>
-            <span class="n">block_swaps</span><span class="p">[</span><span class="sa">f</span><span class="s2">"%pal nprocs </span><span class="si">{</span><span class="n">nprocs</span><span class="si">}</span><span class="s2"> end"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">block_swaps</span><span class="p">[</span><span class="sa">f</span><span class="s2">"%pal nprocs </span><span class="si">{</span><span class="n">nprocs</span><span class="si">}</span><span class="s2"> end"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="n">default_inputs</span> <span class="o">=</span> <span class="p">{</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">xc</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
@@ -439,10 +437,10 @@
         <span class="n">default_blocks</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="n">inputs</span> <span class="o">=</span> <span class="n">merge_dicts</span><span class="p">(</span>
-            <span class="n">default_inputs</span><span class="p">,</span> <span class="n">input_swaps</span><span class="p">,</span> <span class="n">remove_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">remove_false</span><span class="o">=</span><span class="kc">True</span>
+            <span class="n">default_inputs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_swaps</span><span class="p">,</span> <span class="n">remove_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">remove_false</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
         <span class="n">blocks</span> <span class="o">=</span> <span class="n">merge_dicts</span><span class="p">(</span>
-            <span class="n">default_blocks</span><span class="p">,</span> <span class="n">block_swaps</span><span class="p">,</span> <span class="n">remove_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">remove_false</span><span class="o">=</span><span class="kc">True</span>
+            <span class="n">default_blocks</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_swaps</span><span class="p">,</span> <span class="n">remove_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">remove_false</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
         <span class="n">orcasimpleinput</span> <span class="o">=</span> <span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">inputs</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
         <span class="n">orcablocks</span> <span class="o">=</span> <span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">blocks</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
@@ -490,8 +488,8 @@
     <span class="n">xc</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"wb97x-d3bj"</span>
     <span class="n">basis</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"def2-tzvp"</span>
     <span class="n">freq</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="n">input_swaps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">block_swaps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">input_swaps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="n">block_swaps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
 
 <div class="viewcode-block" id="RelaxJob.make"><a class="viewcode-back" href="../../../../reference/quacc.recipes.orca.core.RelaxJob.html#quacc.recipes.orca.core.RelaxJob.make">[docs]</a>    <span class="nd">@job</span>
     <span class="k">def</span> <span class="nf">make</span><span class="p">(</span>
@@ -516,11 +514,9 @@
 <span class="sd">        Dict</span>
 <span class="sd">            Summary of the run.</span>
 <span class="sd">        """</span>
-        <span class="n">input_swaps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_swaps</span> <span class="ow">or</span> <span class="p">{}</span>
-        <span class="n">block_swaps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_swaps</span> <span class="ow">or</span> <span class="p">{}</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">block_swaps</span> <span class="k">if</span> <span class="s2">"nprocs"</span> <span class="ow">in</span> <span class="n">k</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_swaps</span> <span class="k">if</span> <span class="s2">"nprocs"</span> <span class="ow">in</span> <span class="n">k</span><span class="o">.</span><span class="n">lower</span><span class="p">()):</span>
             <span class="n">nprocs</span> <span class="o">=</span> <span class="n">multiprocessing</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span>
-            <span class="n">block_swaps</span><span class="p">[</span><span class="sa">f</span><span class="s2">"%pal nprocs </span><span class="si">{</span><span class="n">nprocs</span><span class="si">}</span><span class="s2"> end"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">block_swaps</span><span class="p">[</span><span class="sa">f</span><span class="s2">"%pal nprocs </span><span class="si">{</span><span class="n">nprocs</span><span class="si">}</span><span class="s2"> end"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="n">default_inputs</span> <span class="o">=</span> <span class="p">{</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">xc</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
@@ -533,10 +529,10 @@
         <span class="n">default_blocks</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="n">inputs</span> <span class="o">=</span> <span class="n">merge_dicts</span><span class="p">(</span>
-            <span class="n">default_inputs</span><span class="p">,</span> <span class="n">input_swaps</span><span class="p">,</span> <span class="n">remove_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">remove_false</span><span class="o">=</span><span class="kc">True</span>
+            <span class="n">default_inputs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_swaps</span><span class="p">,</span> <span class="n">remove_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">remove_false</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
         <span class="n">blocks</span> <span class="o">=</span> <span class="n">merge_dicts</span><span class="p">(</span>
-            <span class="n">default_blocks</span><span class="p">,</span> <span class="n">block_swaps</span><span class="p">,</span> <span class="n">remove_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">remove_false</span><span class="o">=</span><span class="kc">True</span>
+            <span class="n">default_blocks</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_swaps</span><span class="p">,</span> <span class="n">remove_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">remove_false</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
         <span class="n">orcasimpleinput</span> <span class="o">=</span> <span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">inputs</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
         <span class="n">orcablocks</span> <span class="o">=</span> <span class="s2">" "</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">blocks</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
