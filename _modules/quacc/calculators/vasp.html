@@ -969,6 +969,13 @@
             <span class="p">)</span>
         <span class="n">calc</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">isym</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 
+    <span class="k">if</span> <span class="n">calc</span><span class="o">.</span><span class="n">bool_params</span><span class="p">[</span><span class="s2">"lsorbit"</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">"Copilot: Setting ISYM = -1 because you are running a SOC calculation."</span>
+            <span class="p">)</span>
+        <span class="n">calc</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">isym</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
     <span class="k">if</span> <span class="n">calc</span><span class="o">.</span><span class="n">bool_params</span><span class="p">[</span><span class="s2">"luse_vdw"</span><span class="p">]</span> <span class="ow">and</span> <span class="s2">"ASE_VASP_VDW"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"ASE_VASP_VDW was not set, yet you requested a vdW functional."</span><span class="p">)</span>
 
