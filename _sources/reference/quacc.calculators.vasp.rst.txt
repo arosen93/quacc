@@ -9,14 +9,6 @@ quacc.calculators.vasp
 
    
 
-   .. rubric:: Functions
-
-   .. autosummary::
-      :toctree:
-      :nosignatures:
-   
-      SmartVasp
-
 
 
    
@@ -26,6 +18,8 @@ quacc.calculators.vasp
    
       
    
+   
+      
    
    
    
@@ -49,6 +43,7 @@ quacc.calculators.vasp
       :nosignatures:
    
       DEFAULT_CALCS_DIR
+      Vasp
       ase_default_setups
 
 

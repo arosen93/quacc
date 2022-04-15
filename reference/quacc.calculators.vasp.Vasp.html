@@ -3,14 +3,14 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="DEFAULT_CALCS_DIR" href="quacc.calculators.vasp.DEFAULT_CALCS_DIR.html" /><link rel="prev" title="quacc.calculators.vasp" href="quacc.calculators.vasp.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="ase_default_setups" href="quacc.calculators.vasp.ase_default_setups.html" /><link rel="prev" title="DEFAULT_CALCS_DIR" href="quacc.calculators.vasp.DEFAULT_CALCS_DIR.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
-        <title>SmartVasp - quacc</title>
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.03.04"/>
+        <title>Vasp - quacc</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=935aa2abcc5c1da4283d1dc201fb1f0add16d23a" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=25ceb02ed1c46dc30f2321ff83e92799f69dfdb9" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
     
     
@@ -59,12 +59,10 @@
   }
 </style></head>
   <body>
-    
     <script>
       document.body.dataset.theme = localStorage.getItem("theme") || "auto";
     </script>
     
-
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
   <symbol id="svg-toc" viewBox="0 0 24 24">
     <title>Contents</title>
@@ -194,8 +192,8 @@
 <li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current has-children"><a class="reference internal" href="quacc.calculators.html">quacc.calculators</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3 current has-children"><a class="reference internal" href="quacc.calculators.vasp.html">quacc.calculators.vasp</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l4 current current-page"><a class="current reference internal" href="#">SmartVasp</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quacc.calculators.vasp.DEFAULT_CALCS_DIR.html">DEFAULT_CALCS_DIR</a></li>
+<li class="toctree-l4 current current-page"><a class="current reference internal" href="#">Vasp</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quacc.calculators.vasp.ase_default_setups.html">ase_default_setups</a></li>
 </ul>
 </li>
@@ -359,19 +357,20 @@
           </label>
         </div>
         <article role="main">
-          <section id="smartvasp">
-<h1>SmartVasp<a class="headerlink" href="#smartvasp" title="Permalink to this headline">#</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="quacc.calculators.vasp.SmartVasp">
-<span class="sig-prename descclassname"><span class="pre">quacc.calculators.vasp.</span></span><span class="sig-name descname"><span class="pre">SmartVasp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custodian</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">incar_copilot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy_magmoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preset_mag_default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mag_cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/calculators/vasp.html#SmartVasp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.calculators.vasp.SmartVasp" title="Permalink to this definition">#</a></dt>
-<dd><p>This is a wrapper around the Vasp calculator that adjusts INCAR parameters on-the-fly,
+          <section id="vasp">
+<h1>Vasp<a class="headerlink" href="#vasp" title="Permalink to this headline">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="quacc.calculators.vasp.Vasp">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quacc.calculators.vasp.</span></span><span class="sig-name descname"><span class="pre">Vasp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custodian</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">incar_copilot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy_magmoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preset_mag_default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mag_cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/calculators/vasp.html#Vasp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.calculators.vasp.Vasp" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ase.calculators.vasp.vasp.Vasp</span></code></p>
+<p>This is a wrapper around the Vasp calculator that adjusts INCAR parameters on-the-fly,
 allows for ASE to run VASP via Custodian, and supports several automatic k-point generation schemes
 from Pymatgen.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>atoms</strong> (<em>ase.atoms.Atoms</em>) – The Atoms object to be used for the calculation.</p></li>
-<li><p><strong>preset</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Union" title="(in Python v3.10)"><em>Union</em></a><em>[</em><em>None</em><em>, </em><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – The path to a .yaml file containing a list of INCAR parameters to use as a “preset”
+<li><p><strong>preset</strong> (<em>None</em><em> | </em><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – The path to a .yaml file containing a list of INCAR parameters to use as a “preset”
 for the calculator. If no filepath is present, it will look in quacc/defaults/calcs/vasp, such
 that preset=”BulkRelaxSet” is supported. It will append .yaml at the end if not present.
 Note that any specific kwargs take precedence over the flags set in the preset dictionary.</p></li>
@@ -398,6 +397,29 @@ ASE calculator arguments, in addition to those custom to QuAcc.</p></li>
 <dd class="field-odd"><p>Atoms</p>
 </dd>
 </dl>
+<p>Basic calculator implementation.</p>
+<dl class="simple">
+<dt>restart: str</dt><dd><p>Prefix for restart file.  May contain a directory. Default
+is None: don’t restart.</p>
+</dd>
+<dt>ignore_bad_restart_file: bool</dt><dd><p>Deprecated, please do not use.
+Passing more than one positional argument to Calculator()
+is deprecated and will stop working in the future.
+Ignore broken or missing restart file.  By default, it is an
+error if the restart file is missing or broken.</p>
+</dd>
+<dt>directory: str or PurePath</dt><dd><p>Working directory in which to read and write files and
+perform calculations.</p>
+</dd>
+<dt>label: str</dt><dd><p>Name used for all files.  Not supported by all calculators.
+May contain a directory, but please use the directory parameter
+for that instead.</p>
+</dd>
+<dt>atoms: Atoms object</dt><dd><p>Optional Atoms object to which the calculator will be
+attached.  When restarting, atoms will get its positions and
+unit-cell updated from file.</p>
+</dd>
+</dl>
 </dd></dl>
 </section>
 
@@ -406,23 +428,23 @@ ASE calculator arguments, in addition to those custom to QuAcc.</p></li>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="quacc.calculators.vasp.DEFAULT_CALCS_DIR.html">
+          <a class="next-page" href="quacc.calculators.vasp.ase_default_setups.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">DEFAULT_CALCS_DIR</div>
+                <div class="title">ase_default_setups</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="quacc.calculators.vasp.html">
+          <a class="prev-page" href="quacc.calculators.vasp.DEFAULT_CALCS_DIR.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">quacc.calculators.vasp</div>
+                <div class="title">DEFAULT_CALCS_DIR</div>
                 
               </div>
             </a>

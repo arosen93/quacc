@@ -4,12 +4,12 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.03.04"/>
         <title>quacc.calculators.vasp - quacc</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=935aa2abcc5c1da4283d1dc201fb1f0add16d23a" />
     <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=25ceb02ed1c46dc30f2321ff83e92799f69dfdb9" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
     
     
@@ -58,12 +58,10 @@
   }
 </style></head>
   <body>
-    
     <script>
       document.body.dataset.theme = localStorage.getItem("theme") || "auto";
     </script>
     
-
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
   <symbol id="svg-toc" viewBox="0 0 24 24">
     <title>Contents</title>
@@ -193,8 +191,8 @@
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../../reference/quacc.calculators.html">quacc.calculators</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../reference/quacc.calculators.vasp.html">quacc.calculators.vasp</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.calculators.vasp.SmartVasp.html">SmartVasp</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.calculators.vasp.DEFAULT_CALCS_DIR.html">DEFAULT_CALCS_DIR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.calculators.vasp.Vasp.html">Vasp</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.calculators.vasp.ase_default_setups.html">ase_default_setups</a></li>
 </ul>
 </li>
@@ -366,12 +364,11 @@
 <span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">ase.atoms</span> <span class="kn">import</span> <span class="n">Atoms</span>
-<span class="kn">from</span> <span class="nn">ase.calculators.vasp</span> <span class="kn">import</span> <span class="n">Vasp</span>
+<span class="kn">from</span> <span class="nn">ase.calculators.vasp</span> <span class="kn">import</span> <span class="n">Vasp</span> <span class="k">as</span> <span class="n">Vasp_</span>
 <span class="kn">from</span> <span class="nn">ase.calculators.vasp.setups</span> <span class="kn">import</span> <span class="n">_setups_defaults</span> <span class="k">as</span> <span class="n">ase_default_setups</span>
 <span class="kn">from</span> <span class="nn">ase.constraints</span> <span class="kn">import</span> <span class="n">FixAtoms</span>
 <span class="kn">from</span> <span class="nn">pymatgen.io.ase</span> <span class="kn">import</span> <span class="n">AseAtomsAdaptor</span>
@@ -387,17 +384,7 @@
 <span class="n">DEFAULT_CALCS_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">vasp_defaults</span><span class="o">.</span><span class="vm">__file__</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="SmartVasp"><a class="viewcode-back" href="../../../reference/quacc.calculators.vasp.SmartVasp.html#quacc.calculators.vasp.SmartVasp">[docs]</a><span class="k">def</span> <span class="nf">SmartVasp</span><span class="p">(</span>
-    <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span>
-    <span class="n">preset</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">custodian</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">VASP_CUSTODIAN</span><span class="p">,</span>
-    <span class="n">incar_copilot</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">INCAR_COPILOT</span><span class="p">,</span>
-    <span class="n">copy_magmoms</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">preset_mag_default</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">VASP_PRESET_MAG_DEFAULT</span><span class="p">,</span>
-    <span class="n">mag_cutoff</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">VASP_MAG_CUTOFF</span><span class="p">,</span>
-    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Atoms</span><span class="p">:</span>
+<div class="viewcode-block" id="Vasp"><a class="viewcode-back" href="../../../reference/quacc.calculators.vasp.Vasp.html#quacc.calculators.vasp.Vasp">[docs]</a><span class="k">class</span> <span class="nc">Vasp</span><span class="p">(</span><span class="n">Vasp_</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    This is a wrapper around the Vasp calculator that adjusts INCAR parameters on-the-fly,</span>
 <span class="sd">    allows for ASE to run VASP via Custodian, and supports several automatic k-point generation schemes</span>
@@ -440,117 +427,120 @@
 <span class="sd">        The ASE Atoms object with attached VASP calculator.</span>
 <span class="sd">    """</span>
 
-    <span class="c1"># Copy the atoms to a new object so we don't modify the original</span>
-    <span class="n">atoms</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
-
-    <span class="c1"># Check constraints</span>
-    <span class="k">if</span> <span class="p">(</span>
-        <span class="n">custodian</span>
-        <span class="ow">and</span> <span class="n">atoms</span><span class="o">.</span><span class="n">constraints</span>
-        <span class="ow">and</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">FixAtoms</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">atoms</span><span class="o">.</span><span class="n">constraints</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span>
+        <span class="n">preset</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">custodian</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">VASP_CUSTODIAN</span><span class="p">,</span>
+        <span class="n">incar_copilot</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">VASP_INCAR_COPILOT</span><span class="p">,</span>
+        <span class="n">copy_magmoms</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">VASP_COPY_MAGMOMS</span><span class="p">,</span>
+        <span class="n">preset_mag_default</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">VASP_PRESET_MAG_DEFAULT</span><span class="p">,</span>
+        <span class="n">mag_cutoff</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">VASP_MAG_CUTOFF</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">VASP_VERBOSE</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">"Atoms object has a constraint that is not compatible with Custodian"</span>
+
+        <span class="c1"># Check constraints</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">custodian</span>
+            <span class="ow">and</span> <span class="n">atoms</span><span class="o">.</span><span class="n">constraints</span>
+            <span class="ow">and</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">FixAtoms</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">atoms</span><span class="o">.</span><span class="n">constraints</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">"Atoms object has a constraint that is not compatible with Custodian"</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Get VASP executable command, if necessary, and specify child environment</span>
+        <span class="c1"># variables</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="n">_manage_environment</span><span class="p">(</span><span class="n">custodian</span><span class="p">)</span>
+
+        <span class="c1"># Get user-defined preset parameters for the calculator</span>
+        <span class="k">if</span> <span class="n">preset</span><span class="p">:</span>
+            <span class="n">calc_preset</span> <span class="o">=</span> <span class="n">load_yaml_calc</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DEFAULT_CALCS_DIR</span><span class="p">,</span> <span class="n">preset</span><span class="p">))[</span>
+                <span class="s2">"inputs"</span>
+            <span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">calc_preset</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># Collect all the calculator parameters and prioritize the kwargs</span>
+        <span class="c1"># in the case of duplicates.</span>
+        <span class="n">user_calc_params</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">calc_preset</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">}</span>
+        <span class="n">none_keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">user_calc_params</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">none_key</span> <span class="ow">in</span> <span class="n">none_keys</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">user_calc_params</span><span class="p">[</span><span class="n">none_key</span><span class="p">]</span>
+
+        <span class="c1"># Allow the user to use setups='mysetups.yaml' to load in a custom setups</span>
+        <span class="c1"># from a YAML file</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">user_calc_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"setups"</span><span class="p">),</span> <span class="nb">str</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"setups"</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ase_default_setups</span>
+        <span class="p">):</span>
+            <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"setups"</span><span class="p">]</span> <span class="o">=</span> <span class="n">load_yaml_calc</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DEFAULT_CALCS_DIR</span><span class="p">,</span> <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"setups"</span><span class="p">])</span>
+            <span class="p">)[</span><span class="s2">"inputs"</span><span class="p">][</span><span class="s2">"setups"</span><span class="p">]</span>
+
+        <span class="c1"># If the preset has auto_kpts but the user explicitly requests kpts, then</span>
+        <span class="c1"># we should honor that.</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"kpts"</span><span class="p">)</span> <span class="ow">and</span> <span class="n">calc_preset</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"auto_kpts"</span><span class="p">):</span>
+            <span class="k">del</span> <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"auto_kpts"</span><span class="p">]</span>
+
+        <span class="c1"># Handle special arguments in the user calc parameters that</span>
+        <span class="c1"># ASE does not natively support</span>
+        <span class="k">if</span> <span class="n">user_calc_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"elemental_magmoms"</span><span class="p">):</span>
+            <span class="n">elemental_mags_dict</span> <span class="o">=</span> <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"elemental_magmoms"</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">elemental_mags_dict</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">user_calc_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"auto_kpts"</span><span class="p">):</span>
+            <span class="n">auto_kpts</span> <span class="o">=</span> <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"auto_kpts"</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">auto_kpts</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">user_calc_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"auto_dipole"</span><span class="p">):</span>
+            <span class="n">auto_dipole</span> <span class="o">=</span> <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"auto_dipole"</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">auto_dipole</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">user_calc_params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"elemental_magmoms"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">user_calc_params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"auto_kpts"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">user_calc_params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"auto_dipole"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="c1"># Make automatic k-point mesh</span>
+        <span class="k">if</span> <span class="n">auto_kpts</span><span class="p">:</span>
+            <span class="n">kpts</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">reciprocal</span> <span class="o">=</span> <span class="n">_convert_auto_kpts</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">auto_kpts</span><span class="p">)</span>
+            <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"kpts"</span><span class="p">]</span> <span class="o">=</span> <span class="n">kpts</span>
+            <span class="k">if</span> <span class="n">reciprocal</span> <span class="ow">and</span> <span class="n">user_calc_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"reciprocal"</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"reciprocal"</span><span class="p">]</span> <span class="o">=</span> <span class="n">reciprocal</span>
+            <span class="k">if</span> <span class="n">user_calc_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"gamma"</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"gamma"</span><span class="p">]</span> <span class="o">=</span> <span class="n">gamma</span>
+
+        <span class="c1"># Add dipole corrections if requested</span>
+        <span class="k">if</span> <span class="n">auto_dipole</span><span class="p">:</span>
+            <span class="n">com</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_center_of_mass</span><span class="p">(</span><span class="n">scaled</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s2">"dipol"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">user_calc_params</span><span class="p">:</span>
+                <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"dipol"</span><span class="p">]</span> <span class="o">=</span> <span class="n">com</span>
+            <span class="k">if</span> <span class="s2">"idipol"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">user_calc_params</span><span class="p">:</span>
+                <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"idipol"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+            <span class="k">if</span> <span class="s2">"ldipol"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">user_calc_params</span><span class="p">:</span>
+                <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"ldipol"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># Set magnetic moments</span>
+        <span class="n">set_magmoms</span><span class="p">(</span>
+            <span class="n">atoms</span><span class="p">,</span>
+            <span class="n">elemental_mags_dict</span><span class="o">=</span><span class="n">elemental_mags_dict</span><span class="p">,</span>
+            <span class="n">copy_magmoms</span><span class="o">=</span><span class="n">copy_magmoms</span><span class="p">,</span>
+            <span class="n">elemental_mags_default</span><span class="o">=</span><span class="n">preset_mag_default</span><span class="p">,</span>
+            <span class="n">mag_cutoff</span><span class="o">=</span><span class="n">mag_cutoff</span><span class="p">,</span>
         <span class="p">)</span>
 
-    <span class="c1"># Get VASP executable command, if necessary, and specify child environment</span>
-    <span class="c1"># variables</span>
-    <span class="n">command</span> <span class="o">=</span> <span class="n">_manage_environment</span><span class="p">(</span><span class="n">custodian</span><span class="p">)</span>
+        <span class="c1"># Handle INCAR swaps as needed</span>
+        <span class="k">if</span> <span class="n">incar_copilot</span><span class="p">:</span>
+            <span class="n">user_calc_params</span> <span class="o">=</span> <span class="n">_calc_swaps</span><span class="p">(</span>
+                <span class="n">atoms</span><span class="p">,</span> <span class="n">user_calc_params</span><span class="p">,</span> <span class="n">auto_kpts</span><span class="o">=</span><span class="n">auto_kpts</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span>
+            <span class="p">)</span>
 
-    <span class="c1"># Get user-defined preset parameters for the calculator</span>
-    <span class="k">if</span> <span class="n">preset</span><span class="p">:</span>
-        <span class="n">calc_preset</span> <span class="o">=</span> <span class="n">load_yaml_calc</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DEFAULT_CALCS_DIR</span><span class="p">,</span> <span class="n">preset</span><span class="p">))[</span><span class="s2">"inputs"</span><span class="p">]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">calc_preset</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="c1"># Remove unused INCAR flags</span>
+        <span class="n">user_calc_params</span> <span class="o">=</span> <span class="n">_remove_unused_flags</span><span class="p">(</span><span class="n">user_calc_params</span><span class="p">)</span>
 
-    <span class="c1"># Collect all the calculator parameters and prioritize the kwargs</span>
-    <span class="c1"># in the case of duplicates.</span>
-    <span class="n">user_calc_params</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">calc_preset</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">}</span>
-    <span class="n">none_keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">user_calc_params</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">none_key</span> <span class="ow">in</span> <span class="n">none_keys</span><span class="p">:</span>
-        <span class="k">del</span> <span class="n">user_calc_params</span><span class="p">[</span><span class="n">none_key</span><span class="p">]</span>
-
-    <span class="c1"># Allow the user to use setups='mysetups.yaml' to load in a custom setups</span>
-    <span class="c1"># from a YAML file</span>
-    <span class="k">if</span> <span class="p">(</span>
-        <span class="nb">isinstance</span><span class="p">(</span><span class="n">user_calc_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"setups"</span><span class="p">),</span> <span class="nb">str</span><span class="p">)</span>
-        <span class="ow">and</span> <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"setups"</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ase_default_setups</span>
-    <span class="p">):</span>
-        <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"setups"</span><span class="p">]</span> <span class="o">=</span> <span class="n">load_yaml_calc</span><span class="p">(</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DEFAULT_CALCS_DIR</span><span class="p">,</span> <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"setups"</span><span class="p">])</span>
-        <span class="p">)[</span><span class="s2">"inputs"</span><span class="p">][</span><span class="s2">"setups"</span><span class="p">]</span>
-
-    <span class="c1"># If the preset has auto_kpts but the user explicitly requests kpts, then</span>
-    <span class="c1"># we should honor that.</span>
-    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"kpts"</span><span class="p">)</span> <span class="ow">and</span> <span class="n">calc_preset</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"auto_kpts"</span><span class="p">):</span>
-        <span class="k">del</span> <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"auto_kpts"</span><span class="p">]</span>
-
-    <span class="c1"># Handle special arguments in the user calc parameters that</span>
-    <span class="c1"># ASE does not natively support</span>
-    <span class="k">if</span> <span class="n">user_calc_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"elemental_magmoms"</span><span class="p">):</span>
-        <span class="n">elemental_mags_dict</span> <span class="o">=</span> <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"elemental_magmoms"</span><span class="p">]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">elemental_mags_dict</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="k">if</span> <span class="n">user_calc_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"auto_kpts"</span><span class="p">):</span>
-        <span class="n">auto_kpts</span> <span class="o">=</span> <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"auto_kpts"</span><span class="p">]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">auto_kpts</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="k">if</span> <span class="n">user_calc_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"auto_dipole"</span><span class="p">):</span>
-        <span class="n">auto_dipole</span> <span class="o">=</span> <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"auto_dipole"</span><span class="p">]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">auto_dipole</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">user_calc_params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"elemental_magmoms"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="n">user_calc_params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"auto_kpts"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="n">user_calc_params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"auto_dipole"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-
-    <span class="c1"># Make automatic k-point mesh</span>
-    <span class="k">if</span> <span class="n">auto_kpts</span><span class="p">:</span>
-        <span class="n">kpts</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">reciprocal</span> <span class="o">=</span> <span class="n">_convert_auto_kpts</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">auto_kpts</span><span class="p">)</span>
-        <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"kpts"</span><span class="p">]</span> <span class="o">=</span> <span class="n">kpts</span>
-        <span class="k">if</span> <span class="n">reciprocal</span> <span class="ow">and</span> <span class="n">user_calc_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"reciprocal"</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"reciprocal"</span><span class="p">]</span> <span class="o">=</span> <span class="n">reciprocal</span>
-        <span class="k">if</span> <span class="n">user_calc_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"gamma"</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"gamma"</span><span class="p">]</span> <span class="o">=</span> <span class="n">gamma</span>
-
-    <span class="c1"># Add dipole corrections if requested</span>
-    <span class="k">if</span> <span class="n">auto_dipole</span><span class="p">:</span>
-        <span class="n">com</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_center_of_mass</span><span class="p">(</span><span class="n">scaled</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s2">"dipol"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">user_calc_params</span><span class="p">:</span>
-            <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"dipol"</span><span class="p">]</span> <span class="o">=</span> <span class="n">com</span>
-        <span class="k">if</span> <span class="s2">"idipol"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">user_calc_params</span><span class="p">:</span>
-            <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"idipol"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
-        <span class="k">if</span> <span class="s2">"ldipol"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">user_calc_params</span><span class="p">:</span>
-            <span class="n">user_calc_params</span><span class="p">[</span><span class="s2">"ldipol"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-
-    <span class="c1"># Set magnetic moments</span>
-    <span class="n">atoms</span> <span class="o">=</span> <span class="n">set_magmoms</span><span class="p">(</span>
-        <span class="n">atoms</span><span class="p">,</span>
-        <span class="n">elemental_mags_dict</span><span class="o">=</span><span class="n">elemental_mags_dict</span><span class="p">,</span>
-        <span class="n">copy_magmoms</span><span class="o">=</span><span class="n">copy_magmoms</span><span class="p">,</span>
-        <span class="n">elemental_mags_default</span><span class="o">=</span><span class="n">preset_mag_default</span><span class="p">,</span>
-        <span class="n">mag_cutoff</span><span class="o">=</span><span class="n">mag_cutoff</span><span class="p">,</span>
-    <span class="p">)</span>
-
-    <span class="c1"># Remove unused INCAR flags</span>
-    <span class="n">user_calc_params</span> <span class="o">=</span> <span class="n">_remove_unused_flags</span><span class="p">(</span><span class="n">user_calc_params</span><span class="p">)</span>
-
-    <span class="c1"># Instantiate the calculator!</span>
-    <span class="n">calc</span> <span class="o">=</span> <span class="n">Vasp</span><span class="p">(</span><span class="n">command</span><span class="o">=</span><span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">user_calc_params</span><span class="p">)</span>
-
-    <span class="c1"># Handle INCAR swaps as needed</span>
-    <span class="k">if</span> <span class="n">incar_copilot</span><span class="p">:</span>
-        <span class="n">calc</span> <span class="o">=</span> <span class="n">_calc_swaps</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">calc</span><span class="p">,</span> <span class="n">auto_kpts</span><span class="o">=</span><span class="n">auto_kpts</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
-
-    <span class="c1"># This is important! We want to make sure that setting</span>
-    <span class="c1"># a new VASP parameter throws away the prior calculator results</span>
-    <span class="c1"># otherwise we can't do things like run a new calculation</span>
-    <span class="c1"># with atoms.get_potential_energy() after the transformation</span>
-    <span class="n">calc</span><span class="o">.</span><span class="n">discard_results_on_any_change</span> <span class="o">=</span> <span class="kc">True</span>
-
-    <span class="c1"># Set the calculator</span>
-    <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">calc</span>
-
-    <span class="k">return</span> <span class="n">atoms</span></div>
+        <span class="c1"># Instantiate the calculator!</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">atoms</span><span class="o">=</span><span class="n">atoms</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">command</span><span class="p">,</span> <span class="o">**</span><span class="n">user_calc_params</span><span class="p">)</span></div>
 
 
 <span class="k">def</span> <span class="nf">_manage_environment</span><span class="p">(</span><span class="n">custodian</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -721,13 +711,13 @@
 
 <span class="k">def</span> <span class="nf">_calc_swaps</span><span class="p">(</span>
     <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span>
-    <span class="n">calc</span><span class="p">:</span> <span class="n">Vasp</span><span class="p">,</span>
+    <span class="n">user_calc_params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
     <span class="n">auto_kpts</span><span class="p">:</span> <span class="kc">None</span>
     <span class="o">|</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
     <span class="o">|</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]</span>
     <span class="o">|</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]],</span>
     <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Vasp</span><span class="p">:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
     <span class="sd">"""</span>
 <span class="sd">    Swaps out bad INCAR flags.</span>
 
@@ -735,8 +725,8 @@
 <span class="sd">    ----------</span>
 <span class="sd">    .Atoms</span>
 <span class="sd">        Atoms object</span>
-<span class="sd">    .Vasp</span>
-<span class="sd">        ASE VASP calculator</span>
+<span class="sd">    user_calc_params</span>
+<span class="sd">        User-specified calculation parameters</span>
 <span class="sd">    auto_kpts</span>
 <span class="sd">        The automatic k-point scheme dictionary</span>
 <span class="sd">    verbose</span>
@@ -744,11 +734,12 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    .Vasp</span>
-<span class="sd">        ASE VASP calculator with modified arguments.</span>
+<span class="sd">    Dict[str,Any]</span>
+<span class="sd">        Dictionary of new user-specified calculation parameters</span>
 <span class="sd">    """</span>
     <span class="n">is_metal</span> <span class="o">=</span> <span class="n">check_is_metal</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
     <span class="n">max_block</span> <span class="o">=</span> <span class="n">get_highest_block</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+    <span class="n">calc</span> <span class="o">=</span> <span class="n">Vasp_</span><span class="p">(</span><span class="o">**</span><span class="n">user_calc_params</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="p">(</span>
         <span class="ow">not</span> <span class="n">calc</span><span class="o">.</span><span class="n">int_params</span><span class="p">[</span><span class="s2">"lmaxmix"</span><span class="p">]</span> <span class="ow">or</span> <span class="n">calc</span><span class="o">.</span><span class="n">int_params</span><span class="p">[</span><span class="s2">"lmaxmix"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">6</span>
@@ -886,7 +877,7 @@
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
                 <span class="s2">"Copilot: Setting LAECHG = False because you have NSW &gt; 0. LAECHG is not compatible with NSW &gt; 0."</span>
             <span class="p">)</span>
-        <span class="n">calc</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">laechg</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="n">calc</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">laechg</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">calc</span><span class="o">.</span><span class="n">int_params</span><span class="p">[</span><span class="s2">"ldauprint"</span><span class="p">]</span> <span class="ow">in</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
         <span class="n">calc</span><span class="o">.</span><span class="n">bool_params</span><span class="p">[</span><span class="s2">"ldau"</span><span class="p">]</span> <span class="ow">or</span> <span class="n">calc</span><span class="o">.</span><span class="n">dict_params</span><span class="p">[</span><span class="s2">"ldau_luj"</span><span class="p">]</span>
@@ -926,8 +917,7 @@
                 <span class="s2">"Copilot: Setting NCORE = 1 because NCORE/NPAR is not compatible with this job type."</span>
             <span class="p">)</span>
         <span class="n">calc</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ncore</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">calc</span><span class="o">.</span><span class="n">int_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"npar"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">calc</span><span class="o">.</span><span class="n">int_params</span><span class="p">[</span><span class="s2">"npar"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">calc</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">npar</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="p">(</span>
         <span class="p">(</span><span class="n">calc</span><span class="o">.</span><span class="n">int_params</span><span class="p">[</span><span class="s2">"ncore"</span><span class="p">]</span> <span class="ow">and</span> <span class="n">calc</span><span class="o">.</span><span class="n">int_params</span><span class="p">[</span><span class="s2">"ncore"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
@@ -938,8 +928,7 @@
                 <span class="s2">"Copilot: Setting NCORE = 1 because you have a very small structure."</span>
             <span class="p">)</span>
         <span class="n">calc</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ncore</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">calc</span><span class="o">.</span><span class="n">int_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"npar"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">calc</span><span class="o">.</span><span class="n">int_params</span><span class="p">[</span><span class="s2">"npar"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">calc</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">npar</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="p">(</span>
         <span class="n">calc</span><span class="o">.</span><span class="n">int_params</span><span class="p">[</span><span class="s2">"kpar"</span><span class="p">]</span>
@@ -981,7 +970,7 @@
     <span class="k">if</span> <span class="n">calc</span><span class="o">.</span><span class="n">bool_params</span><span class="p">[</span><span class="s2">"luse_vdw"</span><span class="p">]</span> <span class="ow">and</span> <span class="s2">"ASE_VASP_VDW"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"ASE_VASP_VDW was not set, yet you requested a vdW functional."</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">calc</span>
+    <span class="k">return</span> <span class="n">calc</span><span class="o">.</span><span class="n">parameters</span>
 </pre></div>
         </article>
       </div>

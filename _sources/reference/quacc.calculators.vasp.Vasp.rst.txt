@@ -1,0 +1,8 @@
+Vasp
+====
+
+.. currentmodule:: quacc.calculators.vasp
+
+.. autoclass:: Vasp
+   :show-inheritance:
+   :members:
