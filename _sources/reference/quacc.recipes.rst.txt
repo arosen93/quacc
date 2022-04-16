@@ -38,6 +38,7 @@
    :toctree:
    :recursive:
 
+   quacc.recipes.dftb
    quacc.recipes.emt
    quacc.recipes.gaussian
    quacc.recipes.orca

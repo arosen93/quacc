@@ -1,0 +1,42 @@
+quacc.recipes.dftb
+==================
+
+.. automodule:: quacc.recipes.dftb
+
+   
+
+
+
+   
+
+
+
+   
+
+
+
+   
+   
+   
+   
+   
+   
+   
+
+
+
+
+   
+   
+   
+
+
+
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   quacc.recipes.dftb.core
+

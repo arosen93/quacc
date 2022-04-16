@@ -1,0 +1,6 @@
+DFTBPLUS\_EXISTS
+================
+
+.. currentmodule:: quacc.recipes.dftb.core
+
+.. autodata:: DFTBPLUS_EXISTS
