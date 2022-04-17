@@ -1,0 +1,6 @@
+GEOM\_FILE
+==========
+
+.. currentmodule:: quacc.recipes.dftb.core
+
+.. autodata:: GEOM_FILE

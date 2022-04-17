@@ -22,6 +22,12 @@ quacc.recipes.gaussian.core
       
    
    
+      
+   
+   
+      
+   
+   
    
    
    
@@ -35,6 +41,8 @@ quacc.recipes.gaussian.core
       :toctree:
       :nosignatures:
    
+      GEOM_FILE
+      LOG_FILE
       RelaxJob
       StaticJob
 

@@ -1,0 +1,6 @@
+LOG\_FILE
+=========
+
+.. currentmodule:: quacc.recipes.orca.core
+
+.. autodata:: LOG_FILE

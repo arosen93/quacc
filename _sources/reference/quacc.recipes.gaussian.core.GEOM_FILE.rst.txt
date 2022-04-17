@@ -1,0 +1,6 @@
+GEOM\_FILE
+==========
+
+.. currentmodule:: quacc.recipes.gaussian.core
+
+.. autodata:: GEOM_FILE

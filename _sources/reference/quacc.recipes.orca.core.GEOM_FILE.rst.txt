@@ -1,0 +1,6 @@
+GEOM\_FILE
+==========
+
+.. currentmodule:: quacc.recipes.orca.core
+
+.. autodata:: GEOM_FILE

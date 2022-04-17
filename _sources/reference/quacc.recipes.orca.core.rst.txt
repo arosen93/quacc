@@ -22,6 +22,12 @@ quacc.recipes.orca.core
       
    
    
+      
+   
+   
+      
+   
+   
    
    
    
@@ -35,6 +41,8 @@ quacc.recipes.orca.core
       :toctree:
       :nosignatures:
    
+      GEOM_FILE
+      LOG_FILE
       RelaxJob
       StaticJob
 

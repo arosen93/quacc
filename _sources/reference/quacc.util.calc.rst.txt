@@ -15,6 +15,7 @@ quacc.util.calc
       :toctree:
       :nosignatures:
    
+      run_ase_opt
       run_calc
 
 
@@ -23,6 +24,7 @@ quacc.util.calc
 
 
 
+   
    
    
    

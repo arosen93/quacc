@@ -1,0 +1,6 @@
+run\_ase\_opt
+=============
+
+.. currentmodule:: quacc.util.calc
+
+.. autofunction:: run_ase_opt

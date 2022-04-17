@@ -1,0 +1,6 @@
+GEOM\_FILE
+==========
+
+.. currentmodule:: quacc.recipes.vasp.slabs
+
+.. autodata:: GEOM_FILE
