@@ -386,7 +386,6 @@
 <span class="kn">from</span> <span class="nn">ase.optimize</span> <span class="kn">import</span> <span class="n">BFGSLineSearch</span>
 <span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">Maker</span><span class="p">,</span> <span class="n">job</span>
 
-<span class="kn">from</span> <span class="nn">quacc</span> <span class="kn">import</span> <span class="n">SETTINGS</span>
 <span class="kn">from</span> <span class="nn">quacc.calculators.vasp</span> <span class="kn">import</span> <span class="n">Vasp</span>
 <span class="kn">from</span> <span class="nn">quacc.schemas.calc</span> <span class="kn">import</span> <span class="n">summarize_run</span> <span class="k">as</span> <span class="n">summarize_ase_run</span>
 <span class="kn">from</span> <span class="nn">quacc.schemas.vasp</span> <span class="kn">import</span> <span class="n">summarize_run</span>
@@ -517,10 +516,9 @@
     <span class="n">flags</span> <span class="o">=</span> <span class="n">merge_dicts</span><span class="p">(</span><span class="n">defaults</span><span class="p">,</span> <span class="n">swaps</span><span class="p">)</span>
     <span class="n">calc</span> <span class="o">=</span> <span class="n">Vasp</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">preset</span><span class="o">=</span><span class="n">preset</span><span class="p">,</span> <span class="o">**</span><span class="n">flags</span><span class="p">)</span>
     <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">calc</span>
-    <span class="n">input_atoms</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
-    <span class="n">atoms</span> <span class="o">=</span> <span class="n">run_ase_opt</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">fmax</span><span class="o">=</span><span class="n">fmax</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">BFGSLineSearch</span><span class="p">)</span>
+    <span class="n">new_atoms</span> <span class="o">=</span> <span class="n">run_ase_opt</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">fmax</span><span class="o">=</span><span class="n">fmax</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">BFGSLineSearch</span><span class="p">)</span>
 
-    <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_ase_run</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">input_atoms</span><span class="o">=</span><span class="n">input_atoms</span><span class="p">)</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_ase_run</span><span class="p">(</span><span class="n">new_atoms</span><span class="p">,</span> <span class="n">input_atoms</span><span class="o">=</span><span class="n">atoms</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">summary</span>
 

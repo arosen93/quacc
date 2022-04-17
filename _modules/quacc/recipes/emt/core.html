@@ -389,7 +389,6 @@
 <span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">Maker</span><span class="p">,</span> <span class="n">job</span>
 
 <span class="kn">from</span> <span class="nn">quacc.schemas.calc</span> <span class="kn">import</span> <span class="n">summarize_run</span>
-<span class="kn">from</span> <span class="nn">quacc.util.calc</span> <span class="kn">import</span> <span class="n">run_ase_opt</span><span class="p">,</span> <span class="n">run_calc</span>
 
 <span class="c1"># NOTE: This set of minimal recipes is mainly for demonstration purposes</span>
 
@@ -429,7 +428,7 @@
         <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">EMT</span><span class="p">(</span><span class="n">asap_cutoff</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">asap_cutoff</span><span class="p">)</span>
         <span class="n">atoms</span><span class="o">.</span><span class="n">get_potential_energy</span><span class="p">()</span>
         <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span>
-            <span class="n">atoms</span><span class="p">,</span> <span class="n">input_atoms</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
+            <span class="n">atoms</span><span class="p">,</span> <span class="n">input_atoms</span><span class="o">=</span><span class="n">input_atoms</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
         <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">summary</span></div></div>
@@ -482,7 +481,7 @@
         <span class="p">)</span>
         <span class="n">dyn</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">fmax</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fmax</span><span class="p">)</span>
         <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span>
-            <span class="n">atoms</span><span class="p">,</span> <span class="n">input_atoms</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
+            <span class="n">atoms</span><span class="p">,</span> <span class="n">input_atoms</span><span class="o">=</span><span class="n">input_atoms</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
         <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">summary</span></div></div>
