@@ -380,7 +380,10 @@
 
 
 <div class="viewcode-block" id="summarize_run"><a class="viewcode-back" href="../../../reference/quacc.schemas.calc.summarize_run.html#quacc.schemas.calc.summarize_run">[docs]</a><span class="k">def</span> <span class="nf">summarize_run</span><span class="p">(</span>
-    <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span> <span class="n">prep_next_run</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">additional_fields</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span>
+    <span class="n">input_atoms</span><span class="p">:</span> <span class="n">Atoms</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">prep_next_run</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">additional_fields</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
     <span class="sd">"""</span>
 <span class="sd">    Get tabulated results from an Atoms object and calculator and store them in a database-friendly format.</span>
@@ -389,7 +392,9 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    atoms</span>
-<span class="sd">        ASE Atoms object following a calculation.</span>
+<span class="sd">        ASE Atoms following a calculation. A calculator must be attached.</span>
+<span class="sd">    input_atoms</span>
+<span class="sd">        Input ASE Atoms object to store.</span>
 <span class="sd">    prep_next_run</span>
 <span class="sd">        Whether the Atoms object stored in {"atoms": atoms} should be prepared for the next run</span>
 <span class="sd">        This clears out any attached calculator and moves the final magmoms to the initial magmoms.</span>
@@ -416,6 +421,9 @@
 
     <span class="c1"># Get the calculator inputs</span>
     <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"parameters"</span><span class="p">:</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">parameters</span><span class="p">}</span>
+    <span class="k">if</span> <span class="n">input_atoms</span><span class="p">:</span>
+        <span class="n">input_atoms_db</span> <span class="o">=</span> <span class="n">atoms_to_metadata</span><span class="p">(</span><span class="n">input_atoms</span><span class="p">)</span>
+        <span class="n">inputs</span><span class="p">[</span><span class="s2">"input_atoms"</span><span class="p">]</span> <span class="o">=</span> <span class="n">input_atoms_db</span>
 
     <span class="c1"># Prepares the Atoms object for the next run by moving the</span>
     <span class="c1"># final magmoms to initial, clearing the calculator state,</span>

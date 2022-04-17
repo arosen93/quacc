@@ -448,10 +448,8 @@
         <span class="p">)</span>
 
         <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">Dftb</span><span class="p">(</span><span class="o">**</span><span class="n">flags</span><span class="p">)</span>
-        <span class="n">atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
-        <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span>
-            <span class="n">atoms</span><span class="p">,</span> <span class="s2">"dftb.out"</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
-        <span class="p">)</span>
+        <span class="n">new_atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+        <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span><span class="n">new_atoms</span><span class="p">,</span> <span class="n">atoms</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">})</span>
 
         <span class="k">return</span> <span class="n">summary</span></div></div>
 
@@ -531,10 +529,8 @@
         <span class="p">)</span>
 
         <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">Dftb</span><span class="p">(</span><span class="o">**</span><span class="n">flags</span><span class="p">)</span>
-        <span class="n">atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
-        <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span>
-            <span class="n">atoms</span><span class="p">,</span> <span class="s2">"dftb.out"</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
-        <span class="p">)</span>
+        <span class="n">new_atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+        <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span><span class="n">new_atoms</span><span class="p">,</span> <span class="n">atoms</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">})</span>
 
         <span class="k">return</span> <span class="n">summary</span></div></div>
 </pre></div>

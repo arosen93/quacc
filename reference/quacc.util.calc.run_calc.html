@@ -375,7 +375,8 @@
 <span class="sig-prename descclassname"><span class="pre">quacc.util.calc.</span></span><span class="sig-name descname"><span class="pre">run_calc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gzip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy_from_store_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/util/calc.html#run_calc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.util.calc.run_calc" title="Permalink to this definition">#</a></dt>
 <dd><p>Run a calculation in a scratch directory and copy the results back to the
 original directory. This can be useful if file I/O is slow in the working
-directory, so long as file transfer speeds are reasonable.</p>
+directory, so long as file transfer speeds are reasonable. Note: This
+function does not modify the atoms object in-place.</p>
 <p>This is a wrapper around atoms.get_potential_energy().</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
