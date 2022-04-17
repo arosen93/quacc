@@ -211,6 +211,7 @@
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../../reference/quacc.recipes.dftb.html">quacc.recipes.dftb</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4 has-children"><a class="reference internal" href="../../../../reference/quacc.recipes.dftb.core.html">quacc.recipes.dftb.core</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../../reference/quacc.recipes.dftb.core.DFTBPLUS_EXISTS.html">DFTBPLUS_EXISTS</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../reference/quacc.recipes.dftb.core.RelaxJob.html">RelaxJob</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../reference/quacc.recipes.dftb.core.StaticJob.html">StaticJob</a></li>
 </ul>
 </li>
@@ -433,6 +434,87 @@
                 <span class="n">defaults</span><span class="p">[</span><span class="s2">"Hamiltonian_Method"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"GFN2-xTB"</span>
             <span class="k">elif</span> <span class="s2">"gfn1-xtb"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
                 <span class="n">defaults</span><span class="p">[</span><span class="s2">"Hamiltonian_Method"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"GFN1-xTB"</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kpts</span><span class="p">:</span>
+            <span class="n">defaults</span><span class="p">[</span><span class="s2">"kpts"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kpts</span>
+        <span class="k">elif</span> <span class="kc">True</span> <span class="ow">in</span> <span class="n">atoms</span><span class="o">.</span><span class="n">pbc</span><span class="p">:</span>
+            <span class="n">defaults</span><span class="p">[</span><span class="s2">"kpts"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">defaults</span><span class="p">[</span><span class="s2">"kpts"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">flags</span> <span class="o">=</span> <span class="n">merge_dicts</span><span class="p">(</span>
+            <span class="n">defaults</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">swaps</span><span class="p">,</span> <span class="n">remove_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">auto_lowercase</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span>
+
+        <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">Dftb</span><span class="p">(</span><span class="o">**</span><span class="n">flags</span><span class="p">)</span>
+        <span class="n">atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+        <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span>
+            <span class="n">atoms</span><span class="p">,</span> <span class="s2">"dftb.out"</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">summary</span></div></div>
+
+
+<div class="viewcode-block" id="RelaxJob"><a class="viewcode-back" href="../../../../reference/quacc.recipes.dftb.core.RelaxJob.html#quacc.recipes.dftb.core.RelaxJob">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">RelaxJob</span><span class="p">(</span><span class="n">Maker</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Class to carry out a structure relaxation.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name</span>
+<span class="sd">        Name of the job.</span>
+<span class="sd">    method</span>
+<span class="sd">        Method to use. Accepts 'DFTB', 'GFN1-xTB', and 'GFN2-xTB'.</span>
+<span class="sd">    kpts</span>
+<span class="sd">        k-point grid to use. Defaults to None for molecules and</span>
+<span class="sd">        (1, 1, 1) for solids.</span>
+<span class="sd">    lattice_opt</span>
+<span class="sd">        Whether to relax the unit cell shape/volume in addition to</span>
+<span class="sd">        the positions.</span>
+<span class="sd">    swaps</span>
+<span class="sd">        Dictionary of custom kwargs for the calculator.</span>
+<span class="sd">    """</span>
+
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"DFTB-Relax"</span>
+    <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"GFN2-xTB"</span>
+    <span class="n">kpts</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">|</span> <span class="n">List</span><span class="p">[</span><span class="nb">tuple</span><span class="p">]</span> <span class="o">|</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">lattice_opt</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">swaps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+
+<div class="viewcode-block" id="RelaxJob.make"><a class="viewcode-back" href="../../../../reference/quacc.recipes.dftb.core.RelaxJob.html#quacc.recipes.dftb.core.RelaxJob.make">[docs]</a>    <span class="nd">@job</span>
+    <span class="nd">@requires</span><span class="p">(</span>
+        <span class="n">DFTBPLUS_EXISTS</span><span class="p">,</span>
+        <span class="s2">"DFTB+ must be installed. Try conda install -c conda-forge dftbplus"</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Make the run.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        atoms</span>
+<span class="sd">            .Atoms object</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Dict</span>
+<span class="sd">            Summary of the run.</span>
+<span class="sd">        """</span>
+        <span class="n">defaults</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"Driver_"</span><span class="p">:</span> <span class="s2">"GeometryOptimization"</span><span class="p">,</span>
+            <span class="s2">"Driver_LatticeOpt"</span><span class="p">:</span> <span class="s2">"Yes"</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lattice_opt</span> <span class="ow">and</span> <span class="kc">True</span> <span class="ow">in</span> <span class="n">atoms</span><span class="o">.</span><span class="n">pbc</span>
+            <span class="k">else</span> <span class="s2">"No"</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="s2">"xtb"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="n">defaults</span><span class="p">[</span><span class="s2">"Hamiltonian_"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"xTB"</span>
+            <span class="k">if</span> <span class="s2">"gfn2-xtb"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                <span class="n">defaults</span><span class="p">[</span><span class="s2">"Hamiltonian_Method"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"GFN2-xTB"</span>
+            <span class="k">elif</span> <span class="s2">"gfn1-xtb"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                <span class="n">defaults</span><span class="p">[</span><span class="s2">"Hamiltonian_Method"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"GFN1-xTB"</span>
+
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kpts</span><span class="p">:</span>
             <span class="n">defaults</span><span class="p">[</span><span class="s2">"kpts"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kpts</span>
         <span class="k">elif</span> <span class="kc">True</span> <span class="ow">in</span> <span class="n">atoms</span><span class="o">.</span><span class="n">pbc</span><span class="p">:</span>

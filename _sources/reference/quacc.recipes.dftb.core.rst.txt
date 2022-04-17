@@ -22,6 +22,9 @@ quacc.recipes.dftb.core
       
    
    
+      
+   
+   
    
    
    
@@ -36,6 +39,7 @@ quacc.recipes.dftb.core
       :nosignatures:
    
       DFTBPLUS_EXISTS
+      RelaxJob
       StaticJob
 
 
