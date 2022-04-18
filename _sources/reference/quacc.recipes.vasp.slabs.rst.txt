@@ -31,9 +31,6 @@ quacc.recipes.vasp.slabs
       
    
    
-      
-   
-   
    
    
    
@@ -50,7 +47,6 @@ quacc.recipes.vasp.slabs
    
       BulkToAdsorbatesFlow
       BulkToSlabsJob
-      GEOM_FILE
       SlabRelaxJob
       SlabStaticJob
       SlabToAdsorbatesJob

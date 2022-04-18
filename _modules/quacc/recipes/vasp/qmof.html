@@ -249,20 +249,17 @@
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../../reference/quacc.recipes.vasp.html">quacc.recipes.vasp</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" role="switch" type="checkbox"/><label for="toctree-checkbox-17"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4 has-children"><a class="reference internal" href="../../../../reference/quacc.recipes.vasp.core.html">quacc.recipes.vasp.core</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" role="switch" type="checkbox"/><label for="toctree-checkbox-18"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../../reference/quacc.recipes.vasp.core.DoubleRelaxJob.html">DoubleRelaxJob</a></li>
-<li class="toctree-l5"><a class="reference internal" href="../../../../reference/quacc.recipes.vasp.core.GEOM_FILE.html">GEOM_FILE</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../reference/quacc.recipes.vasp.core.RelaxJob.html">RelaxJob</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../reference/quacc.recipes.vasp.core.StaticJob.html">StaticJob</a></li>
 </ul>
 </li>
 <li class="toctree-l4 has-children"><a class="reference internal" href="../../../../reference/quacc.recipes.vasp.qmof.html">quacc.recipes.vasp.qmof</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" role="switch" type="checkbox"/><label for="toctree-checkbox-19"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l5"><a class="reference internal" href="../../../../reference/quacc.recipes.vasp.qmof.GEOM_FILE.html">GEOM_FILE</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../reference/quacc.recipes.vasp.qmof.QMOFRelaxJob.html">QMOFRelaxJob</a></li>
 </ul>
 </li>
 <li class="toctree-l4 has-children"><a class="reference internal" href="../../../../reference/quacc.recipes.vasp.slabs.html">quacc.recipes.vasp.slabs</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" role="switch" type="checkbox"/><label for="toctree-checkbox-20"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../../reference/quacc.recipes.vasp.slabs.BulkToAdsorbatesFlow.html">BulkToAdsorbatesFlow</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../reference/quacc.recipes.vasp.slabs.BulkToSlabsJob.html">BulkToSlabsJob</a></li>
-<li class="toctree-l5"><a class="reference internal" href="../../../../reference/quacc.recipes.vasp.slabs.GEOM_FILE.html">GEOM_FILE</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../reference/quacc.recipes.vasp.slabs.SlabRelaxJob.html">SlabRelaxJob</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../reference/quacc.recipes.vasp.slabs.SlabStaticJob.html">SlabStaticJob</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../reference/quacc.recipes.vasp.slabs.SlabToAdsorbatesJob.html">SlabToAdsorbatesJob</a></li>
@@ -395,7 +392,6 @@
 
 <span class="c1"># This set of recipes is meant to be compatible with the QMOF Database workflow.</span>
 <span class="c1"># Reference: https://doi.org/10.1016/j.matt.2021.02.015</span>
-<span class="n">GEOM_FILE</span> <span class="o">=</span> <span class="s2">"CONTCAR"</span>
 
 
 <div class="viewcode-block" id="QMOFRelaxJob"><a class="viewcode-back" href="../../../../reference/quacc.recipes.vasp.qmof.QMOFRelaxJob.html#quacc.recipes.vasp.qmof.QMOFRelaxJob">[docs]</a><span class="nd">@dataclass</span>
@@ -568,7 +564,7 @@
     <span class="n">flags</span> <span class="o">=</span> <span class="n">merge_dicts</span><span class="p">(</span><span class="n">defaults</span><span class="p">,</span> <span class="n">swaps</span><span class="p">)</span>
     <span class="n">calc</span> <span class="o">=</span> <span class="n">Vasp</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">preset</span><span class="o">=</span><span class="n">preset</span><span class="p">,</span> <span class="o">**</span><span class="n">flags</span><span class="p">)</span>
     <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">calc</span>
-    <span class="n">atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">geom_file</span><span class="o">=</span><span class="n">GEOM_FILE</span><span class="p">)</span>
+    <span class="n">atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
 
     <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">bader</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
@@ -611,7 +607,7 @@
     <span class="n">flags</span> <span class="o">=</span> <span class="n">merge_dicts</span><span class="p">(</span><span class="n">defaults</span><span class="p">,</span> <span class="n">swaps</span><span class="p">)</span>
     <span class="n">calc</span> <span class="o">=</span> <span class="n">Vasp</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">preset</span><span class="o">=</span><span class="n">preset</span><span class="p">,</span> <span class="o">**</span><span class="n">flags</span><span class="p">)</span>
     <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">calc</span>
-    <span class="n">atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">geom_file</span><span class="o">=</span><span class="n">GEOM_FILE</span><span class="p">)</span>
+    <span class="n">atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
 
     <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">bader</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
@@ -658,7 +654,7 @@
     <span class="n">flags</span> <span class="o">=</span> <span class="n">merge_dicts</span><span class="p">(</span><span class="n">defaults</span><span class="p">,</span> <span class="n">swaps</span><span class="p">)</span>
     <span class="n">calc1</span> <span class="o">=</span> <span class="n">Vasp</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">preset</span><span class="o">=</span><span class="n">preset</span><span class="p">,</span> <span class="o">**</span><span class="n">flags</span><span class="p">)</span>
     <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">calc1</span>
-    <span class="n">atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">geom_file</span><span class="o">=</span><span class="n">GEOM_FILE</span><span class="p">)</span>
+    <span class="n">atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
 
     <span class="c1"># Update atoms for</span>
     <span class="n">summary1</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">bader</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"relax1"</span><span class="p">})</span>
@@ -676,7 +672,7 @@
     <span class="k">if</span> <span class="n">calc1</span><span class="o">.</span><span class="n">kpts</span> <span class="o">==</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="n">calc2</span><span class="o">.</span><span class="n">kpts</span> <span class="o">!=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
         <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">istart</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-    <span class="n">atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">geom_file</span><span class="o">=</span><span class="n">GEOM_FILE</span><span class="p">)</span>
+    <span class="n">atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
     <span class="n">summary2</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">bader</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="p">{</span><span class="s2">"relax1"</span><span class="p">:</span> <span class="n">summary1</span><span class="p">,</span> <span class="s2">"relax2"</span><span class="p">:</span> <span class="n">summary2</span><span class="p">}</span>
@@ -717,7 +713,7 @@
     <span class="n">flags</span> <span class="o">=</span> <span class="n">merge_dicts</span><span class="p">(</span><span class="n">defaults</span><span class="p">,</span> <span class="n">swaps</span><span class="p">)</span>
     <span class="n">calc</span> <span class="o">=</span> <span class="n">Vasp</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">preset</span><span class="o">=</span><span class="n">preset</span><span class="p">,</span> <span class="o">**</span><span class="n">flags</span><span class="p">)</span>
     <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">calc</span>
-    <span class="n">atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">geom_file</span><span class="o">=</span><span class="n">GEOM_FILE</span><span class="p">)</span>
+    <span class="n">atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
 
     <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
 

@@ -1,6 +1,0 @@
-GEOM\_FILE
-==========
-
-.. currentmodule:: quacc.recipes.vasp.core
-
-.. autodata:: GEOM_FILE

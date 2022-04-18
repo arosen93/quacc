@@ -25,9 +25,6 @@ quacc.recipes.vasp.core
       
    
    
-      
-   
-   
    
    
    
@@ -42,7 +39,6 @@ quacc.recipes.vasp.core
       :nosignatures:
    
       DoubleRelaxJob
-      GEOM_FILE
       RelaxJob
       StaticJob
 
