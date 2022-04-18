@@ -403,7 +403,7 @@ being the most recent.</p>
 <li><p><strong>atoms</strong> (<em>ase.atoms.Atoms</em>) – Atoms object</p></li>
 <li><p><strong>assign_id</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to assign a unique ID to the Atoms object in atoms.info[“_id”].
 Any existing IDs will be moved to atoms.info[“_old_ids”].</p></li>
-<li><p><strong>move_magmoms</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, move atoms.get_magnetic_moments() to atoms.get_initial_magnetic_moments()</p></li>
+<li><p><strong>move_magmoms</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, move atoms.calc.results[“magmoms”] to atoms.get_initial_magnetic_moments()</p></li>
 <li><p><strong>store_results</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, store calculator results in atoms.info[“results”]. This makes it so the calculator results
 are not lost between serialize/deserialize cycles, if desired. Each one will be stored in
 atoms.info[“results”] = {“calc0”: {}, “calc1”: {}, …} with higher numbers being the most recent.</p></li>

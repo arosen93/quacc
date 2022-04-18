@@ -429,7 +429,7 @@
 <span class="sd">        Whether to assign a unique ID to the Atoms object in atoms.info["_id"].</span>
 <span class="sd">        Any existing IDs will be moved to atoms.info["_old_ids"].</span>
 <span class="sd">    move_magmoms</span>
-<span class="sd">        If True, move atoms.get_magnetic_moments() to atoms.get_initial_magnetic_moments()</span>
+<span class="sd">        If True, move atoms.calc.results["magmoms"] to atoms.get_initial_magnetic_moments()</span>
 <span class="sd">    store_results</span>
 <span class="sd">        If True, store calculator results in atoms.info["results"]. This makes it so the calculator results</span>
 <span class="sd">        are not lost between serialize/deserialize cycles, if desired. Each one will be stored in</span>
