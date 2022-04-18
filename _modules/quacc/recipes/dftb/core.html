@@ -439,21 +439,11 @@
 <span class="sd">        Dict</span>
 <span class="sd">            Summary of the run.</span>
 <span class="sd">        """</span>
-        <span class="n">defaults</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">if</span> <span class="s2">"xtb"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
-            <span class="n">defaults</span><span class="p">[</span><span class="s2">"Hamiltonian_"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"xTB"</span>
-            <span class="k">if</span> <span class="s2">"gfn2-xtb"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
-                <span class="n">defaults</span><span class="p">[</span><span class="s2">"Hamiltonian_Method"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"GFN2-xTB"</span>
-            <span class="k">elif</span> <span class="s2">"gfn1-xtb"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
-                <span class="n">defaults</span><span class="p">[</span><span class="s2">"Hamiltonian_Method"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"GFN1-xTB"</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kpts</span><span class="p">:</span>
-            <span class="n">defaults</span><span class="p">[</span><span class="s2">"kpts"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kpts</span>
-        <span class="k">elif</span> <span class="n">atoms</span><span class="o">.</span><span class="n">pbc</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
-            <span class="n">defaults</span><span class="p">[</span><span class="s2">"kpts"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">defaults</span><span class="p">[</span><span class="s2">"kpts"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-
+        <span class="n">defaults</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"Hamiltonian_"</span><span class="p">:</span> <span class="s2">"xTB"</span> <span class="k">if</span> <span class="s2">"xtb"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">else</span> <span class="s2">"DFTB"</span><span class="p">,</span>
+            <span class="s2">"Hamiltonian_Method"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="k">if</span> <span class="s2">"xtb"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">"kpts"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">kpts</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kpts</span> <span class="k">else</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">pbc</span><span class="o">.</span><span class="n">any</span><span class="p">()</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">}</span>
         <span class="n">flags</span> <span class="o">=</span> <span class="n">merge_dicts</span><span class="p">(</span>
             <span class="n">defaults</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">swaps</span><span class="p">,</span> <span class="n">remove_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">auto_lowercase</span><span class="o">=</span><span class="kc">False</span>
         <span class="p">)</span>
@@ -514,27 +504,15 @@
 <span class="sd">            Summary of the run.</span>
 <span class="sd">        """</span>
         <span class="n">defaults</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"Hamiltonian_"</span><span class="p">:</span> <span class="s2">"xTB"</span> <span class="k">if</span> <span class="s2">"xtb"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">else</span> <span class="s2">"DFTB"</span><span class="p">,</span>
+            <span class="s2">"Hamiltonian_Method"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="k">if</span> <span class="s2">"xtb"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">"kpts"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">kpts</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kpts</span> <span class="k">else</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">pbc</span><span class="o">.</span><span class="n">any</span><span class="p">()</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
             <span class="s2">"Driver_"</span><span class="p">:</span> <span class="s2">"GeometryOptimization"</span><span class="p">,</span>
             <span class="s2">"Driver_LatticeOpt"</span><span class="p">:</span> <span class="s2">"Yes"</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lattice_opt</span> <span class="ow">and</span> <span class="kc">True</span> <span class="ow">in</span> <span class="n">atoms</span><span class="o">.</span><span class="n">pbc</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lattice_opt</span> <span class="ow">and</span> <span class="n">atoms</span><span class="o">.</span><span class="n">pbc</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
             <span class="k">else</span> <span class="s2">"No"</span><span class="p">,</span>
-            <span class="s2">"Driver_MaxSteps"</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+            <span class="s2">"Driver_MaxSteps"</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
         <span class="p">}</span>
-
-        <span class="k">if</span> <span class="s2">"xtb"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
-            <span class="n">defaults</span><span class="p">[</span><span class="s2">"Hamiltonian_"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"xTB"</span>
-            <span class="k">if</span> <span class="s2">"gfn2-xtb"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
-                <span class="n">defaults</span><span class="p">[</span><span class="s2">"Hamiltonian_Method"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"GFN2-xTB"</span>
-            <span class="k">elif</span> <span class="s2">"gfn1-xtb"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
-                <span class="n">defaults</span><span class="p">[</span><span class="s2">"Hamiltonian_Method"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"GFN1-xTB"</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kpts</span><span class="p">:</span>
-            <span class="n">defaults</span><span class="p">[</span><span class="s2">"kpts"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kpts</span>
-        <span class="k">elif</span> <span class="n">atoms</span><span class="o">.</span><span class="n">pbc</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
-            <span class="n">defaults</span><span class="p">[</span><span class="s2">"kpts"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">defaults</span><span class="p">[</span><span class="s2">"kpts"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-
         <span class="n">flags</span> <span class="o">=</span> <span class="n">merge_dicts</span><span class="p">(</span>
             <span class="n">defaults</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">swaps</span><span class="p">,</span> <span class="n">remove_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">auto_lowercase</span><span class="o">=</span><span class="kc">False</span>
         <span class="p">)</span>
