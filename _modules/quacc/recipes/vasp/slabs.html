@@ -378,6 +378,8 @@
         <article role="main">
           <h1>Source code for quacc.recipes.vasp.slabs</h1><div class="highlight"><pre>
 <span></span><span class="sd">"""Recipes for slabs"""</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
@@ -606,7 +608,7 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">slabs</span><span class="p">:</span> <span class="n">Atoms</span> <span class="o">|</span> <span class="n">List</span><span class="p">[</span><span class="n">Atoms</span><span class="p">],</span>
         <span class="n">adsorbates</span><span class="p">:</span> <span class="n">Atoms</span> <span class="o">|</span> <span class="n">List</span><span class="p">[</span><span class="n">Atoms</span><span class="p">],</span>
-        <span class="o">**</span><span class="n">make_ads_kwargs</span>
+        <span class="o">**</span><span class="n">make_ads_kwargs</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Make the run.</span>
@@ -774,7 +776,7 @@
             <span class="n">slab_to_adsorbates_job</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slab_to_adsorbates_job</span><span class="o">.</span><span class="n">make</span><span class="p">(</span>
                 <span class="n">find_stable_slab_job</span><span class="o">.</span><span class="n">output</span><span class="p">[</span><span class="s2">"stable_slabs"</span><span class="p">][</span><span class="s2">"all_atoms"</span><span class="p">],</span>
                 <span class="n">adsorbate</span><span class="p">,</span>
-                <span class="o">**</span><span class="n">make_ads_kwargs</span>
+                <span class="o">**</span><span class="n">make_ads_kwargs</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="n">jobs</span> <span class="o">+=</span> <span class="p">[</span><span class="n">find_stable_slab_job</span><span class="p">,</span> <span class="n">slab_to_adsorbates_job</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
