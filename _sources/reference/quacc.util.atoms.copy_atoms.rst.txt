@@ -1,0 +1,6 @@
+copy\_atoms
+===========
+
+.. currentmodule:: quacc.util.atoms
+
+.. autofunction:: copy_atoms

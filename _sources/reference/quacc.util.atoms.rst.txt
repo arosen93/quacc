@@ -16,6 +16,7 @@ quacc.util.atoms
       :nosignatures:
    
       check_is_metal
+      copy_atoms
       get_atoms_id
       get_highest_block
       prep_next_run
@@ -27,6 +28,7 @@ quacc.util.atoms
 
 
 
+   
    
    
    

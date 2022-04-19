@@ -1,0 +1,8 @@
+StaticMaker
+===========
+
+.. currentmodule:: quacc.recipes.psi4.core
+
+.. autoclass:: StaticMaker
+   :show-inheritance:
+   :members:

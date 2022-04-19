@@ -1,0 +1,6 @@
+psi4
+====
+
+.. currentmodule:: quacc.recipes.psi4.core
+
+.. autodata:: psi4

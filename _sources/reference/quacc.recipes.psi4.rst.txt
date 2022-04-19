@@ -1,0 +1,42 @@
+quacc.recipes.psi4
+==================
+
+.. automodule:: quacc.recipes.psi4
+
+   
+
+
+
+   
+
+
+
+   
+
+
+
+   
+   
+   
+   
+   
+   
+   
+
+
+
+
+   
+   
+   
+
+
+
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   quacc.recipes.psi4.core
+

@@ -42,6 +42,7 @@
    quacc.recipes.emt
    quacc.recipes.gaussian
    quacc.recipes.orca
+   quacc.recipes.psi4
    quacc.recipes.vasp
    quacc.recipes.xtb
 
