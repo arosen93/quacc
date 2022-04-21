@@ -317,6 +317,7 @@
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="quacc.util.basics.html">quacc.util.basics</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="quacc.util.basics.copy_decompress.html">copy_decompress</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.basics.load_yaml_calc.html">load_yaml_calc</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.basics.merge_dicts.html">merge_dicts</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.basics.remove_dict_empties.html">remove_dict_empties</a></li>
@@ -387,7 +388,7 @@
 <h1>run_calc<a class="headerlink" href="#run-calc" title="Permalink to this headline">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="quacc.util.calc.run_calc">
-<span class="sig-prename descclassname"><span class="pre">quacc.util.calc.</span></span><span class="sig-name descname"><span class="pre">run_calc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geom_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gzip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy_from_store_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/util/calc.html#run_calc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.util.calc.run_calc" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">quacc.util.calc.</span></span><span class="sig-name descname"><span class="pre">run_calc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geom_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gzip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy_files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/util/calc.html#run_calc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.util.calc.run_calc" title="Permalink to this definition">#</a></dt>
 <dd><p>Run a calculation in a scratch directory and copy the results back to the
 original directory. This can be useful if file I/O is slow in the working
 directory, so long as file transfer speeds are reasonable.</p>
@@ -404,8 +405,7 @@ function to update the positions, as this varies between codes.</p></li>
 <li><p><strong>scratch_dir</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Path where a tmpdir should be made for running the calculation. If None,
 the current working directory will be used.</p></li>
 <li><p><strong>gzip</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to gzip the output files.</p></li>
-<li><p><strong>copy_from_store_dir</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to copy any pre-existing files from the original directory to the
-scratch_dir before running the calculation.</p></li>
+<li><p><strong>copy_files</strong> (<em>List</em><em>[</em><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – Filenames to copy from source to scratch directory.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

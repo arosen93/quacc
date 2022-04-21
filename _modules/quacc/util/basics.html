@@ -316,6 +316,7 @@
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../reference/quacc.util.basics.html">quacc.util.basics</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.util.basics.copy_decompress.html">copy_decompress</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.util.basics.load_yaml_calc.html">load_yaml_calc</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.util.basics.merge_dicts.html">merge_dicts</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.util.basics.remove_dict_empties.html">remove_dict_empties</a></li>
@@ -389,9 +390,31 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">copy</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
 
 <span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">from</span> <span class="nn">monty.os.path</span> <span class="kn">import</span> <span class="n">zpath</span>
+<span class="kn">from</span> <span class="nn">monty.shutil</span> <span class="kn">import</span> <span class="n">decompress_file</span>
+
+
+<div class="viewcode-block" id="copy_decompress"><a class="viewcode-back" href="../../../reference/quacc.util.basics.copy_decompress.html#quacc.util.basics.copy_decompress">[docs]</a><span class="k">def</span> <span class="nf">copy_decompress</span><span class="p">(</span><span class="n">src_files</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">dst</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Copy and decompress files from src to dst.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    src_files</span>
+<span class="sd">        List of files to copy and decompress.</span>
+<span class="sd">    dst</span>
+<span class="sd">        Destination directory.</span>
+<span class="sd">    """</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">src_files</span><span class="p">:</span>
+        <span class="n">z_path</span> <span class="o">=</span> <span class="n">zpath</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">z_path</span><span class="p">):</span>
+            <span class="n">z_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">z_path</span><span class="p">)</span>
+            <span class="n">copy</span><span class="p">(</span><span class="n">z_path</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="n">z_file</span><span class="p">))</span>
+            <span class="n">decompress_file</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="n">z_file</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="merge_dicts"><a class="viewcode-back" href="../../../reference/quacc.util.basics.merge_dicts.html#quacc.util.basics.merge_dicts">[docs]</a><span class="k">def</span> <span class="nf">merge_dicts</span><span class="p">(</span>

@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="run_bader" href="quacc.util.pop_analysis.run_bader.html" /><link rel="prev" title="run_calc" href="quacc.util.calc.run_calc.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="load_yaml_calc" href="quacc.util.basics.load_yaml_calc.html" /><link rel="prev" title="quacc.util.basics" href="quacc.util.basics.html" />
 
     <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
-        <title>quacc.util.pop_analysis - quacc</title>
+        <title>copy_decompress - quacc</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
@@ -316,8 +316,8 @@
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.atoms.set_magmoms.html">set_magmoms</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="quacc.util.basics.html">quacc.util.basics</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="quacc.util.basics.copy_decompress.html">copy_decompress</a></li>
+<li class="toctree-l3 current has-children"><a class="reference internal" href="quacc.util.basics.html">quacc.util.basics</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l4 current current-page"><a class="current reference internal" href="#">copy_decompress</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.basics.load_yaml_calc.html">load_yaml_calc</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.basics.merge_dicts.html">merge_dicts</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.basics.remove_dict_empties.html">remove_dict_empties</a></li>
@@ -328,7 +328,7 @@
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.calc.run_calc.html">run_calc</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current has-children current-page"><a class="current reference internal" href="#">quacc.util.pop_analysis</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" role="switch" type="checkbox"/><label for="toctree-checkbox-34"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="quacc.util.pop_analysis.html">quacc.util.pop_analysis</a><input class="toctree-checkbox" id="toctree-checkbox-34" name="toctree-checkbox-34" role="switch" type="checkbox"/><label for="toctree-checkbox-34"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.pop_analysis.run_bader.html">run_bader</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.pop_analysis.run_chargemol.html">run_chargemol</a></li>
 </ul>
@@ -384,24 +384,24 @@
           </label>
         </div>
         <article role="main">
-          <section id="module-quacc.util.pop_analysis">
-<span id="quacc-util-pop-analysis"></span><h1>quacc.util.pop_analysis<a class="headerlink" href="#module-quacc.util.pop_analysis" title="Permalink to this headline">#</a></h1>
-<p>Utility functions for population analyses</p>
-<p class="rubric">Functions</p>
-<div class="table-wrapper"><table class="autosummary longtable docutils align-default">
-<colgroup>
-<col style="width: 10%"/>
-<col style="width: 90%"/>
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="quacc.util.pop_analysis.run_bader.html#quacc.util.pop_analysis.run_bader" title="quacc.util.pop_analysis.run_bader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_bader</span></code></a></p></td>
-<td><p>Runs a Bader partial charge and spin moment analysis using the VASP output files in the given path.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="quacc.util.pop_analysis.run_chargemol.html#quacc.util.pop_analysis.run_chargemol" title="quacc.util.pop_analysis.run_chargemol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_chargemol</span></code></a></p></td>
-<td><p>Runs a Chargemol (i.e.</p></td>
-</tr>
-</tbody>
-</table></div>
+          <section id="copy-decompress">
+<h1>copy_decompress<a class="headerlink" href="#copy-decompress" title="Permalink to this headline">#</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="quacc.util.basics.copy_decompress">
+<span class="sig-prename descclassname"><span class="pre">quacc.util.basics.</span></span><span class="sig-name descname"><span class="pre">copy_decompress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src_files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/util/basics.html#copy_decompress"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.util.basics.copy_decompress" title="Permalink to this definition">#</a></dt>
+<dd><p>Copy and decompress files from src to dst.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>src_files</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – List of files to copy and decompress.</p></li>
+<li><p><strong>dst</strong> – Destination directory.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
 </section>
 
         </article>
@@ -409,23 +409,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="quacc.util.pop_analysis.run_bader.html">
+          <a class="next-page" href="quacc.util.basics.load_yaml_calc.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">run_bader</div>
+                <div class="title">load_yaml_calc</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="quacc.util.calc.run_calc.html">
+          <a class="prev-page" href="quacc.util.basics.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">run_calc</div>
+                <div class="title">quacc.util.basics</div>
                 
               </div>
             </a>

@@ -316,6 +316,7 @@
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../reference/quacc.util.basics.html">quacc.util.basics</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.util.basics.copy_decompress.html">copy_decompress</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.util.basics.load_yaml_calc.html">load_yaml_calc</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.util.basics.merge_dicts.html">merge_dicts</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.util.basics.remove_dict_empties.html">remove_dict_empties</a></li>
@@ -389,16 +390,20 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">from</span> <span class="nn">shutil</span> <span class="kn">import</span> <span class="n">copy</span>
+<span class="kn">from</span> <span class="nn">tempfile</span> <span class="kn">import</span> <span class="n">TemporaryDirectory</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
 
 <span class="kn">from</span> <span class="nn">ase.atoms</span> <span class="kn">import</span> <span class="n">Atoms</span>
 <span class="kn">from</span> <span class="nn">ase.io</span> <span class="kn">import</span> <span class="n">read</span>
 <span class="kn">from</span> <span class="nn">ase.optimize</span> <span class="kn">import</span> <span class="n">FIRE</span>
 <span class="kn">from</span> <span class="nn">ase.optimize.optimize</span> <span class="kn">import</span> <span class="n">Optimizer</span>
-<span class="kn">from</span> <span class="nn">monty.tempfile</span> <span class="kn">import</span> <span class="n">ScratchDir</span>
+<span class="kn">from</span> <span class="nn">monty.os.path</span> <span class="kn">import</span> <span class="n">zpath</span>
+<span class="kn">from</span> <span class="nn">monty.shutil</span> <span class="kn">import</span> <span class="n">compress_dir</span><span class="p">,</span> <span class="n">copy_r</span><span class="p">,</span> <span class="n">gzip_dir</span>
 
 <span class="kn">from</span> <span class="nn">quacc</span> <span class="kn">import</span> <span class="n">SETTINGS</span>
 <span class="kn">from</span> <span class="nn">quacc.util.atoms</span> <span class="kn">import</span> <span class="n">copy_atoms</span>
+<span class="kn">from</span> <span class="nn">quacc.util.basics</span> <span class="kn">import</span> <span class="n">copy_decompress</span>
 
 
 <div class="viewcode-block" id="run_calc"><a class="viewcode-back" href="../../../reference/quacc.util.calc.run_calc.html#quacc.util.calc.run_calc">[docs]</a><span class="k">def</span> <span class="nf">run_calc</span><span class="p">(</span>
@@ -406,7 +411,7 @@
     <span class="n">geom_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">scratch_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">SCRATCH_DIR</span><span class="p">,</span>
     <span class="n">gzip</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">GZIP_FILES</span><span class="p">,</span>
-    <span class="n">copy_from_store_dir</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">copy_files</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Atoms</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Run a calculation in a scratch directory and copy the results back to the</span>
@@ -430,9 +435,8 @@
 <span class="sd">        the current working directory will be used.</span>
 <span class="sd">    gzip : bool</span>
 <span class="sd">        Whether to gzip the output files.</span>
-<span class="sd">    copy_from_store_dir : bool</span>
-<span class="sd">        Whether to copy any pre-existing files from the original directory to the</span>
-<span class="sd">        scratch_dir before running the calculation.</span>
+<span class="sd">    copy_files : List[str]</span>
+<span class="sd">        Filenames to copy from source to scratch directory.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -443,31 +447,45 @@
     <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Atoms object must have attached calculator."</span><span class="p">)</span>
     <span class="n">atoms</span> <span class="o">=</span> <span class="n">copy_atoms</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
-    <span class="n">scratch_dir</span> <span class="o">=</span> <span class="n">scratch_dir</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
-    <span class="n">geom_file</span> <span class="o">=</span> <span class="n">geom_file</span> <span class="o">+</span> <span class="s2">".gz"</span> <span class="k">if</span> <span class="n">geom_file</span> <span class="ow">and</span> <span class="n">gzip</span> <span class="k">else</span> <span class="n">geom_file</span>
+    <span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+    <span class="n">scratch_dir</span> <span class="o">=</span> <span class="n">scratch_dir</span> <span class="ow">or</span> <span class="n">cwd</span>
+    <span class="n">symlink</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="s2">"tmp_dir"</span><span class="p">)</span>
 
-    <span class="k">with</span> <span class="n">ScratchDir</span><span class="p">(</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">scratch_dir</span><span class="p">),</span>
-        <span class="n">create_symbolic_link</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">"nt"</span><span class="p">,</span>
-        <span class="n">copy_from_current_on_enter</span><span class="o">=</span><span class="n">copy_from_store_dir</span><span class="p">,</span>
-        <span class="n">copy_to_current_on_exit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">gzip_on_exit</span><span class="o">=</span><span class="n">gzip</span><span class="p">,</span>
-        <span class="n">delete_removed_files</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="p">):</span>
+    <span class="k">with</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="n">scratch_dir</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmpdir</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">"nt"</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">symlink</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">symlink</span><span class="p">)</span>
+
+        <span class="c1"># Copy files to scratch and decompress them if needed</span>
+        <span class="k">if</span> <span class="n">copy_files</span><span class="p">:</span>
+            <span class="n">copy_decompress</span><span class="p">(</span><span class="n">copy_files</span><span class="p">,</span> <span class="n">tmpdir</span><span class="p">)</span>
 
         <span class="c1"># Run calculation via get_potential_energy()</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">)</span>
         <span class="n">atoms</span><span class="o">.</span><span class="n">get_potential_energy</span><span class="p">()</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">cwd</span><span class="p">)</span>
+
+        <span class="c1"># Gzip files in tmpdir</span>
+        <span class="k">if</span> <span class="n">gzip</span><span class="p">:</span>
+            <span class="n">gzip_dir</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">)</span>
+
+        <span class="c1"># Copy files back to run_dir</span>
+        <span class="n">copy_r</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">cwd</span><span class="p">)</span>
+
+        <span class="c1"># Remove symlink</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">islink</span><span class="p">(</span><span class="n">symlink</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">symlink</span><span class="p">)</span>
 
     <span class="c1"># Some ASE calculators do not update the atoms object in-place with</span>
     <span class="c1"># a call to .get_potential_energy(). This is a workaround to ensure</span>
     <span class="c1"># that the atoms object is updated with the correct positions, cell,</span>
     <span class="c1"># and magmoms.</span>
-    <span class="k">if</span> <span class="n">geom_file</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">geom_file</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">geom_file</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">zpath</span><span class="p">(</span><span class="n">geom_file</span><span class="p">)):</span>
 
         <span class="c1"># Note: We have to be careful to make sure we don't lose the</span>
         <span class="c1"># converged magnetic moments, if present. That's why we simply</span>
         <span class="c1"># update the positions and cell in-place.</span>
-        <span class="n">atoms_new</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">geom_file</span><span class="p">)</span>
+        <span class="n">atoms_new</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">zpath</span><span class="p">(</span><span class="n">geom_file</span><span class="p">))</span>
         <span class="n">atoms</span><span class="o">.</span><span class="n">positions</span> <span class="o">=</span> <span class="n">atoms_new</span><span class="o">.</span><span class="n">positions</span>
         <span class="n">atoms</span><span class="o">.</span><span class="n">cell</span> <span class="o">=</span> <span class="n">atoms_new</span><span class="o">.</span><span class="n">cell</span>
 
@@ -481,7 +499,7 @@
     <span class="n">opt_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">scratch_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">SCRATCH_DIR</span><span class="p">,</span>
     <span class="n">gzip</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">GZIP_FILES</span><span class="p">,</span>
-    <span class="n">copy_from_store_dir</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">copy_files</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Atoms</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Run an ASE-based optimization in a scratch directory and copy the results</span>
@@ -506,9 +524,8 @@
 <span class="sd">        the current working directory will be used.</span>
 <span class="sd">    gzip : bool</span>
 <span class="sd">        Whether to gzip the output files.</span>
-<span class="sd">    copy_from_store_dir : bool</span>
-<span class="sd">        Whether to copy any pre-existing files from the original directory to the</span>
-<span class="sd">        scratch_dir before running the calculation.</span>
+<span class="sd">    copy_files : List[str]</span>
+<span class="sd">        Filenames to copy from source to scratch directory.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -520,20 +537,38 @@
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Atoms object must have attached calculator."</span><span class="p">)</span>
 
     <span class="n">atoms</span> <span class="o">=</span> <span class="n">copy_atoms</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
-    <span class="n">scratch_dir</span> <span class="o">=</span> <span class="n">scratch_dir</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+    <span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+    <span class="n">scratch_dir</span> <span class="o">=</span> <span class="n">scratch_dir</span> <span class="ow">or</span> <span class="n">cwd</span>
+    <span class="n">symlink</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="s2">"tmp_dir"</span><span class="p">)</span>
     <span class="n">opt_kwargs</span> <span class="o">=</span> <span class="n">opt_kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
 
-    <span class="k">with</span> <span class="n">ScratchDir</span><span class="p">(</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">scratch_dir</span><span class="p">),</span>
-        <span class="n">create_symbolic_link</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">"nt"</span><span class="p">,</span>
-        <span class="n">copy_from_current_on_enter</span><span class="o">=</span><span class="n">copy_from_store_dir</span><span class="p">,</span>
-        <span class="n">copy_to_current_on_exit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">gzip_on_exit</span><span class="o">=</span><span class="n">gzip</span><span class="p">,</span>
-        <span class="n">delete_removed_files</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="p">):</span>
-        <span class="c1"># Run calculation via ASE optimizers</span>
-        <span class="n">dyn</span> <span class="o">=</span> <span class="n">optimizer</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="s2">"opt.log"</span><span class="p">,</span> <span class="n">trajectory</span><span class="o">=</span><span class="s2">"opt.traj"</span><span class="p">,</span> <span class="o">**</span><span class="n">opt_kwargs</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="n">scratch_dir</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmpdir</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">"nt"</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">symlink</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">symlink</span><span class="p">)</span>
+
+        <span class="c1"># Copy files to scratch and decompress them if needed</span>
+        <span class="k">if</span> <span class="n">copy_files</span><span class="p">:</span>
+            <span class="n">copy_decompress</span><span class="p">(</span><span class="n">copy_files</span><span class="p">,</span> <span class="n">tmpdir</span><span class="p">)</span>
+
+        <span class="c1"># Run calculation</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">)</span>
+        <span class="n">dyn</span> <span class="o">=</span> <span class="n">optimizer</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="o">**</span><span class="n">opt_kwargs</span><span class="p">)</span>
         <span class="n">dyn</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">fmax</span><span class="o">=</span><span class="n">fmax</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">cwd</span><span class="p">)</span>
+
+        <span class="c1"># Gzip files in tmpdir</span>
+        <span class="k">if</span> <span class="n">gzip</span><span class="p">:</span>
+            <span class="n">gzip_dir</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">)</span>
+
+        <span class="c1"># Copy files back to run_dir</span>
+        <span class="n">copy_r</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">cwd</span><span class="p">)</span>
+
+        <span class="c1"># Remove symlink</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">islink</span><span class="p">(</span><span class="n">symlink</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">symlink</span><span class="p">)</span>
+
+        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">cwd</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">atoms</span></div>
 </pre></div>

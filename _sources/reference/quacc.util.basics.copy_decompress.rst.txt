@@ -1,0 +1,6 @@
+copy\_decompress
+================
+
+.. currentmodule:: quacc.util.basics
+
+.. autofunction:: copy_decompress
