@@ -324,6 +324,7 @@
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../reference/quacc.util.calc.html">quacc.util.calc</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.util.calc.run_ase_opt.html">run_ase_opt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.util.calc.run_ase_vib.html">run_ase_vib</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.util.calc.run_calc.html">run_calc</a></li>
 </ul>
 </li>
@@ -390,13 +391,16 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">tempfile</span> <span class="kn">import</span> <span class="n">mkdtemp</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
 
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">ase.atoms</span> <span class="kn">import</span> <span class="n">Atoms</span>
 <span class="kn">from</span> <span class="nn">ase.io</span> <span class="kn">import</span> <span class="n">read</span>
 <span class="kn">from</span> <span class="nn">ase.optimize</span> <span class="kn">import</span> <span class="n">FIRE</span>
 <span class="kn">from</span> <span class="nn">ase.optimize.optimize</span> <span class="kn">import</span> <span class="n">Optimizer</span>
+<span class="kn">from</span> <span class="nn">ase.vibrations</span> <span class="kn">import</span> <span class="n">Vibrations</span>
 <span class="kn">from</span> <span class="nn">monty.os.path</span> <span class="kn">import</span> <span class="n">zpath</span>
 <span class="kn">from</span> <span class="nn">monty.shutil</span> <span class="kn">import</span> <span class="n">copy_r</span><span class="p">,</span> <span class="n">gzip_dir</span>
 <span class="kn">from</span> <span class="nn">pymatgen.io.ase</span> <span class="kn">import</span> <span class="n">AseAtomsAdaptor</span>
@@ -575,6 +579,82 @@
     <span class="k">return</span> <span class="n">atoms</span></div>
 
 
+<div class="viewcode-block" id="run_ase_vib"><a class="viewcode-back" href="../../../reference/quacc.util.calc.run_ase_vib.html#quacc.util.calc.run_ase_vib">[docs]</a><span class="k">def</span> <span class="nf">run_ase_vib</span><span class="p">(</span>
+    <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span>
+    <span class="n">vib_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">scratch_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">SCRATCH_DIR</span><span class="p">,</span>
+    <span class="n">gzip</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">GZIP_FILES</span><span class="p">,</span>
+    <span class="n">copy_files</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Atoms</span><span class="p">:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Run an ASE-based vibration analysis in a scratch directory and copy the results</span>
+<span class="sd">    back to the original directory. This can be useful if file I/O is slow in</span>
+<span class="sd">    the working directory, so long as file transfer speeds are reasonable.</span>
+
+<span class="sd">    This is a wrapper around the vibrations module in ASE. Note: This function does</span>
+<span class="sd">    not modify the atoms object in-place.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    atoms : .Atoms</span>
+<span class="sd">        The Atoms object to run the calculation on.</span>
+<span class="sd">    vib_kwargs : dict</span>
+<span class="sd">        Dictionary of kwargs for the vibration analysis.</span>
+<span class="sd">    scratch_dir : str</span>
+<span class="sd">        Path where a tmpdir should be made for running the calculation. If None,</span>
+<span class="sd">        the current working directory will be used.</span>
+<span class="sd">    gzip : bool</span>
+<span class="sd">        Whether to gzip the output files.</span>
+<span class="sd">    copy_files : List[str]</span>
+<span class="sd">        Filenames to copy from source to scratch directory.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    .Atoms</span>
+<span class="sd">        The updated .Atoms object,</span>
+<span class="sd">    """</span>
+
+    <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Atoms object must have attached calculator."</span><span class="p">)</span>
+
+    <span class="n">atoms</span> <span class="o">=</span> <span class="n">copy_atoms</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+    <span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+    <span class="n">scratch_dir</span> <span class="o">=</span> <span class="n">scratch_dir</span> <span class="ow">or</span> <span class="n">cwd</span>
+    <span class="n">symlink</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="s2">"tmp_dir"</span><span class="p">)</span>
+    <span class="n">vib_kwargs</span> <span class="o">=</span> <span class="n">vib_kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
+
+    <span class="n">tmpdir</span> <span class="o">=</span> <span class="n">mkdtemp</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="n">scratch_dir</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">"nt"</span><span class="p">:</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">symlink</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">symlink</span><span class="p">)</span>
+
+    <span class="c1"># Copy files to scratch and decompress them if needed</span>
+    <span class="k">if</span> <span class="n">copy_files</span><span class="p">:</span>
+        <span class="n">copy_decompress</span><span class="p">(</span><span class="n">copy_files</span><span class="p">,</span> <span class="n">tmpdir</span><span class="p">)</span>
+
+    <span class="c1"># Run calculation</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">)</span>
+    <span class="n">vib</span> <span class="o">=</span> <span class="n">Vibrations</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="o">**</span><span class="n">vib_kwargs</span><span class="p">)</span>
+    <span class="n">vib</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="n">vib</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">cwd</span><span class="p">)</span>
+
+    <span class="c1"># Gzip files in tmpdir</span>
+    <span class="k">if</span> <span class="n">gzip</span><span class="p">:</span>
+        <span class="n">gzip_dir</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">)</span>
+
+    <span class="c1"># Copy files back to run_dir</span>
+    <span class="n">copy_r</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">cwd</span><span class="p">)</span>
+
+    <span class="c1"># Remove symlink</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">islink</span><span class="p">(</span><span class="n">symlink</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">symlink</span><span class="p">)</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">cwd</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">atoms</span></div>
+
+
 <span class="k">def</span> <span class="nf">_convert_auto_kpts</span><span class="p">(</span>
     <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span>
     <span class="n">auto_kpts</span><span class="p">:</span> <span class="kc">None</span>
@@ -589,7 +669,7 @@
 <span class="sd">    reciprocal_density (by volume), grid_density (by number of atoms),</span>
 <span class="sd">    max_mixed_density (max of reciprocal_density volume or atoms), and length_density (good for slabs).</span>
 <span class="sd">    These are formatted as {"line_density": float}, {"reciprocal_density": float},</span>
-<span class="sd">    {"grid_density": float}, {"vol_kkpa_density": [float, float]}, and</span>
+<span class="sd">    {"grid_density": float}, {"max_mixed_density": [float, float]}, and</span>
 <span class="sd">    {"length_density": [float, float, float]}.</span>
 
 <span class="sd">    Parameters</span>

@@ -16,6 +16,7 @@ quacc.util.calc
       :nosignatures:
    
       run_ase_opt
+      run_ase_vib
       run_calc
 
 
@@ -24,6 +25,7 @@ quacc.util.calc
 
 
 
+   
    
    
    

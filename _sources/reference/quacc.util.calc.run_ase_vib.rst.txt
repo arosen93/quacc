@@ -1,0 +1,6 @@
+run\_ase\_vib
+=============
+
+.. currentmodule:: quacc.util.calc
+
+.. autofunction:: run_ase_vib
