@@ -519,7 +519,7 @@
             <span class="s2">"Driver_LatticeOpt"</span><span class="p">:</span> <span class="s2">"Yes"</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lattice_opt</span> <span class="ow">and</span> <span class="n">atoms</span><span class="o">.</span><span class="n">pbc</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
             <span class="k">else</span> <span class="s2">"No"</span><span class="p">,</span>
-            <span class="s2">"Driver_MaxSteps"</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
+            <span class="s2">"Driver_MaxSteps"</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="n">flags</span> <span class="o">=</span> <span class="n">merge_dicts</span><span class="p">(</span>
             <span class="n">defaults</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">swaps</span><span class="p">,</span> <span class="n">remove_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">auto_lowercase</span><span class="o">=</span><span class="kc">False</span>
