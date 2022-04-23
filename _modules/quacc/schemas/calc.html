@@ -441,7 +441,7 @@
     <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"parameters"</span><span class="p">:</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">parameters</span><span class="p">}</span>
     <span class="k">if</span> <span class="n">input_atoms</span><span class="p">:</span>
         <span class="n">input_atoms_db</span> <span class="o">=</span> <span class="n">atoms_to_metadata</span><span class="p">(</span><span class="n">input_atoms</span><span class="p">)</span>
-        <span class="n">inputs</span><span class="p">[</span><span class="s2">"input_atoms"</span><span class="p">]</span> <span class="o">=</span> <span class="n">input_atoms_db</span>
+        <span class="n">inputs</span><span class="p">[</span><span class="s2">"input_structure"</span><span class="p">]</span> <span class="o">=</span> <span class="n">input_atoms_db</span>
 
     <span class="c1"># Prepares the Atoms object for the next run by moving the</span>
     <span class="c1"># final magmoms to initial, clearing the calculator state,</span>

@@ -31,7 +31,6 @@ quacc.calculators.vasp
    
    
    
-   
       
    
 
