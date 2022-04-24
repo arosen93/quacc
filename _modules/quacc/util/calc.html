@@ -494,6 +494,8 @@
         <span class="c1"># converged magnetic moments, if present. That's why we simply</span>
         <span class="c1"># update the positions and cell in-place.</span>
         <span class="n">atoms_new</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">zpath</span><span class="p">(</span><span class="n">geom_file</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">atoms_new</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">atoms_new</span> <span class="o">=</span> <span class="n">atoms_new</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">atoms</span><span class="o">.</span><span class="n">positions</span> <span class="o">=</span> <span class="n">atoms_new</span><span class="o">.</span><span class="n">positions</span>
         <span class="n">atoms</span><span class="o">.</span><span class="n">cell</span> <span class="o">=</span> <span class="n">atoms_new</span><span class="o">.</span><span class="n">cell</span>
 
