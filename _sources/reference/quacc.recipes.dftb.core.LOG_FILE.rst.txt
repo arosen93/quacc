@@ -1,0 +1,6 @@
+LOG\_FILE
+=========
+
+.. currentmodule:: quacc.recipes.dftb.core
+
+.. autodata:: LOG_FILE

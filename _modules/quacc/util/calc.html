@@ -212,6 +212,7 @@
 <li class="toctree-l4 has-children"><a class="reference internal" href="../../../reference/quacc.recipes.dftb.core.html">quacc.recipes.dftb.core</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../reference/quacc.recipes.dftb.core.DFTBPLUS_EXISTS.html">DFTBPLUS_EXISTS</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../reference/quacc.recipes.dftb.core.GEOM_FILE.html">GEOM_FILE</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../reference/quacc.recipes.dftb.core.LOG_FILE.html">LOG_FILE</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../reference/quacc.recipes.dftb.core.RelaxJob.html">RelaxJob</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../reference/quacc.recipes.dftb.core.StaticJob.html">StaticJob</a></li>
 </ul>
@@ -401,6 +402,7 @@
 <span class="kn">from</span> <span class="nn">ase.optimize</span> <span class="kn">import</span> <span class="n">FIRE</span>
 <span class="kn">from</span> <span class="nn">ase.optimize.optimize</span> <span class="kn">import</span> <span class="n">Optimizer</span>
 <span class="kn">from</span> <span class="nn">ase.vibrations</span> <span class="kn">import</span> <span class="n">Vibrations</span>
+<span class="kn">from</span> <span class="nn">monty.io</span> <span class="kn">import</span> <span class="n">zopen</span>
 <span class="kn">from</span> <span class="nn">monty.os.path</span> <span class="kn">import</span> <span class="n">zpath</span>
 <span class="kn">from</span> <span class="nn">monty.shutil</span> <span class="kn">import</span> <span class="n">copy_r</span><span class="p">,</span> <span class="n">gzip_dir</span>
 <span class="kn">from</span> <span class="nn">pymatgen.io.ase</span> <span class="kn">import</span> <span class="n">AseAtomsAdaptor</span>
@@ -653,6 +655,30 @@
     <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">cwd</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">atoms</span></div>
+
+
+<span class="k">def</span> <span class="nf">_check_logfile</span><span class="p">(</span><span class="n">logfile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">check_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Check if a logfile has a given string (case-insensitive).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    logfile : str</span>
+<span class="sd">        Path to the logfile.</span>
+<span class="sd">    check_str : str</span>
+<span class="sd">        String to check for.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    bool</span>
+<span class="sd">        True if the string is found in the logfile, False otherwise.</span>
+<span class="sd">    """</span>
+    <span class="n">zlog</span> <span class="o">=</span> <span class="n">zpath</span><span class="p">(</span><span class="n">logfile</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">zopen</span><span class="p">(</span><span class="n">zlog</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">check_str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+                <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="kc">False</span>
 
 
 <span class="k">def</span> <span class="nf">_convert_auto_kpts</span><span class="p">(</span>

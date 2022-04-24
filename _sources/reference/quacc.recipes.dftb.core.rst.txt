@@ -28,6 +28,9 @@ quacc.recipes.dftb.core
       
    
    
+      
+   
+   
    
    
    
@@ -43,6 +46,7 @@ quacc.recipes.dftb.core
    
       DFTBPLUS_EXISTS
       GEOM_FILE
+      LOG_FILE
       RelaxJob
       StaticJob
 

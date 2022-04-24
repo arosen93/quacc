@@ -212,6 +212,7 @@
 <li class="toctree-l4 has-children"><a class="reference internal" href="../../../../reference/quacc.recipes.dftb.core.html">quacc.recipes.dftb.core</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../../reference/quacc.recipes.dftb.core.DFTBPLUS_EXISTS.html">DFTBPLUS_EXISTS</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../reference/quacc.recipes.dftb.core.GEOM_FILE.html">GEOM_FILE</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../../reference/quacc.recipes.dftb.core.LOG_FILE.html">LOG_FILE</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../reference/quacc.recipes.dftb.core.RelaxJob.html">RelaxJob</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../../reference/quacc.recipes.dftb.core.StaticJob.html">StaticJob</a></li>
 </ul>
@@ -399,9 +400,10 @@
 
 <span class="kn">from</span> <span class="nn">quacc.schemas.calc</span> <span class="kn">import</span> <span class="n">summarize_run</span>
 <span class="kn">from</span> <span class="nn">quacc.util.basics</span> <span class="kn">import</span> <span class="n">merge_dicts</span>
-<span class="kn">from</span> <span class="nn">quacc.util.calc</span> <span class="kn">import</span> <span class="n">run_calc</span>
+<span class="kn">from</span> <span class="nn">quacc.util.calc</span> <span class="kn">import</span> <span class="n">_check_logfile</span><span class="p">,</span> <span class="n">run_calc</span>
 
 <span class="n">DFTBPLUS_EXISTS</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">which</span><span class="p">(</span><span class="s2">"dftb+"</span><span class="p">))</span>
+<span class="n">LOG_FILE</span> <span class="o">=</span> <span class="s2">"dftb.out"</span>
 <span class="n">GEOM_FILE</span> <span class="o">=</span> <span class="s2">"geo_end.gen"</span>
 
 
@@ -527,6 +529,9 @@
 
         <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">Dftb</span><span class="p">(</span><span class="o">**</span><span class="n">flags</span><span class="p">)</span>
         <span class="n">new_atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">geom_file</span><span class="o">=</span><span class="n">GEOM_FILE</span><span class="p">)</span>
+        <span class="n">check</span> <span class="o">=</span> <span class="n">_check_logfile</span><span class="p">(</span><span class="n">LOG_FILE</span><span class="p">,</span> <span class="s2">"Geometry did NOT converge"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">check</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Geometry did not converge"</span><span class="p">)</span>
         <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span>
             <span class="n">new_atoms</span><span class="p">,</span> <span class="n">input_atoms</span><span class="o">=</span><span class="n">atoms</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
         <span class="p">)</span>
