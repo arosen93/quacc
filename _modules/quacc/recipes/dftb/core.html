@@ -531,12 +531,9 @@
 
         <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">Dftb</span><span class="p">(</span><span class="o">**</span><span class="n">flags</span><span class="p">)</span>
         <span class="n">new_atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">geom_file</span><span class="o">=</span><span class="n">GEOM_FILE</span><span class="p">)</span>
-        <span class="n">geom_check</span> <span class="o">=</span> <span class="n">_check_logfile</span><span class="p">(</span><span class="n">LOG_FILE</span><span class="p">,</span> <span class="s2">"Geometry did NOT converge"</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">geom_check</span><span class="p">:</span>
+        <span class="n">geom_check</span> <span class="o">=</span> <span class="n">_check_logfile</span><span class="p">(</span><span class="n">LOG_FILE</span><span class="p">,</span> <span class="s2">"Geometry converged"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">geom_check</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Geometry did not converge"</span><span class="p">)</span>
-        <span class="n">scc_check</span> <span class="o">=</span> <span class="n">_check_logfile</span><span class="p">(</span><span class="n">LOG_FILE</span><span class="p">,</span> <span class="s2">"SCC is NOT converged"</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">scc_check</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"SCC is not converged"</span><span class="p">)</span>
         <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span>
             <span class="n">new_atoms</span><span class="p">,</span> <span class="n">input_atoms</span><span class="o">=</span><span class="n">atoms</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
         <span class="p">)</span>
