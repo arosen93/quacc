@@ -528,8 +528,6 @@
 <span class="sd">        Temperature in Kelvins.</span>
 <span class="sd">    pressure</span>
 <span class="sd">        Pressure in bar.</span>
-<span class="sd">    energy</span>
-<span class="sd">        Potential energy in eV. If 0 eV, then the thermochemical correction is computed.</span>
 <span class="sd">    geometry</span>
 <span class="sd">        Monatomic, linear, or nonlinear. Will try to determine automatically if None.</span>
 <span class="sd">    symmetry_number</span>
@@ -542,7 +540,6 @@
     <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"GFN2-xTB"</span>
     <span class="n">temperature</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">298.15</span>
     <span class="n">pressure</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
-    <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="n">geometry</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">symmetry_number</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">xtb_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
@@ -551,7 +548,7 @@
     <span class="nd">@requires</span><span class="p">(</span>
         <span class="n">XTB</span><span class="p">,</span> <span class="s2">"xTB-python must be installed. Try conda install -c conda-forge xtb-python"</span>
     <span class="p">)</span>
-    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span> <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="sd">"""</span>
 <span class="sd">        Make the run.</span>
 
@@ -559,6 +556,8 @@
 <span class="sd">        ----------</span>
 <span class="sd">        atoms</span>
 <span class="sd">            .Atoms object</span>
+<span class="sd">        energy</span>
+<span class="sd">            Potential energy in eV. If 0 eV, then the thermochemical correction is computed.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -572,7 +571,7 @@
             <span class="n">atoms</span><span class="o">=</span><span class="n">atoms</span><span class="p">,</span>
             <span class="n">temperature</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">temperature</span><span class="p">,</span>
             <span class="n">pressure</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pressure</span><span class="p">,</span>
-            <span class="n">energy</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">energy</span><span class="p">,</span>
+            <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span>
             <span class="n">geometry</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">geometry</span><span class="p">,</span>
             <span class="n">symmetry_number</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">symmetry_number</span><span class="p">,</span>
         <span class="p">)</span>
