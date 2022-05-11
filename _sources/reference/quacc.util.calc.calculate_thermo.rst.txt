@@ -1,0 +1,6 @@
+calculate\_thermo
+=================
+
+.. currentmodule:: quacc.util.calc
+
+.. autofunction:: calculate_thermo

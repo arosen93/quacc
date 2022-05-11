@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="run_ase_opt" href="quacc.util.calc.run_ase_opt.html" /><link rel="prev" title="remove_dict_empties" href="quacc.util.basics.remove_dict_empties.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="calculate_thermo" href="quacc.util.calc.calculate_thermo.html" /><link rel="prev" title="remove_dict_empties" href="quacc.util.basics.remove_dict_empties.html" />
 
     <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
         <title>quacc.util.calc - quacc</title>
@@ -281,6 +281,7 @@
 <li class="toctree-l4 has-children"><a class="reference internal" href="quacc.recipes.xtb.core.html">quacc.recipes.xtb.core</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" role="switch" type="checkbox"/><label for="toctree-checkbox-24"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5"><a class="reference internal" href="quacc.recipes.xtb.core.RelaxJob.html">RelaxJob</a></li>
 <li class="toctree-l5"><a class="reference internal" href="quacc.recipes.xtb.core.StaticJob.html">StaticJob</a></li>
+<li class="toctree-l5"><a class="reference internal" href="quacc.recipes.xtb.core.ThermoJob.html">ThermoJob</a></li>
 <li class="toctree-l5"><a class="reference internal" href="quacc.recipes.xtb.core.XTB.html">XTB</a></li>
 </ul>
 </li>
@@ -325,6 +326,7 @@
 </ul>
 </li>
 <li class="toctree-l3 current has-children current-page"><a class="current reference internal" href="#">quacc.util.calc</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="quacc.util.calc.calculate_thermo.html">calculate_thermo</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.calc.run_ase_opt.html">run_ase_opt</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.calc.run_ase_vib.html">run_ase_vib</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.calc.run_calc.html">run_calc</a></li>
@@ -396,13 +398,16 @@
 <col style="width: 90%"/>
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="quacc.util.calc.run_ase_opt.html#quacc.util.calc.run_ase_opt" title="quacc.util.calc.run_ase_opt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_ase_opt</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="quacc.util.calc.calculate_thermo.html#quacc.util.calc.calculate_thermo" title="quacc.util.calc.calculate_thermo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculate_thermo</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="quacc.util.calc.run_ase_opt.html#quacc.util.calc.run_ase_opt" title="quacc.util.calc.run_ase_opt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_ase_opt</span></code></a></p></td>
 <td><p>Run an ASE-based optimization in a scratch directory and copy the results back to the original directory.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="quacc.util.calc.run_ase_vib.html#quacc.util.calc.run_ase_vib" title="quacc.util.calc.run_ase_vib"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_ase_vib</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="quacc.util.calc.run_ase_vib.html#quacc.util.calc.run_ase_vib" title="quacc.util.calc.run_ase_vib"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_ase_vib</span></code></a></p></td>
 <td><p>Run an ASE-based vibration analysis in a scratch directory and copy the results back to the original directory.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="quacc.util.calc.run_calc.html#quacc.util.calc.run_calc" title="quacc.util.calc.run_calc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_calc</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="quacc.util.calc.run_calc.html#quacc.util.calc.run_calc" title="quacc.util.calc.run_calc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run_calc</span></code></a></p></td>
 <td><p>Run a calculation in a scratch directory and copy the results back to the original directory.</p></td>
 </tr>
 </tbody>
@@ -414,12 +419,12 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="quacc.util.calc.run_ase_opt.html">
+          <a class="next-page" href="quacc.util.calc.calculate_thermo.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">run_ase_opt</div>
+                <div class="title">calculate_thermo</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>

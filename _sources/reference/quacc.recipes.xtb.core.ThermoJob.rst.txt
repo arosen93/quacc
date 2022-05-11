@@ -1,0 +1,8 @@
+ThermoJob
+=========
+
+.. currentmodule:: quacc.recipes.xtb.core
+
+.. autoclass:: ThermoJob
+   :show-inheritance:
+   :members:

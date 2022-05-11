@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="merge_dicts" href="quacc.util.basics.merge_dicts.html" /><link rel="prev" title="copy_decompress" href="quacc.util.basics.copy_decompress.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="run_ase_opt" href="quacc.util.calc.run_ase_opt.html" /><link rel="prev" title="quacc.util.calc" href="quacc.util.calc.html" />
 
     <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
-        <title>load_yaml_calc - quacc</title>
+        <title>calculate_thermo - quacc</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
@@ -318,15 +318,15 @@
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.atoms.set_magmoms.html">set_magmoms</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current has-children"><a class="reference internal" href="quacc.util.basics.html">quacc.util.basics</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="quacc.util.basics.html">quacc.util.basics</a><input class="toctree-checkbox" id="toctree-checkbox-32" name="toctree-checkbox-32" role="switch" type="checkbox"/><label for="toctree-checkbox-32"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.basics.copy_decompress.html">copy_decompress</a></li>
-<li class="toctree-l4 current current-page"><a class="current reference internal" href="#">load_yaml_calc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="quacc.util.basics.load_yaml_calc.html">load_yaml_calc</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.basics.merge_dicts.html">merge_dicts</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.basics.remove_dict_empties.html">remove_dict_empties</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="quacc.util.calc.html">quacc.util.calc</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="quacc.util.calc.calculate_thermo.html">calculate_thermo</a></li>
+<li class="toctree-l3 current has-children"><a class="reference internal" href="quacc.util.calc.html">quacc.util.calc</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l4 current current-page"><a class="current reference internal" href="#">calculate_thermo</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.calc.run_ase_opt.html">run_ase_opt</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.calc.run_ase_vib.html">run_ase_vib</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.calc.run_calc.html">run_calc</a></li>
@@ -388,21 +388,26 @@
           </label>
         </div>
         <article role="main">
-          <section id="load-yaml-calc">
-<h1>load_yaml_calc<a class="headerlink" href="#load-yaml-calc" title="Permalink to this headline">#</a></h1>
+          <section id="calculate-thermo">
+<h1>calculate_thermo<a class="headerlink" href="#calculate-thermo" title="Permalink to this headline">#</a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="quacc.util.basics.load_yaml_calc">
-<span class="sig-prename descclassname"><span class="pre">quacc.util.basics.</span></span><span class="sig-name descname"><span class="pre">load_yaml_calc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">yaml_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/util/basics.html#load_yaml_calc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.util.basics.load_yaml_calc" title="Permalink to this definition">#</a></dt>
-<dd><p>Loads a YAML file containing ASE VASP calcultor settings.</p>
-<dl class="field-list simple">
+<dt class="sig sig-object py" id="quacc.util.calc.calculate_thermo">
+<span class="sig-prename descclassname"><span class="pre">quacc.util.calc.</span></span><span class="sig-name descname"><span class="pre">calculate_thermo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vibrations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">298.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pressure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">energy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geometry</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symmetry_number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/util/calc.html#calculate_thermo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.util.calc.calculate_thermo" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>yaml_path</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Path to the YAML file.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vibrations</strong> (<em>ase.vibrations.vibrations.Vibrations</em>) – </p></li>
+<li><p><strong>atoms</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><em>ase.atoms.Atoms</em><em>]</em>) – </p></li>
+<li><p><strong>temperature</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – </p></li>
+<li><p><strong>pressure</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – </p></li>
+<li><p><strong>energy</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – </p></li>
+<li><p><strong>geometry</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – </p></li>
+<li><p><strong>symmetry_number</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – </p></li>
+<li><p><strong>spin</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a><em>]</em>) – </p></li>
+</ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The calculator configuration (i.e. settings).</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Dict</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Dict" title="(in Python v3.10)"><em>Dict</em></a>[<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)">str</a>, <a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Any" title="(in Python v3.10)"><em>Any</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -413,23 +418,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="quacc.util.basics.merge_dicts.html">
+          <a class="next-page" href="quacc.util.calc.run_ase_opt.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">merge_dicts</div>
+                <div class="title">run_ase_opt</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="quacc.util.basics.copy_decompress.html">
+          <a class="prev-page" href="quacc.util.calc.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">copy_decompress</div>
+                <div class="title">quacc.util.calc</div>
                 
               </div>
             </a>

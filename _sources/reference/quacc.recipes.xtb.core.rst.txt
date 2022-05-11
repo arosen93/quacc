@@ -25,6 +25,9 @@ quacc.recipes.xtb.core
       
    
    
+      
+   
+   
    
    
    
@@ -40,6 +43,7 @@ quacc.recipes.xtb.core
    
       RelaxJob
       StaticJob
+      ThermoJob
       XTB
 
 

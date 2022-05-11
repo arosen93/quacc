@@ -280,6 +280,7 @@
 <li class="toctree-l4 has-children"><a class="reference internal" href="../../../reference/quacc.recipes.xtb.core.html">quacc.recipes.xtb.core</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" role="switch" type="checkbox"/><label for="toctree-checkbox-24"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../reference/quacc.recipes.xtb.core.RelaxJob.html">RelaxJob</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../reference/quacc.recipes.xtb.core.StaticJob.html">StaticJob</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../reference/quacc.recipes.xtb.core.ThermoJob.html">ThermoJob</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../reference/quacc.recipes.xtb.core.XTB.html">XTB</a></li>
 </ul>
 </li>
@@ -324,6 +325,7 @@
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../reference/quacc.util.calc.html">quacc.util.calc</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.util.calc.calculate_thermo.html">calculate_thermo</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.util.calc.run_ase_opt.html">run_ase_opt</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.util.calc.run_ase_vib.html">run_ase_vib</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.util.calc.run_calc.html">run_calc</a></li>
@@ -401,6 +403,7 @@
 <span class="kn">from</span> <span class="nn">ase.io</span> <span class="kn">import</span> <span class="n">read</span>
 <span class="kn">from</span> <span class="nn">ase.optimize</span> <span class="kn">import</span> <span class="n">FIRE</span>
 <span class="kn">from</span> <span class="nn">ase.optimize.optimize</span> <span class="kn">import</span> <span class="n">Optimizer</span>
+<span class="kn">from</span> <span class="nn">ase.thermochemistry</span> <span class="kn">import</span> <span class="n">IdealGasThermo</span>
 <span class="kn">from</span> <span class="nn">ase.vibrations</span> <span class="kn">import</span> <span class="n">Vibrations</span>
 <span class="kn">from</span> <span class="nn">monty.io</span> <span class="kn">import</span> <span class="n">zopen</span>
 <span class="kn">from</span> <span class="nn">monty.os.path</span> <span class="kn">import</span> <span class="n">zpath</span>
@@ -657,6 +660,76 @@
     <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">cwd</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">vib</span></div>
+
+
+<div class="viewcode-block" id="calculate_thermo"><a class="viewcode-back" href="../../../reference/quacc.util.calc.calculate_thermo.html#quacc.util.calc.calculate_thermo">[docs]</a><span class="k">def</span> <span class="nf">calculate_thermo</span><span class="p">(</span>
+    <span class="n">vibrations</span><span class="p">:</span> <span class="n">Vibrations</span><span class="p">,</span>
+    <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">temperature</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">298.15</span><span class="p">,</span>
+    <span class="n">pressure</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">geometry</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">symmetry_number</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">spin</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+
+    <span class="c1"># Pull atoms from vibrations object if needed</span>
+    <span class="n">atoms</span> <span class="o">=</span> <span class="n">atoms</span> <span class="ow">or</span> <span class="n">vibrations</span><span class="o">.</span><span class="n">atoms</span>
+
+    <span class="c1"># Get the spin from the Atoms object</span>
+    <span class="k">if</span> <span class="n">spin</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="nb">getattr</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="s2">"calc"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="p">,</span> <span class="s2">"results"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="p">):</span>
+            <span class="n">spin</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"magmom"</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="k">elif</span> <span class="n">atoms</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">"initial_magmoms"</span><span class="p">):</span>
+            <span class="n">spin</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_initial_magnetic_moments</span><span class="p">()))</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">spin</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># Get the geometry</span>
+    <span class="k">if</span> <span class="n">geometry</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">geometry</span> <span class="o">=</span> <span class="s2">"monatomic"</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">or</span> <span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span>
+            <span class="ow">and</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_angle</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">179.0</span>
+            <span class="ow">and</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_angle</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">181.0</span>
+        <span class="p">):</span>
+            <span class="n">geometry</span> <span class="o">=</span> <span class="s2">"linear"</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">geometry</span> <span class="o">=</span> <span class="s2">"nonlinear"</span>
+
+    <span class="c1"># Calculate ideal gas thermo</span>
+    <span class="n">igt</span> <span class="o">=</span> <span class="n">IdealGasThermo</span><span class="p">(</span>
+        <span class="n">vibrations</span><span class="o">.</span><span class="n">get_energies</span><span class="p">(),</span>
+        <span class="n">geometry</span><span class="p">,</span>
+        <span class="n">potentialenergy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span>
+        <span class="n">atoms</span><span class="o">=</span><span class="n">atoms</span><span class="p">,</span>
+        <span class="n">symmetrynumber</span><span class="o">=</span><span class="n">symmetry_number</span><span class="p">,</span>
+        <span class="n">spin</span><span class="o">=</span><span class="n">spin</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">freqs</span> <span class="o">=</span> <span class="n">vibrations</span><span class="o">.</span><span class="n">get_frequencies</span><span class="p">()</span>
+
+    <span class="c1"># Use negataive sign convention for imag modes</span>
+    <span class="n">clean_freqs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">freqs</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">iscomplex</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="n">clean_freqs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">clean_freqs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+
+    <span class="n">thermo_summary</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"frequencies"</span><span class="p">:</span> <span class="n">clean_freqs</span><span class="p">,</span>
+        <span class="s2">"enthalpy"</span><span class="p">:</span> <span class="n">igt</span><span class="o">.</span><span class="n">get_enthalpy</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+        <span class="s2">"entropy"</span><span class="p">:</span> <span class="n">igt</span><span class="o">.</span><span class="n">get_entropy</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">pressure</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+        <span class="s2">"free_energy"</span><span class="p">:</span> <span class="n">igt</span><span class="o">.</span><span class="n">get_gibbs_energy</span><span class="p">(</span>
+            <span class="n">temperature</span><span class="p">,</span> <span class="n">pressure</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">thermo_summary</span></div>
 
 
 <span class="k">def</span> <span class="nf">_check_logfile</span><span class="p">(</span><span class="n">logfile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">check_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
