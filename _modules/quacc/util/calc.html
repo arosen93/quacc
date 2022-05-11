@@ -410,6 +410,7 @@
 <span class="kn">from</span> <span class="nn">monty.shutil</span> <span class="kn">import</span> <span class="n">copy_r</span><span class="p">,</span> <span class="n">gzip_dir</span>
 <span class="kn">from</span> <span class="nn">pymatgen.io.ase</span> <span class="kn">import</span> <span class="n">AseAtomsAdaptor</span>
 <span class="kn">from</span> <span class="nn">pymatgen.io.vasp.inputs</span> <span class="kn">import</span> <span class="n">Kpoints</span>
+<span class="kn">from</span> <span class="nn">pymatgen.symmetry.analyzer</span> <span class="kn">import</span> <span class="n">PointGroupAnalyzer</span>
 <span class="kn">from</span> <span class="nn">pymatgen.symmetry.bandstructure</span> <span class="kn">import</span> <span class="n">HighSymmKpath</span>
 
 <span class="kn">from</span> <span class="nn">quacc</span> <span class="kn">import</span> <span class="n">SETTINGS</span>
@@ -670,14 +671,46 @@
     <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
     <span class="n">geometry</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">symmetry_number</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="n">spin</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">spin_multiplicity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Calculate thermodynamic properties from a given vibrational analysis.</span>
 
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    vibrations : .Vibrations</span>
+<span class="sd">        The Vibrations module to use.</span>
+<span class="sd">    atoms : .Atoms</span>
+<span class="sd">        The Atoms object to use. If None, the Atoms object will be taken from</span>
+<span class="sd">        the Vibrations module.</span>
+<span class="sd">    temperature</span>
+<span class="sd">        Temperature in Kelvins.</span>
+<span class="sd">    pressure</span>
+<span class="sd">        Pressure in bar.</span>
+<span class="sd">    energy</span>
+<span class="sd">        Potential energy in eV. If 0 eV, then the thermochemical correction is computed.</span>
+<span class="sd">    geometry</span>
+<span class="sd">        Monatomic, linear, or nonlinear. Will try to determine automatically if None.</span>
+<span class="sd">    symmetry_number</span>
+<span class="sd">        Rotational symmetry number.</span>
+<span class="sd">    spin_multiplicity</span>
+<span class="sd">        The spin multiplicity</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        {"frequencies": list of frequencies in cm^-1,</span>
+<span class="sd">        "enthalpy": enthalpy in eV,</span>
+<span class="sd">        "entropy": entropy in eV/K,</span>
+<span class="sd">        "free_energy": free energy in eV}</span>
+<span class="sd">    """</span>
     <span class="c1"># Pull atoms from vibrations object if needed</span>
     <span class="n">atoms</span> <span class="o">=</span> <span class="n">atoms</span> <span class="ow">or</span> <span class="n">vibrations</span><span class="o">.</span><span class="n">atoms</span>
 
     <span class="c1"># Get the spin from the Atoms object</span>
-    <span class="k">if</span> <span class="n">spin</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">spin_multiplicity</span><span class="p">:</span>
+        <span class="n">spin</span> <span class="o">=</span> <span class="p">(</span><span class="n">spin_multiplicity</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="k">else</span><span class="p">:</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="nb">getattr</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="s2">"calc"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
             <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="p">,</span> <span class="s2">"results"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -688,18 +721,25 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">spin</span> <span class="o">=</span> <span class="mi">0</span>
 
+    <span class="c1"># Get symmetry for later use</span>
+    <span class="k">if</span> <span class="n">geometry</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">symmetry_number</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">pbc</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+            <span class="n">pmg_obj</span> <span class="o">=</span> <span class="n">AseAtomsAdaptor</span><span class="o">.</span><span class="n">get_structure</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pmg_obj</span> <span class="o">=</span> <span class="n">AseAtomsAdaptor</span><span class="o">.</span><span class="n">get_molecule</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+        <span class="n">pga</span> <span class="o">=</span> <span class="n">PointGroupAnalyzer</span><span class="p">(</span><span class="n">pmg_obj</span><span class="p">)</span>
+        <span class="n">pointgroup</span> <span class="o">=</span> <span class="n">pga</span><span class="o">.</span><span class="n">get_pointgroup</span><span class="p">()</span>
+
     <span class="c1"># Get the geometry</span>
     <span class="k">if</span> <span class="n">geometry</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">geometry</span> <span class="o">=</span> <span class="s2">"monatomic"</span>
-        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">or</span> <span class="p">(</span>
-            <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span>
-            <span class="ow">and</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_angle</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">179.0</span>
-            <span class="ow">and</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_angle</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">181.0</span>
-        <span class="p">):</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">pointgroup</span> <span class="o">==</span> <span class="s2">"D*h"</span><span class="p">):</span>
             <span class="n">geometry</span> <span class="o">=</span> <span class="s2">"linear"</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">geometry</span> <span class="o">=</span> <span class="s2">"nonlinear"</span>
+
+    <span class="c1"># TODO: Automatically get rotational symmetry number if None</span>
 
     <span class="c1"># Calculate ideal gas thermo</span>
     <span class="n">igt</span> <span class="o">=</span> <span class="n">IdealGasThermo</span><span class="p">(</span>
