@@ -295,6 +295,7 @@
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="quacc.schemas.calc.html">quacc.schemas.calc</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="quacc.schemas.calc.summarize_opt_run.html">summarize_opt_run</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quacc.schemas.calc.summarize_run.html">summarize_run</a></li>
 </ul>
 </li>
@@ -326,7 +327,7 @@
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="quacc.util.calc.html">quacc.util.calc</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="quacc.util.calc.calculate_thermo.html">calculate_thermo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="quacc.util.calc.ideal_gas_thermo.html">ideal_gas_thermo</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.calc.run_ase_opt.html">run_ase_opt</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.calc.run_ase_vib.html">run_ase_vib</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.calc.run_calc.html">run_calc</a></li>
@@ -392,7 +393,7 @@
 <h1>RelaxJob<a class="headerlink" href="#relaxjob" title="Permalink to this headline">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="quacc.recipes.emt.core.RelaxJob">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quacc.recipes.emt.core.</span></span><span class="sig-name descname"><span class="pre">RelaxJob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name='EMT-Relax'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asap_cutoff=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer=&lt;class</span> <span class="pre">'ase.optimize.fire.FIRE'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmax=0.03</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opt_kwargs=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/recipes/emt/core.html#RelaxJob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.recipes.emt.core.RelaxJob" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quacc.recipes.emt.core.</span></span><span class="sig-name descname"><span class="pre">RelaxJob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name='EMT-Relax'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asap_cutoff=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmax=0.03</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opt_kwargs=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/recipes/emt/core.html#RelaxJob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.recipes.emt.core.RelaxJob" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://materialsproject.github.io/jobflow/jobflow.core.html#jobflow.core.maker.Maker" title="(in jobflow)"><code class="xref py py-class docutils literal notranslate"><span class="pre">jobflow.core.maker.Maker</span></code></a></p>
 <p>Class to carry out a geometry optimization.</p>
 <dl class="field-list simple">
@@ -400,7 +401,6 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the job.</p></li>
 <li><p><strong>asap_cutoff</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If an ASAP-style cutoff should be used.</p></li>
-<li><p><strong>optimizer</strong> (<em>ase.optimize.optimize.Optimizer</em>) – .Optimizer class to use for the relaxation.</p></li>
 <li><p><strong>fmax</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Tolerance for the force convergence (in eV/A).</p></li>
 <li><p><strong>opt_kwargs</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Dictionary of kwargs for the optimizer.</p></li>
 </ul>
@@ -409,11 +409,6 @@
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="quacc.recipes.emt.core.RelaxJob.optimizer">
-<span class="sig-name descname"><span class="pre">optimizer</span></span><a class="headerlink" href="#quacc.recipes.emt.core.RelaxJob.optimizer" title="Permalink to this definition">#</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">ase.optimize.fire.FIRE</span></code></p>
-</dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="quacc.recipes.emt.core.RelaxJob.make">
 <span class="sig-name descname"><span class="pre">make</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/recipes/emt/core.html#RelaxJob.make"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.recipes.emt.core.RelaxJob.make" title="Permalink to this definition">#</a></dt>

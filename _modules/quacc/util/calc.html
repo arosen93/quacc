@@ -294,6 +294,7 @@
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../reference/quacc.schemas.calc.html">quacc.schemas.calc</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.schemas.calc.summarize_opt_run.html">summarize_opt_run</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.schemas.calc.summarize_run.html">summarize_run</a></li>
 </ul>
 </li>
@@ -325,7 +326,7 @@
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../reference/quacc.util.calc.html">quacc.util.calc</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.util.calc.calculate_thermo.html">calculate_thermo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.util.calc.ideal_gas_thermo.html">ideal_gas_thermo</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.util.calc.run_ase_opt.html">run_ase_opt</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.util.calc.run_ase_vib.html">run_ase_vib</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../reference/quacc.util.calc.run_calc.html">run_calc</a></li>
@@ -400,9 +401,16 @@
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">ase.atoms</span> <span class="kn">import</span> <span class="n">Atoms</span>
-<span class="kn">from</span> <span class="nn">ase.io</span> <span class="kn">import</span> <span class="n">read</span>
-<span class="kn">from</span> <span class="nn">ase.optimize</span> <span class="kn">import</span> <span class="n">FIRE</span>
-<span class="kn">from</span> <span class="nn">ase.optimize.optimize</span> <span class="kn">import</span> <span class="n">Optimizer</span>
+<span class="kn">from</span> <span class="nn">ase.io</span> <span class="kn">import</span> <span class="n">read</span><span class="p">,</span> <span class="n">trajectory</span>
+<span class="kn">from</span> <span class="nn">ase.optimize</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">BFGS</span><span class="p">,</span>
+    <span class="n">FIRE</span><span class="p">,</span>
+    <span class="n">LBFGS</span><span class="p">,</span>
+    <span class="n">BFGSLineSearch</span><span class="p">,</span>
+    <span class="n">GPMin</span><span class="p">,</span>
+    <span class="n">LBFGSLineSearch</span><span class="p">,</span>
+    <span class="n">MDMin</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">ase.thermochemistry</span> <span class="kn">import</span> <span class="n">IdealGasThermo</span>
 <span class="kn">from</span> <span class="nn">ase.vibrations</span> <span class="kn">import</span> <span class="n">Vibrations</span>
 <span class="kn">from</span> <span class="nn">monty.io</span> <span class="kn">import</span> <span class="n">zopen</span>
@@ -463,7 +471,7 @@
     <span class="n">scratch_dir</span> <span class="o">=</span> <span class="n">scratch_dir</span> <span class="ow">or</span> <span class="n">cwd</span>
     <span class="n">symlink</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="s2">"tmp_dir"</span><span class="p">)</span>
 
-    <span class="n">tmpdir</span> <span class="o">=</span> <span class="n">mkdtemp</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="n">scratch_dir</span><span class="p">)</span>
+    <span class="n">tmpdir</span> <span class="o">=</span> <span class="n">mkdtemp</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">"quacc-tmp"</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="n">scratch_dir</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">"nt"</span><span class="p">:</span>
         <span class="n">os</span><span class="o">.</span><span class="n">symlink</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">symlink</span><span class="p">)</span>
@@ -509,12 +517,13 @@
 <div class="viewcode-block" id="run_ase_opt"><a class="viewcode-back" href="../../../reference/quacc.util.calc.run_ase_opt.html#quacc.util.calc.run_ase_opt">[docs]</a><span class="k">def</span> <span class="nf">run_ase_opt</span><span class="p">(</span>
     <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span>
     <span class="n">fmax</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span>
-    <span class="n">optimizer</span><span class="p">:</span> <span class="n">Optimizer</span> <span class="o">=</span> <span class="n">FIRE</span><span class="p">,</span>
+    <span class="n">max_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="n">optimizer</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"FIRE"</span><span class="p">,</span>
     <span class="n">opt_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">scratch_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">SCRATCH_DIR</span><span class="p">,</span>
     <span class="n">gzip</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">GZIP_FILES</span><span class="p">,</span>
     <span class="n">copy_files</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Atoms</span><span class="p">:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">trajectory</span><span class="p">:</span>
     <span class="sd">"""</span>
 <span class="sd">    Run an ASE-based optimization in a scratch directory and copy the results</span>
 <span class="sd">    back to the original directory. This can be useful if file I/O is slow in</span>
@@ -529,8 +538,10 @@
 <span class="sd">        The Atoms object to run the calculation on.</span>
 <span class="sd">    fmax : float</span>
 <span class="sd">        Tolerance for the force convergence (in eV/A).</span>
-<span class="sd">    optimizer : .Optimizer</span>
-<span class="sd">        .Optimizer class to use for the relaxation.</span>
+<span class="sd">    max_steps : int</span>
+<span class="sd">        Maximum number of steps to take.</span>
+<span class="sd">    optimizer : str</span>
+<span class="sd">        Name of optimizer class to use.</span>
 <span class="sd">    opt_kwargs : dict</span>
 <span class="sd">        Dictionary of kwargs for the optimizer.</span>
 <span class="sd">    scratch_dir : str</span>
@@ -543,8 +554,8 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    .Atoms</span>
-<span class="sd">        The updated .Atoms object,</span>
+<span class="sd">    traj</span>
+<span class="sd">        The ASE trajectory object.</span>
 <span class="sd">    """</span>
 
     <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -556,7 +567,28 @@
     <span class="n">symlink</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="s2">"tmp_dir"</span><span class="p">)</span>
     <span class="n">opt_kwargs</span> <span class="o">=</span> <span class="n">opt_kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
 
-    <span class="n">tmpdir</span> <span class="o">=</span> <span class="n">mkdtemp</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="n">scratch_dir</span><span class="p">)</span>
+    <span class="n">opt_kwargs</span><span class="p">[</span><span class="s2">"trajectory"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"opt.traj"</span>
+    <span class="n">opt_kwargs</span><span class="p">[</span><span class="s2">"restart"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"opt.pckl"</span>
+
+    <span class="c1"># Get optimizer</span>
+    <span class="k">if</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"bfgs"</span><span class="p">:</span>
+        <span class="n">opt_class</span> <span class="o">=</span> <span class="n">BFGS</span>
+    <span class="k">elif</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"bfgslinesearch"</span><span class="p">:</span>
+        <span class="n">opt_class</span> <span class="o">=</span> <span class="n">BFGSLineSearch</span>
+    <span class="k">elif</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"lbfgs"</span><span class="p">:</span>
+        <span class="n">opt_class</span> <span class="o">=</span> <span class="n">LBFGS</span>
+    <span class="k">elif</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"lbfgslinesearch"</span><span class="p">:</span>
+        <span class="n">opt_class</span> <span class="o">=</span> <span class="n">LBFGSLineSearch</span>
+    <span class="k">elif</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"gpmin"</span><span class="p">:</span>
+        <span class="n">opt_class</span> <span class="o">=</span> <span class="n">GPMin</span>
+    <span class="k">elif</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"mdmin"</span><span class="p">:</span>
+        <span class="n">opt_class</span> <span class="o">=</span> <span class="n">MDMin</span>
+    <span class="k">elif</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"fire"</span><span class="p">:</span>
+        <span class="n">opt_class</span> <span class="o">=</span> <span class="n">FIRE</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unknown optimizer: </span><span class="si">{</span><span class="n">optimizer</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="n">tmpdir</span> <span class="o">=</span> <span class="n">mkdtemp</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">"quacc-tmp"</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="n">scratch_dir</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">"nt"</span><span class="p">:</span>
         <span class="n">os</span><span class="o">.</span><span class="n">symlink</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">symlink</span><span class="p">)</span>
@@ -567,9 +599,16 @@
 
     <span class="c1"># Run calculation</span>
     <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">)</span>
-    <span class="n">dyn</span> <span class="o">=</span> <span class="n">optimizer</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="o">**</span><span class="n">opt_kwargs</span><span class="p">)</span>
-    <span class="n">dyn</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">fmax</span><span class="o">=</span><span class="n">fmax</span><span class="p">)</span>
+    <span class="n">dyn</span> <span class="o">=</span> <span class="n">opt_class</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="o">**</span><span class="n">opt_kwargs</span><span class="p">)</span>
+    <span class="n">dyn</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">fmax</span><span class="o">=</span><span class="n">fmax</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="n">max_steps</span><span class="p">)</span>
     <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">cwd</span><span class="p">)</span>
+
+    <span class="c1"># Check convergence</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">dyn</span><span class="o">.</span><span class="n">converged</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Optimization did not converge."</span><span class="p">)</span>
+
+    <span class="c1"># Read trajectory</span>
+    <span class="n">traj</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="s2">"opt.traj"</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="s2">":"</span><span class="p">)</span>
 
     <span class="c1"># Gzip files in tmpdir</span>
     <span class="k">if</span> <span class="n">gzip</span><span class="p">:</span>
@@ -584,7 +623,7 @@
 
     <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">cwd</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">atoms</span></div>
+    <span class="k">return</span> <span class="n">traj</span></div>
 
 
 <div class="viewcode-block" id="run_ase_vib"><a class="viewcode-back" href="../../../reference/quacc.util.calc.run_ase_vib.html#quacc.util.calc.run_ase_vib">[docs]</a><span class="k">def</span> <span class="nf">run_ase_vib</span><span class="p">(</span>
@@ -631,7 +670,7 @@
     <span class="n">symlink</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="s2">"tmp_dir"</span><span class="p">)</span>
     <span class="n">vib_kwargs</span> <span class="o">=</span> <span class="n">vib_kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
 
-    <span class="n">tmpdir</span> <span class="o">=</span> <span class="n">mkdtemp</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="n">scratch_dir</span><span class="p">)</span>
+    <span class="n">tmpdir</span> <span class="o">=</span> <span class="n">mkdtemp</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">"quacc-tmp"</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="n">scratch_dir</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">"nt"</span><span class="p">:</span>
         <span class="n">os</span><span class="o">.</span><span class="n">symlink</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">symlink</span><span class="p">)</span>
@@ -663,18 +702,16 @@
     <span class="k">return</span> <span class="n">vib</span></div>
 
 
-<div class="viewcode-block" id="calculate_thermo"><a class="viewcode-back" href="../../../reference/quacc.util.calc.calculate_thermo.html#quacc.util.calc.calculate_thermo">[docs]</a><span class="k">def</span> <span class="nf">calculate_thermo</span><span class="p">(</span>
+<div class="viewcode-block" id="ideal_gas_thermo"><a class="viewcode-back" href="../../../reference/quacc.util.calc.ideal_gas_thermo.html#quacc.util.calc.ideal_gas_thermo">[docs]</a><span class="k">def</span> <span class="nf">ideal_gas_thermo</span><span class="p">(</span>
     <span class="n">vibrations</span><span class="p">:</span> <span class="n">Vibrations</span><span class="p">,</span>
     <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">temperature</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">298.15</span><span class="p">,</span>
     <span class="n">pressure</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
     <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
-    <span class="n">geometry</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">symmetry_number</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="n">spin_multiplicity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
     <span class="sd">"""</span>
-<span class="sd">    Calculate thermodynamic properties from a given vibrational analysis.</span>
+<span class="sd">    Calculate thermodynamic properties for a molecule from a given vibrational analysis.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -689,10 +726,6 @@
 <span class="sd">        Pressure in bar.</span>
 <span class="sd">    energy</span>
 <span class="sd">        Potential energy in eV. If 0 eV, then the thermochemical correction is computed.</span>
-<span class="sd">    geometry</span>
-<span class="sd">        Monatomic, linear, or nonlinear. Will try to determine automatically if None.</span>
-<span class="sd">    symmetry_number</span>
-<span class="sd">        Rotational symmetry number.</span>
 <span class="sd">    spin_multiplicity</span>
 <span class="sd">        The spin multiplicity</span>
 
@@ -700,9 +733,11 @@
 <span class="sd">    -------</span>
 <span class="sd">    dict</span>
 <span class="sd">        {"frequencies": list of frequencies in cm^-1,</span>
+<span class="sd">        "n_imag": number of imaginary modes,</span>
+<span class="sd">        "potential_energy": potential energy in eV,</span>
 <span class="sd">        "enthalpy": enthalpy in eV,</span>
 <span class="sd">        "entropy": entropy in eV/K,</span>
-<span class="sd">        "free_energy": free energy in eV}</span>
+<span class="sd">        "gibbs": free energy in eV}</span>
 <span class="sd">    """</span>
     <span class="c1"># Pull atoms from vibrations object if needed</span>
     <span class="n">atoms</span> <span class="o">=</span> <span class="n">atoms</span> <span class="ow">or</span> <span class="n">vibrations</span><span class="o">.</span><span class="n">atoms</span>
@@ -722,24 +757,20 @@
             <span class="n">spin</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="c1"># Get symmetry for later use</span>
-    <span class="k">if</span> <span class="n">geometry</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">symmetry_number</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">pbc</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
-            <span class="n">pmg_obj</span> <span class="o">=</span> <span class="n">AseAtomsAdaptor</span><span class="o">.</span><span class="n">get_structure</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">pmg_obj</span> <span class="o">=</span> <span class="n">AseAtomsAdaptor</span><span class="o">.</span><span class="n">get_molecule</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
-        <span class="n">pga</span> <span class="o">=</span> <span class="n">PointGroupAnalyzer</span><span class="p">(</span><span class="n">pmg_obj</span><span class="p">)</span>
-        <span class="n">pointgroup</span> <span class="o">=</span> <span class="n">pga</span><span class="o">.</span><span class="n">get_pointgroup</span><span class="p">()</span>
+    <span class="n">pmg_obj</span> <span class="o">=</span> <span class="n">AseAtomsAdaptor</span><span class="o">.</span><span class="n">get_molecule</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+    <span class="n">pga</span> <span class="o">=</span> <span class="n">PointGroupAnalyzer</span><span class="p">(</span><span class="n">pmg_obj</span><span class="p">)</span>
+    <span class="n">pointgroup</span> <span class="o">=</span> <span class="n">pga</span><span class="o">.</span><span class="n">get_pointgroup</span><span class="p">()</span>
 
     <span class="c1"># Get the geometry</span>
-    <span class="k">if</span> <span class="n">geometry</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="n">geometry</span> <span class="o">=</span> <span class="s2">"monatomic"</span>
-        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">pointgroup</span> <span class="o">==</span> <span class="s2">"D*h"</span><span class="p">):</span>
-            <span class="n">geometry</span> <span class="o">=</span> <span class="s2">"linear"</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">geometry</span> <span class="o">=</span> <span class="s2">"nonlinear"</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">geometry</span> <span class="o">=</span> <span class="s2">"monatomic"</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">pointgroup</span> <span class="o">==</span> <span class="s2">"D*h"</span><span class="p">):</span>
+        <span class="n">geometry</span> <span class="o">=</span> <span class="s2">"linear"</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">geometry</span> <span class="o">=</span> <span class="s2">"nonlinear"</span>
 
-    <span class="c1"># TODO: Automatically get rotational symmetry number if None</span>
+    <span class="c1"># Automatically get rotational symmetry number</span>
+    <span class="n">symmetry_number</span> <span class="o">=</span> <span class="n">pga</span><span class="o">.</span><span class="n">get_rotational_symmetry_number</span><span class="p">()</span>
 
     <span class="c1"># Calculate ideal gas thermo</span>
     <span class="n">igt</span> <span class="o">=</span> <span class="n">IdealGasThermo</span><span class="p">(</span>
@@ -751,6 +782,7 @@
         <span class="n">spin</span><span class="o">=</span><span class="n">spin</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">freqs</span> <span class="o">=</span> <span class="n">vibrations</span><span class="o">.</span><span class="n">get_frequencies</span><span class="p">()</span>
+    <span class="n">imag_freqs</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">freqs</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">iscomplex</span><span class="p">(</span><span class="n">f</span><span class="p">)]</span>
 
     <span class="c1"># Use negataive sign convention for imag modes</span>
     <span class="n">clean_freqs</span> <span class="o">=</span> <span class="p">[]</span>
@@ -762,11 +794,11 @@
 
     <span class="n">thermo_summary</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s2">"frequencies"</span><span class="p">:</span> <span class="n">clean_freqs</span><span class="p">,</span>
+        <span class="s2">"n_imag"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">imag_freqs</span><span class="p">),</span>
+        <span class="s2">"potential_energy"</span><span class="p">:</span> <span class="n">energy</span><span class="p">,</span>
         <span class="s2">"enthalpy"</span><span class="p">:</span> <span class="n">igt</span><span class="o">.</span><span class="n">get_enthalpy</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
         <span class="s2">"entropy"</span><span class="p">:</span> <span class="n">igt</span><span class="o">.</span><span class="n">get_entropy</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">pressure</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
-        <span class="s2">"free_energy"</span><span class="p">:</span> <span class="n">igt</span><span class="o">.</span><span class="n">get_gibbs_energy</span><span class="p">(</span>
-            <span class="n">temperature</span><span class="p">,</span> <span class="n">pressure</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span>
-        <span class="p">),</span>
+        <span class="s2">"gibbs"</span><span class="p">:</span> <span class="n">igt</span><span class="o">.</span><span class="n">get_gibbs_energy</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">pressure</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
     <span class="p">}</span>
 
     <span class="k">return</span> <span class="n">thermo_summary</span></div>

@@ -1,0 +1,6 @@
+ideal\_gas\_thermo
+==================
+
+.. currentmodule:: quacc.util.calc
+
+.. autofunction:: ideal_gas_thermo

@@ -294,6 +294,7 @@
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../../reference/quacc.schemas.calc.html">quacc.schemas.calc</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../reference/quacc.schemas.calc.summarize_opt_run.html">summarize_opt_run</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../reference/quacc.schemas.calc.summarize_run.html">summarize_run</a></li>
 </ul>
 </li>
@@ -325,7 +326,7 @@
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../../reference/quacc.util.calc.html">quacc.util.calc</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../../reference/quacc.util.calc.calculate_thermo.html">calculate_thermo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../reference/quacc.util.calc.ideal_gas_thermo.html">ideal_gas_thermo</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../reference/quacc.util.calc.run_ase_opt.html">run_ase_opt</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../reference/quacc.util.calc.run_ase_vib.html">run_ase_vib</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../reference/quacc.util.calc.run_calc.html">run_calc</a></li>
@@ -395,11 +396,10 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span>
 
 <span class="kn">from</span> <span class="nn">ase.atoms</span> <span class="kn">import</span> <span class="n">Atoms</span>
-<span class="kn">from</span> <span class="nn">ase.optimize</span> <span class="kn">import</span> <span class="n">BFGSLineSearch</span>
 <span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">Maker</span><span class="p">,</span> <span class="n">job</span>
 
 <span class="kn">from</span> <span class="nn">quacc.calculators.vasp</span> <span class="kn">import</span> <span class="n">Vasp</span>
-<span class="kn">from</span> <span class="nn">quacc.schemas.calc</span> <span class="kn">import</span> <span class="n">summarize_run</span> <span class="k">as</span> <span class="n">summarize_ase_run</span>
+<span class="kn">from</span> <span class="nn">quacc.schemas.calc</span> <span class="kn">import</span> <span class="n">summarize_opt_run</span>
 <span class="kn">from</span> <span class="nn">quacc.schemas.vasp</span> <span class="kn">import</span> <span class="n">summarize_run</span>
 <span class="kn">from</span> <span class="nn">quacc.util.basics</span> <span class="kn">import</span> <span class="n">merge_dicts</span>
 <span class="kn">from</span> <span class="nn">quacc.util.calc</span> <span class="kn">import</span> <span class="n">run_ase_opt</span><span class="p">,</span> <span class="n">run_calc</span>
@@ -533,9 +533,9 @@
     <span class="n">flags</span> <span class="o">=</span> <span class="n">merge_dicts</span><span class="p">(</span><span class="n">defaults</span><span class="p">,</span> <span class="n">swaps</span><span class="p">)</span>
     <span class="n">calc</span> <span class="o">=</span> <span class="n">Vasp</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">preset</span><span class="o">=</span><span class="n">preset</span><span class="p">,</span> <span class="o">**</span><span class="n">flags</span><span class="p">)</span>
     <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">calc</span>
-    <span class="n">new_atoms</span> <span class="o">=</span> <span class="n">run_ase_opt</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">fmax</span><span class="o">=</span><span class="n">fmax</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="n">BFGSLineSearch</span><span class="p">)</span>
+    <span class="n">traj</span> <span class="o">=</span> <span class="n">run_ase_opt</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">fmax</span><span class="o">=</span><span class="n">fmax</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="s2">"BFGSLineSearch"</span><span class="p">)</span>
 
-    <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_ase_run</span><span class="p">(</span><span class="n">new_atoms</span><span class="p">,</span> <span class="n">input_atoms</span><span class="o">=</span><span class="n">atoms</span><span class="p">)</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_opt_run</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">calc</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">summary</span>
 

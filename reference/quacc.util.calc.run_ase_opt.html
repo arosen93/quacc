@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="run_ase_vib" href="quacc.util.calc.run_ase_vib.html" /><link rel="prev" title="calculate_thermo" href="quacc.util.calc.calculate_thermo.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="run_ase_vib" href="quacc.util.calc.run_ase_vib.html" /><link rel="prev" title="ideal_gas_thermo" href="quacc.util.calc.ideal_gas_thermo.html" />
 
     <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
         <title>run_ase_opt - quacc</title>
@@ -295,6 +295,7 @@
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="quacc.schemas.calc.html">quacc.schemas.calc</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="quacc.schemas.calc.summarize_opt_run.html">summarize_opt_run</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quacc.schemas.calc.summarize_run.html">summarize_run</a></li>
 </ul>
 </li>
@@ -326,7 +327,7 @@
 </ul>
 </li>
 <li class="toctree-l3 current has-children"><a class="reference internal" href="quacc.util.calc.html">quacc.util.calc</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="quacc.util.calc.calculate_thermo.html">calculate_thermo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="quacc.util.calc.ideal_gas_thermo.html">ideal_gas_thermo</a></li>
 <li class="toctree-l4 current current-page"><a class="current reference internal" href="#">run_ase_opt</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.calc.run_ase_vib.html">run_ase_vib</a></li>
 <li class="toctree-l4"><a class="reference internal" href="quacc.util.calc.run_calc.html">run_calc</a></li>
@@ -392,7 +393,7 @@
 <h1>run_ase_opt<a class="headerlink" href="#run-ase-opt" title="Permalink to this headline">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="quacc.util.calc.run_ase_opt">
-<span class="sig-prename descclassname"><span class="pre">quacc.util.calc.</span></span><span class="sig-name descname"><span class="pre">run_ase_opt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmax=0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer=&lt;class</span> <span class="pre">'ase.optimize.fire.FIRE'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opt_kwargs=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_dir='.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gzip=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy_files=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/util/calc.html#run_ase_opt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.util.calc.run_ase_opt" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">quacc.util.calc.</span></span><span class="sig-name descname"><span class="pre">run_ase_opt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'FIRE'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opt_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gzip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy_files</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/util/calc.html#run_ase_opt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.util.calc.run_ase_opt" title="Permalink to this definition">#</a></dt>
 <dd><p>Run an ASE-based optimization in a scratch directory and copy the results
 back to the original directory. This can be useful if file I/O is slow in
 the working directory, so long as file transfer speeds are reasonable.</p>
@@ -403,7 +404,8 @@ not modify the atoms object in-place.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>atoms</strong> (<em>.Atoms</em>) – The Atoms object to run the calculation on.</p></li>
 <li><p><strong>fmax</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Tolerance for the force convergence (in eV/A).</p></li>
-<li><p><strong>optimizer</strong> (<em>.Optimizer</em>) – .Optimizer class to use for the relaxation.</p></li>
+<li><p><strong>max_steps</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a>) – Maximum number of steps to take.</p></li>
+<li><p><strong>optimizer</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of optimizer class to use.</p></li>
 <li><p><strong>opt_kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#dict" title="(in Python v3.10)"><em>dict</em></a>) – Dictionary of kwargs for the optimizer.</p></li>
 <li><p><strong>scratch_dir</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Path where a tmpdir should be made for running the calculation. If None,
 the current working directory will be used.</p></li>
@@ -412,10 +414,10 @@ the current working directory will be used.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The updated .Atoms object,</p>
+<dd class="field-even"><p>The ASE trajectory object.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>.Atoms</p>
+<dd class="field-odd"><p>traj</p>
 </dd>
 </dl>
 </dd></dl>
@@ -435,14 +437,14 @@ the current working directory will be used.</p></li>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="quacc.util.calc.calculate_thermo.html">
+          <a class="prev-page" href="quacc.util.calc.ideal_gas_thermo.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">calculate_thermo</div>
+                <div class="title">ideal_gas_thermo</div>
                 
               </div>
             </a>

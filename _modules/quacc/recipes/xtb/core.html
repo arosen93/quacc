@@ -294,6 +294,7 @@
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../../reference/quacc.schemas.calc.html">quacc.schemas.calc</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" role="switch" type="checkbox"/><label for="toctree-checkbox-27"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../reference/quacc.schemas.calc.summarize_opt_run.html">summarize_opt_run</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../reference/quacc.schemas.calc.summarize_run.html">summarize_run</a></li>
 </ul>
 </li>
@@ -325,7 +326,7 @@
 </ul>
 </li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="../../../../reference/quacc.util.calc.html">quacc.util.calc</a><input class="toctree-checkbox" id="toctree-checkbox-33" name="toctree-checkbox-33" role="switch" type="checkbox"/><label for="toctree-checkbox-33"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../../reference/quacc.util.calc.calculate_thermo.html">calculate_thermo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../reference/quacc.util.calc.ideal_gas_thermo.html">ideal_gas_thermo</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../reference/quacc.util.calc.run_ase_opt.html">run_ase_opt</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../reference/quacc.util.calc.run_ase_vib.html">run_ase_vib</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../reference/quacc.util.calc.run_calc.html">run_calc</a></li>
@@ -397,8 +398,6 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span>
 
 <span class="kn">from</span> <span class="nn">ase.atoms</span> <span class="kn">import</span> <span class="n">Atoms</span>
-<span class="kn">from</span> <span class="nn">ase.optimize</span> <span class="kn">import</span> <span class="n">FIRE</span>
-<span class="kn">from</span> <span class="nn">ase.optimize.optimize</span> <span class="kn">import</span> <span class="n">Optimizer</span>
 <span class="kn">from</span> <span class="nn">jobflow</span> <span class="kn">import</span> <span class="n">Maker</span><span class="p">,</span> <span class="n">job</span>
 <span class="kn">from</span> <span class="nn">monty.dev</span> <span class="kn">import</span> <span class="n">requires</span>
 
@@ -406,8 +405,8 @@
     <span class="kn">from</span> <span class="nn">xtb.ase.calculator</span> <span class="kn">import</span> <span class="n">XTB</span>
 <span class="k">except</span> <span class="p">(</span><span class="ne">ModuleNotFoundError</span><span class="p">,</span> <span class="ne">ImportError</span><span class="p">):</span>
     <span class="n">XTB</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="kn">from</span> <span class="nn">quacc.schemas.calc</span> <span class="kn">import</span> <span class="n">summarize_run</span>
-<span class="kn">from</span> <span class="nn">quacc.util.calc</span> <span class="kn">import</span> <span class="n">calculate_thermo</span><span class="p">,</span> <span class="n">run_ase_opt</span><span class="p">,</span> <span class="n">run_ase_vib</span><span class="p">,</span> <span class="n">run_calc</span>
+<span class="kn">from</span> <span class="nn">quacc.schemas.calc</span> <span class="kn">import</span> <span class="n">summarize_opt_run</span><span class="p">,</span> <span class="n">summarize_run</span>
+<span class="kn">from</span> <span class="nn">quacc.util.calc</span> <span class="kn">import</span> <span class="n">ideal_gas_thermo</span><span class="p">,</span> <span class="n">run_ase_opt</span><span class="p">,</span> <span class="n">run_ase_vib</span><span class="p">,</span> <span class="n">run_calc</span>
 
 
 <div class="viewcode-block" id="StaticJob"><a class="viewcode-back" href="../../../../reference/quacc.recipes.xtb.core.StaticJob.html#quacc.recipes.xtb.core.StaticJob">[docs]</a><span class="nd">@dataclass</span>
@@ -469,8 +468,10 @@
 <span class="sd">        GFN0-xTB, GFN1-xTB, GFN2-xTB, GFN-FF.</span>
 <span class="sd">    fmax</span>
 <span class="sd">        Tolerance for the force convergence (in eV/A).</span>
+<span class="sd">    max_steps</span>
+<span class="sd">        Maximum number of steps to take.</span>
 <span class="sd">    optimizer</span>
-<span class="sd">        .Optimizer class to use for the relaxation.</span>
+<span class="sd">        Name of ASE optimizer class to use for the relaxation.</span>
 <span class="sd">    xtb_kwargs</span>
 <span class="sd">        Dictionary of custom kwargs for the xTB calculator.</span>
 <span class="sd">    opt_kwargs</span>
@@ -480,7 +481,8 @@
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"xTB-Relax"</span>
     <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"GFN2-xTB"</span>
     <span class="n">fmax</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.01</span>
-    <span class="n">optimizer</span><span class="p">:</span> <span class="n">Optimizer</span> <span class="o">=</span> <span class="n">FIRE</span>
+    <span class="n">max_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span>
+    <span class="n">optimizer</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"FIRE"</span>
     <span class="n">xtb_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
     <span class="n">opt_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
 
@@ -503,11 +505,15 @@
 <span class="sd">            Summary of the run.</span>
 <span class="sd">        """</span>
         <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">XTB</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">xtb_kwargs</span><span class="p">)</span>
-        <span class="n">new_atoms</span> <span class="o">=</span> <span class="n">run_ase_opt</span><span class="p">(</span>
-            <span class="n">atoms</span><span class="p">,</span> <span class="n">fmax</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fmax</span><span class="p">,</span> <span class="n">optimizer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">opt_kwargs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">opt_kwargs</span>
+        <span class="n">traj</span> <span class="o">=</span> <span class="n">run_ase_opt</span><span class="p">(</span>
+            <span class="n">atoms</span><span class="p">,</span>
+            <span class="n">fmax</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fmax</span><span class="p">,</span>
+            <span class="n">max_steps</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_steps</span><span class="p">,</span>
+            <span class="n">optimizer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">optimizer</span><span class="p">,</span>
+            <span class="n">opt_kwargs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">opt_kwargs</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span>
-            <span class="n">new_atoms</span><span class="p">,</span> <span class="n">input_atoms</span><span class="o">=</span><span class="n">atoms</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
+        <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_opt_run</span><span class="p">(</span>
+            <span class="n">traj</span><span class="p">,</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
         <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">summary</span></div></div>
@@ -528,10 +534,6 @@
 <span class="sd">        Temperature in Kelvins.</span>
 <span class="sd">    pressure</span>
 <span class="sd">        Pressure in bar.</span>
-<span class="sd">    geometry</span>
-<span class="sd">        Monatomic, linear, or nonlinear. Will try to determine automatically if None.</span>
-<span class="sd">    symmetry_number</span>
-<span class="sd">        Rotational symmetry number.</span>
 <span class="sd">    xtb_kwargs</span>
 <span class="sd">        Dictionary of custom kwargs for the xTB calculator.</span>
 <span class="sd">    """</span>
@@ -540,8 +542,6 @@
     <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"GFN2-xTB"</span>
     <span class="n">temperature</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">298.15</span>
     <span class="n">pressure</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
-    <span class="n">geometry</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">symmetry_number</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">xtb_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ThermoJob.make"><a class="viewcode-back" href="../../../../reference/quacc.recipes.xtb.core.ThermoJob.html#quacc.recipes.xtb.core.ThermoJob.make">[docs]</a>    <span class="nd">@job</span>
@@ -557,7 +557,7 @@
 <span class="sd">        atoms</span>
 <span class="sd">            .Atoms object</span>
 <span class="sd">        energy</span>
-<span class="sd">            Potential energy in eV. If 0 eV, then the thermochemical correction is computed.</span>
+<span class="sd">            Potential energy in eV. If 0, then the output is just the correction.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -566,14 +566,12 @@
 <span class="sd">        """</span>
         <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">XTB</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">xtb_kwargs</span><span class="p">)</span>
         <span class="n">vibrations</span> <span class="o">=</span> <span class="n">run_ase_vib</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
-        <span class="n">thermo_summary</span> <span class="o">=</span> <span class="n">calculate_thermo</span><span class="p">(</span>
+        <span class="n">thermo_summary</span> <span class="o">=</span> <span class="n">ideal_gas_thermo</span><span class="p">(</span>
             <span class="n">vibrations</span><span class="p">,</span>
             <span class="n">atoms</span><span class="o">=</span><span class="n">atoms</span><span class="p">,</span>
             <span class="n">temperature</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">temperature</span><span class="p">,</span>
             <span class="n">pressure</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pressure</span><span class="p">,</span>
             <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span>
-            <span class="n">geometry</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">geometry</span><span class="p">,</span>
-            <span class="n">symmetry_number</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">symmetry_number</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">thermo_summary</span></div></div>

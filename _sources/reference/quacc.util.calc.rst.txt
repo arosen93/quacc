@@ -15,7 +15,7 @@ quacc.util.calc
       :toctree:
       :nosignatures:
    
-      calculate_thermo
+      ideal_gas_thermo
       run_ase_opt
       run_ase_vib
       run_calc
