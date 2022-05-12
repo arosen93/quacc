@@ -728,7 +728,8 @@
 <span class="sd">    energy</span>
 <span class="sd">        Potential energy in eV. If 0 eV, then the thermochemical correction is computed.</span>
 <span class="sd">    spin_multiplicity</span>
-<span class="sd">        The spin multiplicity</span>
+<span class="sd">        The spin multiplicity. If None, this will be determined automatically from the</span>
+<span class="sd">        attached magnetic moments.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -772,29 +773,24 @@
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">pointgroup</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">pointgroup</span> <span class="o">=</span> <span class="n">pga</span><span class="o">.</span><span class="n">get_pointgroup</span><span class="p">()</span>
+        <span class="n">pointgroup</span> <span class="o">=</span> <span class="n">pga</span><span class="o">.</span><span class="n">get_pointgroup</span><span class="p">()</span><span class="o">.</span><span class="n">sch_symbol</span>
 
     <span class="c1"># Get the geometry</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">geometry</span> <span class="o">=</span> <span class="s2">"monatomic"</span>
+        <span class="n">n_vib</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">pointgroup</span> <span class="o">==</span> <span class="s2">"D*h"</span><span class="p">):</span>
         <span class="n">geometry</span> <span class="o">=</span> <span class="s2">"linear"</span>
+        <span class="n">n_vib</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">-</span> <span class="mi">5</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">geometry</span> <span class="o">=</span> <span class="s2">"nonlinear"</span>
+        <span class="n">n_vib</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">-</span> <span class="mi">6</span>
 
     <span class="c1"># Automatically get rotational symmetry number</span>
     <span class="k">if</span> <span class="n">geometry</span> <span class="o">==</span> <span class="s2">"monatomic"</span><span class="p">:</span>
         <span class="n">symmetry_number</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">symmetry_number</span> <span class="o">=</span> <span class="n">pga</span><span class="o">.</span><span class="n">get_rotational_symmetry_number</span><span class="p">()</span>
-
-    <span class="c1"># Get the true vibrational modes</span>
-    <span class="k">if</span> <span class="n">geometry</span> <span class="o">==</span> <span class="s2">"nonlinear"</span><span class="p">:</span>
-        <span class="n">n_vib</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">-</span> <span class="mi">6</span>
-    <span class="k">elif</span> <span class="n">geometry</span> <span class="o">==</span> <span class="s2">"linear"</span><span class="p">:</span>
-        <span class="n">n_vib</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">-</span> <span class="mi">5</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">n_vib</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="c1"># Calculate ideal gas thermo</span>
     <span class="n">igt</span> <span class="o">=</span> <span class="n">IdealGasThermo</span><span class="p">(</span>
