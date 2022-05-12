@@ -422,6 +422,7 @@
 <span class="kn">from</span> <span class="nn">pymatgen.symmetry.bandstructure</span> <span class="kn">import</span> <span class="n">HighSymmKpath</span>
 
 <span class="kn">from</span> <span class="nn">quacc</span> <span class="kn">import</span> <span class="n">SETTINGS</span>
+<span class="kn">from</span> <span class="nn">quacc.schemas.atoms</span> <span class="kn">import</span> <span class="n">atoms_to_metadata</span>
 <span class="kn">from</span> <span class="nn">quacc.util.atoms</span> <span class="kn">import</span> <span class="n">copy_atoms</span>
 <span class="kn">from</span> <span class="nn">quacc.util.basics</span> <span class="kn">import</span> <span class="n">copy_decompress</span>
 
@@ -772,6 +773,12 @@
     <span class="c1"># Automatically get rotational symmetry number</span>
     <span class="n">symmetry_number</span> <span class="o">=</span> <span class="n">pga</span><span class="o">.</span><span class="n">get_rotational_symmetry_number</span><span class="p">()</span>
 
+    <span class="c1"># Get the true vibrational modes</span>
+    <span class="k">if</span> <span class="n">geometry</span> <span class="o">==</span> <span class="s2">"nonlinear"</span><span class="p">:</span>
+        <span class="n">n_vib</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">-</span> <span class="mi">6</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">n_vib</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">-</span> <span class="mi">5</span>
+
     <span class="c1"># Calculate ideal gas thermo</span>
     <span class="n">igt</span> <span class="o">=</span> <span class="n">IdealGasThermo</span><span class="p">(</span>
         <span class="n">vibrations</span><span class="o">.</span><span class="n">get_energies</span><span class="p">(),</span>
@@ -782,7 +789,6 @@
         <span class="n">spin</span><span class="o">=</span><span class="n">spin</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">freqs</span> <span class="o">=</span> <span class="n">vibrations</span><span class="o">.</span><span class="n">get_frequencies</span><span class="p">()</span>
-    <span class="n">imag_freqs</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">freqs</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">iscomplex</span><span class="p">(</span><span class="n">f</span><span class="p">)]</span>
 
     <span class="c1"># Use negataive sign convention for imag modes</span>
     <span class="n">clean_freqs</span> <span class="o">=</span> <span class="p">[]</span>
@@ -792,13 +798,24 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">clean_freqs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
 
+    <span class="c1"># Ensure 3N-5, 3N-6 modes are stored</span>
+    <span class="n">clean_freqs</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+    <span class="n">clean_freqs</span> <span class="o">=</span> <span class="n">clean_freqs</span><span class="p">[</span><span class="o">-</span><span class="n">n_vib</span><span class="p">:]</span>
+
+    <span class="c1"># Count number of imaginary frequencies</span>
+    <span class="n">imag_freqs</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">clean_freqs</span> <span class="k">if</span> <span class="n">f</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span>
+
     <span class="n">thermo_summary</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"atoms"</span><span class="p">:</span> <span class="n">atoms</span><span class="p">,</span>
+        <span class="s2">"atoms_metadata"</span><span class="p">:</span> <span class="n">atoms_to_metadata</span><span class="p">(</span><span class="n">atoms</span><span class="p">),</span>
         <span class="s2">"frequencies"</span><span class="p">:</span> <span class="n">clean_freqs</span><span class="p">,</span>
         <span class="s2">"n_imag"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">imag_freqs</span><span class="p">),</span>
-        <span class="s2">"potential_energy"</span><span class="p">:</span> <span class="n">energy</span><span class="p">,</span>
+        <span class="s2">"energy"</span><span class="p">:</span> <span class="n">energy</span><span class="p">,</span>
         <span class="s2">"enthalpy"</span><span class="p">:</span> <span class="n">igt</span><span class="o">.</span><span class="n">get_enthalpy</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
         <span class="s2">"entropy"</span><span class="p">:</span> <span class="n">igt</span><span class="o">.</span><span class="n">get_entropy</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">pressure</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
-        <span class="s2">"gibbs"</span><span class="p">:</span> <span class="n">igt</span><span class="o">.</span><span class="n">get_gibbs_energy</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">pressure</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+        <span class="s2">"gibbs_energy"</span><span class="p">:</span> <span class="n">igt</span><span class="o">.</span><span class="n">get_gibbs_energy</span><span class="p">(</span>
+            <span class="n">temperature</span><span class="p">,</span> <span class="n">pressure</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">),</span>
     <span class="p">}</span>
 
     <span class="k">return</span> <span class="n">thermo_summary</span></div>
