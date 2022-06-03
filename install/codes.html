@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Database Configuration" href="config_db.html" /><link rel="prev" title="Installation" href="install.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.06.04"/>
         <title>DFT Package Setup - quacc</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
@@ -375,7 +375,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -397,17 +398,17 @@
 <ol class="arabic simple">
 <li><p>Define the <code class="docutils literal notranslate"><span class="pre">VASP_PP_PATH</span></code> environment variable that points to your pseudopotential library. See the <a class="reference external" href="https://wiki.fysik.dtu.dk/ase/ase/calculators/vasp.html#pseudopotentials">ASE documentation</a> for full details. We recommend including this in your <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> file.</p></li>
 <li><p>To use vdW functionals, define the <code class="docutils literal notranslate"><span class="pre">ASE_VASP_VDW</span></code> environment variable to point to the <code class="docutils literal notranslate"><span class="pre">vdw_kernel.bindat</span></code> file distributed with VASP. Again, refer to the <a class="reference external" href="https://wiki.fysik.dtu.dk/ase/ase/calculators/vasp.html#pseudopotentials">ASE documentation</a> for additional details. We recommend including this in your <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> file.</p></li>
-<li><p>To run VASP with Custodian (the default behavior in QuAcc), you will need to define a <code class="docutils literal notranslate"><span class="pre">VASP_PARALLEL_CMD</span></code> environment variable that tells Custodian how to parallelize VASP. For instance, this might look something like <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">VASP_PARALLEL_CMD="srun</span> <span class="pre">-N</span> <span class="pre">2</span> <span class="pre">--ntasks-per-node</span> <span class="pre">24"</span></code>. Note, the VASP executables are not included in this environment variable. For convenience, we recommend specifying this environment variable at runtime so you can easily modify it.</p></li>
+<li><p>To run VASP with Custodian (the default behavior in QuAcc), you will need to define a <code class="docutils literal notranslate"><span class="pre">VASP_PARALLEL_CMD</span></code> environment variable that tells Custodian how to parallelize VASP. For instance, this might look something like <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">VASP_PARALLEL_CMD=&quot;srun</span> <span class="pre">-N</span> <span class="pre">2</span> <span class="pre">--ntasks-per-node</span> <span class="pre">24&quot;</span></code>. Note, the VASP executables are not included in this environment variable. For convenience, we recommend specifying this environment variable at runtime so you can easily modify it.</p></li>
 <li><p>By default, Custodian will assume that the VASP executables can be run with <code class="docutils literal notranslate"><span class="pre">vasp_std</span></code> or <code class="docutils literal notranslate"><span class="pre">vasp_gam</span></code> for standard or gamma-point calculations. If you need to use different executable names or wish to change any Custodian settings from the selected defaults, refer to the section on modifying QuAcc settings.</p></li>
 </ol>
 </section>
 <section id="gaussian">
 <h2>Gaussian<a class="headerlink" href="#gaussian" title="Permalink to this headline">#</a></h2>
-<p>As noted in the <a class="reference external" href="https://wiki.fysik.dtu.dk/ase/ase/calculators/gaussian.html">ASE documentation</a>, by default the executables named <code class="docutils literal notranslate"><span class="pre">g16</span></code>, <code class="docutils literal notranslate"><span class="pre">g09</span></code>, or <code class="docutils literal notranslate"><span class="pre">g03</span></code> will be searched (in order of decreasing preference) to run Gaussian. To use a different executable name, you will need to define an environment variable named <code class="docutils literal notranslate"><span class="pre">ASE_GAUSSIAN_COMMAND</span></code>. It should be of the form <code class="docutils literal notranslate"><span class="pre">ASE_GAUSSIAN_COMMAND="/path/to/my/gaussian_executable</span> <span class="pre">gaussian.com</span> <span class="pre">&gt;</span> <span class="pre">gaussian.log"</span></code>.</p>
+<p>As noted in the <a class="reference external" href="https://wiki.fysik.dtu.dk/ase/ase/calculators/gaussian.html">ASE documentation</a>, by default the executables named <code class="docutils literal notranslate"><span class="pre">g16</span></code>, <code class="docutils literal notranslate"><span class="pre">g09</span></code>, or <code class="docutils literal notranslate"><span class="pre">g03</span></code> will be searched (in order of decreasing preference) to run Gaussian. To use a different executable name, you will need to define an environment variable named <code class="docutils literal notranslate"><span class="pre">ASE_GAUSSIAN_COMMAND</span></code>. It should be of the form <code class="docutils literal notranslate"><span class="pre">ASE_GAUSSIAN_COMMAND=&quot;/path/to/my/gaussian_executable</span> <span class="pre">gaussian.com</span> <span class="pre">&gt;</span> <span class="pre">gaussian.log&quot;</span></code>.</p>
 </section>
 <section id="orca">
 <h2>ORCA<a class="headerlink" href="#orca" title="Permalink to this headline">#</a></h2>
-<p>As noted in the <a class="reference external" href="https://wiki.fysik.dtu.dk/ase/ase/calculators/orca.html">ASE documentation</a>, to use ORCA in parallel mode, you will need to define an environment variable named <code class="docutils literal notranslate"><span class="pre">ASE_ORCA_COMMAND</span></code>. It should be of the form <code class="docutils literal notranslate"><span class="pre">ASE_ORCA_COMMAND="/path/to/my/orca</span> <span class="pre">orca.inp</span> <span class="pre">&gt;</span> <span class="pre">orca.out"</span></code>.</p>
+<p>As noted in the <a class="reference external" href="https://wiki.fysik.dtu.dk/ase/ase/calculators/orca.html">ASE documentation</a>, to use ORCA in parallel mode, you will need to define an environment variable named <code class="docutils literal notranslate"><span class="pre">ASE_ORCA_COMMAND</span></code>. It should be of the form <code class="docutils literal notranslate"><span class="pre">ASE_ORCA_COMMAND=&quot;/path/to/my/orca</span> <span class="pre">orca.inp</span> <span class="pre">&gt;</span> <span class="pre">orca.out&quot;</span></code>.</p>
 </section>
 <section id="xtb">
 <h2>xTB<a class="headerlink" href="#xtb" title="Permalink to this headline">#</a></h2>
