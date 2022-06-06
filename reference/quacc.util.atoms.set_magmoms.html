@@ -1,11 +1,11 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="quacc.util.basics" href="quacc.util.basics.html" /><link rel="prev" title="prep_next_run" href="quacc.util.atoms.prep_next_run.html" />
 
-    <meta name="generator" content="sphinx-5.0.1, furo 2022.06.04.1"/>
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
         <title>set_magmoms - quacc</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
@@ -391,7 +391,7 @@
         </div>
         <article role="main">
           <section id="set-magmoms">
-<h1>set_magmoms<a class="headerlink" href="#set-magmoms" title="Permalink to this heading">#</a></h1>
+<h1>set_magmoms<a class="headerlink" href="#set-magmoms" title="Permalink to this headline">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="quacc.util.atoms.set_magmoms">
 <span class="sig-prename descclassname"><span class="pre">quacc.util.atoms.</span></span><span class="sig-name descname"><span class="pre">set_magmoms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elemental_mags_dict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elemental_mags_default</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy_magmoms</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mag_cutoff</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/util/atoms.html#set_magmoms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.util.atoms.set_magmoms" title="Permalink to this definition">#</a></dt>
@@ -408,9 +408,9 @@ are set as the initial magnetic moments.
 initial magnetic moments are checked. If all have a magnitude below mag_cutoff,
 then they are all set to 0 (no spin polarization).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>atoms</strong> (<em>Atoms</em>) – .Atoms object</p></li>
+<li><p><strong>atoms</strong> (<em>ase.atoms.Atoms</em>) – .Atoms object</p></li>
 <li><p><strong>elemental_mags_dict</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Dict" title="(in Python v3.10)"><em>Dict</em></a><em>]</em>) – Dictionary of elemental symbols and their corresponding magnetic moments to set.
 If None, no default values will be used.</p></li>
 <li><p><strong>elemental_mags_default</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Default magnetic moment on an element if no magnetic moment is specified in the elemental_mags_dict.
@@ -420,10 +420,10 @@ list every single element in the elemental_mags_dict.</p></li>
 <li><p><strong>mag_cutoff</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#float" title="(in Python v3.10)"><em>float</em></a>) – Magnitude below which the magnetic moments are considered to be zero. If None, no cutoff will be applied</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Atoms object</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>.Atoms</p>
 </dd>
 </dl>
@@ -484,7 +484,6 @@ list every single element in the elemental_mags_dict.</p></li>
 </div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/scripts/furo.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>

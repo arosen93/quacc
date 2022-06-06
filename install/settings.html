@@ -1,11 +1,11 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="User Guide" href="../user/index.html" /><link rel="prev" title="Database Configuration" href="config_db.html" />
 
-    <meta name="generator" content="sphinx-5.0.1, furo 2022.06.04.1"/>
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
         <title>Settings - quacc</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
@@ -391,14 +391,14 @@
         </div>
         <article role="main">
           <section id="settings">
-<h1>Settings<a class="headerlink" href="#settings" title="Permalink to this heading">#</a></h1>
+<h1>Settings<a class="headerlink" href="#settings" title="Permalink to this headline">#</a></h1>
 <section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h2>
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h2>
 <p>If you’ve completed the prior instructions, you’re done and can run QuAcc! As you use QuAcc, there may be a few default settings you wish to change. We discuss how to do so here.</p>
 <p>By defualt, the global QuAcc settings can be found in the <code class="docutils literal notranslate"><span class="pre">settings.py</span></code> file <a class="reference external" href="https://github.com/arosen93/quacc/blob/main/quacc/settings.py">here</a>. For instance, you can see that by default, <code class="docutils literal notranslate"><span class="pre">GZIP_FILES</span></code> is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, which means that QuAcc will automatically compress the output files from the calculation. Similarly, you can see that <code class="docutils literal notranslate"><span class="pre">SCRATCH_DIR</span></code> is set to the <code class="docutils literal notranslate"><span class="pre">$SCRATCH</span></code> environment variable if it exists.</p>
 </section>
 <section id="modifying-the-default-settings">
-<h2>Modifying the Default Settings<a class="headerlink" href="#modifying-the-default-settings" title="Permalink to this heading">#</a></h2>
+<h2>Modifying the Default Settings<a class="headerlink" href="#modifying-the-default-settings" title="Permalink to this headline">#</a></h2>
 <p>If you wish to modify any of the QuAcc settings, there are several ways to do so.</p>
 <p>The easiest way is to create a file <code class="docutils literal notranslate"><span class="pre">~/quacc.yaml</span></code>. For instance, it might look something like the following to modify the aforementioned settings.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">SCRATCH_DIR</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/tmp</span><span class="w"></span>
@@ -483,7 +483,6 @@
 </div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/scripts/furo.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>

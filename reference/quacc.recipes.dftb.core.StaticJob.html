@@ -1,11 +1,11 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="quacc.recipes.emt" href="quacc.recipes.emt.html" /><link rel="prev" title="RelaxJob" href="quacc.recipes.dftb.core.RelaxJob.html" />
 
-    <meta name="generator" content="sphinx-5.0.1, furo 2022.06.04.1"/>
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
         <title>StaticJob - quacc</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
@@ -391,14 +391,14 @@
         </div>
         <article role="main">
           <section id="staticjob">
-<h1>StaticJob<a class="headerlink" href="#staticjob" title="Permalink to this heading">#</a></h1>
+<h1>StaticJob<a class="headerlink" href="#staticjob" title="Permalink to this headline">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="quacc.recipes.dftb.core.StaticJob">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quacc.recipes.dftb.core.</span></span><span class="sig-name descname"><span class="pre">StaticJob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name='DFTB-Static'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method='GFN2-xTB'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kpts=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">swaps=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/recipes/dftb/core.html#StaticJob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.recipes.dftb.core.StaticJob" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://materialsproject.github.io/jobflow/jobflow.core.html#jobflow.core.maker.Maker" title="(in jobflow)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Maker</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://materialsproject.github.io/jobflow/jobflow.core.html#jobflow.core.maker.Maker" title="(in jobflow)"><code class="xref py py-class docutils literal notranslate"><span class="pre">jobflow.core.maker.Maker</span></code></a></p>
 <p>Class to carry out a single-point calculation.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the job.</p></li>
 <li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Method to use. Accepts ‘DFTB’, ‘GFN1-xTB’, and ‘GFN2-xTB’.</p></li>
@@ -407,19 +407,22 @@
 <li><p><strong>swaps</strong> (<em>Dict</em><em>[</em><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><em>Any</em><em>]</em>) – Dictionary of custom kwargs for the calculator.</p></li>
 </ul>
 </dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="quacc.recipes.dftb.core.StaticJob.make">
 <span class="sig-name descname"><span class="pre">make</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/recipes/dftb/core.html#StaticJob.make"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.recipes.dftb.core.StaticJob.make" title="Permalink to this definition">#</a></dt>
 <dd><p>Make the run.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>atoms</strong> (<em>Atoms</em>) – .Atoms object</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>atoms</strong> (<em>ase.atoms.Atoms</em>) – .Atoms object</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Summary of the run.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>Dict</p>
 </dd>
 </dl>
@@ -482,7 +485,6 @@
 </div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/scripts/furo.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
