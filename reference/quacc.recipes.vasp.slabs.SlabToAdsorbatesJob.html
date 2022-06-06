@@ -1,11 +1,11 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="quacc.recipes.xtb" href="quacc.recipes.xtb.html" /><link rel="prev" title="SlabStaticJob" href="quacc.recipes.vasp.slabs.SlabStaticJob.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
+    <meta name="generator" content="sphinx-5.0.1, furo 2022.06.04.1"/>
         <title>SlabToAdsorbatesJob - quacc</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
@@ -391,25 +391,22 @@
         </div>
         <article role="main">
           <section id="slabtoadsorbatesjob">
-<h1>SlabToAdsorbatesJob<a class="headerlink" href="#slabtoadsorbatesjob" title="Permalink to this headline">#</a></h1>
+<h1>SlabToAdsorbatesJob<a class="headerlink" href="#slabtoadsorbatesjob" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="quacc.recipes.vasp.slabs.SlabToAdsorbatesJob">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">quacc.recipes.vasp.slabs.</span></span><span class="sig-name descname"><span class="pre">SlabToAdsorbatesJob</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name='VASP-SlabToAdsorbates'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slab_ads_relax_job=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slab_ads_static_job=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/recipes/vasp/slabs.html#SlabToAdsorbatesJob"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.recipes.vasp.slabs.SlabToAdsorbatesJob" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://materialsproject.github.io/jobflow/jobflow.core.html#jobflow.core.maker.Maker" title="(in jobflow)"><code class="xref py py-class docutils literal notranslate"><span class="pre">jobflow.core.maker.Maker</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://materialsproject.github.io/jobflow/jobflow.core.html#jobflow.core.maker.Maker" title="(in jobflow)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Maker</span></code></a></p>
 <p>Class to convert a slab (or slabs) to one with an adsorbate present,
 along with the relaxations and statics for the slab-adsorbate systems.
 Multiple slab-adsorbate systems will be generated, one for each unique
 binding site.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – Name of the job.</p></li>
 <li><p><strong>slab_ads_relax_job</strong> (<a class="reference external" href="https://materialsproject.github.io/jobflow/jobflow.core.html#jobflow.core.maker.Maker" title="(in jobflow)"><em>jobflow.core.maker.Maker</em></a>) – Maker to use for the relaxation of the slab-adsorbate system.</p></li>
 <li><p><strong>slab_ads_static_job</strong> (<a class="reference external" href="https://materialsproject.github.io/jobflow/jobflow.core.html#jobflow.core.maker.Maker" title="(in jobflow)"><em>jobflow.core.maker.Maker</em></a>) – Maker to use for the static calculation of the slab-adsorbate system.</p></li>
 </ul>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 <dl class="py method">
@@ -417,19 +414,19 @@ binding site.</p>
 <span class="sig-name descname"><span class="pre">make</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slabs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adsorbates</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">make_ads_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/recipes/vasp/slabs.html#SlabToAdsorbatesJob.make"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.recipes.vasp.slabs.SlabToAdsorbatesJob.make" title="Permalink to this definition">#</a></dt>
 <dd><p>Make the run.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>slabs</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Union" title="(in Python v3.10)"><em>Union</em></a><em>[</em><em>ase.atoms.Atoms</em><em>, </em><a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a><em>[</em><em>ase.atoms.Atoms</em><em>]</em><em>]</em>) – .Atoms object for the slab structure. Also takes a list of Atoms objects
+<li><p><strong>slabs</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Union" title="(in Python v3.10)"><em>Union</em></a><em>[</em><em>Atoms</em><em>, </em><a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a><em>[</em><em>Atoms</em><em>]</em><em>]</em>) – .Atoms object for the slab structure. Also takes a list of Atoms objects
 for the creation of a series of slabs with adsorbates.</p></li>
-<li><p><strong>adsorbates</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Union" title="(in Python v3.10)"><em>Union</em></a><em>[</em><em>ase.atoms.Atoms</em><em>, </em><a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a><em>[</em><em>ase.atoms.Atoms</em><em>]</em><em>]</em>) – .Atoms object for the adsorbate. Also takes a list of Atoms objects for
+<li><p><strong>adsorbates</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Union" title="(in Python v3.10)"><em>Union</em></a><em>[</em><em>Atoms</em><em>, </em><a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a><em>[</em><em>Atoms</em><em>]</em><em>]</em>) – .Atoms object for the adsorbate. Also takes a list of Atoms objects for
 the consideration of multiple different adsorbates.</p></li>
 <li><p><strong>**make_ads_kwargs</strong> – Additional keyword arguments to pass to make_adsorbate_structures()</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A Flow of relaxation and static jobs for the generated slabs with adsorbates.</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Response</p>
 </dd>
 </dl>
@@ -492,6 +489,7 @@ the consideration of multiple different adsorbates.</p></li>
 </div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/scripts/furo.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>

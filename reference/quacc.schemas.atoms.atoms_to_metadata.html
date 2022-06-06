@@ -1,11 +1,11 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="quacc.schemas.calc" href="quacc.schemas.calc.html" /><link rel="prev" title="quacc.schemas.atoms" href="quacc.schemas.atoms.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
+    <meta name="generator" content="sphinx-5.0.1, furo 2022.06.04.1"/>
         <title>atoms_to_metadata - quacc</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
@@ -391,24 +391,24 @@
         </div>
         <article role="main">
           <section id="atoms-to-metadata">
-<h1>atoms_to_metadata<a class="headerlink" href="#atoms-to-metadata" title="Permalink to this headline">#</a></h1>
+<h1>atoms_to_metadata<a class="headerlink" href="#atoms-to-metadata" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="quacc.schemas.atoms.atoms_to_metadata">
 <span class="sig-prename descclassname"><span class="pre">quacc.schemas.atoms.</span></span><span class="sig-name descname"><span class="pre">atoms_to_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_metadata</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strip_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/schemas/atoms.html#atoms_to_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.schemas.atoms.atoms_to_metadata" title="Permalink to this definition">#</a></dt>
 <dd><p>Convert an ASE Atoms object to a dict suitable for storage in MongoDB.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>atoms</strong> (<em>ase.atoms.Atoms</em>) – ASE Atoms object to store in {“atoms”: atoms}</p></li>
+<li><p><strong>atoms</strong> (<em>Atoms</em>) – ASE Atoms object to store in {“atoms”: atoms}</p></li>
 <li><p><strong>get_metadata</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to store atoms metadata in the returned dict.</p></li>
 <li><p><strong>strip_info</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to strip the data from atoms.info in the returned {“atoms”:.Atoms}.
 Note that this data will be stored in {“atoms_info”:atoms.info} regardless.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Dictionary of tabulated atoms object data</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Dict</p>
 </dd>
 </dl>
@@ -469,6 +469,7 @@ Note that this data will be stored in {“atoms_info”:atoms.info} regardless.<
 </div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/scripts/furo.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>

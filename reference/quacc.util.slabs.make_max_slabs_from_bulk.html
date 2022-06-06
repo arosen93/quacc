@@ -1,11 +1,11 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="make_slabs_from_bulk" href="quacc.util.slabs.make_slabs_from_bulk.html" /><link rel="prev" title="make_adsorbate_structures" href="quacc.util.slabs.make_adsorbate_structures.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
+    <meta name="generator" content="sphinx-5.0.1, furo 2022.06.04.1"/>
         <title>make_max_slabs_from_bulk - quacc</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
@@ -391,7 +391,7 @@
         </div>
         <article role="main">
           <section id="make-max-slabs-from-bulk">
-<h1>make_max_slabs_from_bulk<a class="headerlink" href="#make-max-slabs-from-bulk" title="Permalink to this headline">#</a></h1>
+<h1>make_max_slabs_from_bulk<a class="headerlink" href="#make-max-slabs-from-bulk" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="quacc.util.slabs.make_max_slabs_from_bulk">
 <span class="sig-prename descclassname"><span class="pre">quacc.util.slabs.</span></span><span class="sig-name descname"><span class="pre">make_max_slabs_from_bulk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atoms</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_slabs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randomize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_slab_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_length_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_vacuum_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_fix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flip_asymmetric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allowed_surface_symbols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">slabgen_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/util/slabs.html#make_max_slabs_from_bulk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.util.slabs.make_max_slabs_from_bulk" title="Permalink to this definition">#</a></dt>
@@ -404,9 +404,9 @@ in increments of 0.1. This reduces the number of vertical shifts to consider.
 with the fewest number of atoms per cell such that the returned amount is
 less than or equal to max_slabs.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>atoms</strong> (<em>ase.atoms.Atoms</em>) – Bulk structure to generate slabs from</p></li>
+<li><p><strong>atoms</strong> (<em>Atoms</em>) – Bulk structure to generate slabs from</p></li>
 <li><p><strong>max_slabs</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.10/library/functions.html#int" title="(in Python v3.10)"><em>int</em></a><em>]</em>) – Maximum number of slabs to generate</p></li>
 <li><p><strong>randomize</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – If True, return a random selection of max_slabs number of slabs. Otherwise,
 follow the procedure outlined above.</p></li>
@@ -424,8 +424,8 @@ the slab will be discarded, e.g. [“Cu”, “Ni”]</p></li>
 <li><p><strong>List</strong><strong>[</strong><strong>.Atoms</strong><strong>]</strong> – List of slabs</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a>[ase.atoms.Atoms]</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.List" title="(in Python v3.10)"><em>List</em></a>[<em>Atoms</em>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -485,6 +485,7 @@ the slab will be discarded, e.g. [“Cu”, “Ni”]</p></li>
 </div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/scripts/furo.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>

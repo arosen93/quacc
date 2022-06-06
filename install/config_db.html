@@ -1,11 +1,11 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Settings" href="settings.html" /><link rel="prev" title="DFT Package Setup" href="codes.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
+    <meta name="generator" content="sphinx-5.0.1, furo 2022.06.04.1"/>
         <title>Database Configuration - quacc</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
@@ -391,15 +391,15 @@
         </div>
         <article role="main">
           <section id="database-configuration">
-<h1>Database Configuration<a class="headerlink" href="#database-configuration" title="Permalink to this headline">#</a></h1>
+<h1>Database Configuration<a class="headerlink" href="#database-configuration" title="Permalink to this heading">#</a></h1>
 <section id="mongodb-setup">
-<h2>MongoDB Setup<a class="headerlink" href="#mongodb-setup" title="Permalink to this headline">#</a></h2>
+<h2>MongoDB Setup<a class="headerlink" href="#mongodb-setup" title="Permalink to this heading">#</a></h2>
 <section id="introduction">
-<h3>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h3>
+<h3>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h3>
 <p>One of the main advantages of using QuAcc is the ability to have all of your calculation inputs and outputs automatically deposited in a database of your choosing for easy querying. While this is not a requirement for using QuAcc, it is highly recommended. It is also the only way to use QuAcc with the <a class="reference external" href="https://materialsproject.github.io/fireworks/">FireWorks</a> job management system.</p>
 </section>
 <section id="setting-up-a-mongo-database">
-<h3>Setting up a Mongo Database<a class="headerlink" href="#setting-up-a-mongo-database" title="Permalink to this headline">#</a></h3>
+<h3>Setting up a Mongo Database<a class="headerlink" href="#setting-up-a-mongo-database" title="Permalink to this heading">#</a></h3>
 <p><em>Note</em>: If you already have a Mongo database, you can skip this section. Simply have your login credentials ready.</p>
 <p>QuAcc relies on reading and writing to a Mongo Database (MongoDB). If you have never made a Mongo Database, there are many options to choose from. For new users, the easiest route is to use a cloud storage solution called <a class="reference external" href="https://www.mongodb.com/atlas">MongoDB Atlas</a>, which has a free tier. To set up your MongoDB with MongoDB Atlas, follow the instructions below.</p>
 <ol class="arabic simple">
@@ -412,7 +412,7 @@
 </section>
 </section>
 <section id="jobflow-db-setup">
-<h2>Jobflow DB Setup<a class="headerlink" href="#jobflow-db-setup" title="Permalink to this headline">#</a></h2>
+<h2>Jobflow DB Setup<a class="headerlink" href="#jobflow-db-setup" title="Permalink to this heading">#</a></h2>
 <p>To tell QuAcc where to store your calculations, you will need to make a <code class="docutils literal notranslate"><span class="pre">jobflow.yaml</span></code> file. This file will generally be formatted like the example below. Fill in the above fields with the appropriate values for your MongoDB cluster.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">JOB_STORE</span><span class="p">:</span><span class="w"></span>
 <span class="w">    </span><span class="nt">docs_store</span><span class="p">:</span><span class="w"></span>
@@ -440,11 +440,11 @@
 <p>When a QuAcc calculation completes, all the data will be stored in the database you have specified above. If needed, additional information about setting up your <code class="docutils literal notranslate"><span class="pre">jobflow.yaml</span></code> file can be found in the official <a class="reference external" href="https://materialsproject.github.io/jobflow/jobflow.settings.html">jobflow documentation</a>.</p>
 </section>
 <section id="fireworks-db-setup">
-<h2>FireWorks DB Setup<a class="headerlink" href="#fireworks-db-setup" title="Permalink to this headline">#</a></h2>
+<h2>FireWorks DB Setup<a class="headerlink" href="#fireworks-db-setup" title="Permalink to this heading">#</a></h2>
 <p>If you plan to use FireWorks, you will also need to make a few configuration files: <code class="docutils literal notranslate"><span class="pre">FW_config.yaml</span></code>, <code class="docutils literal notranslate"><span class="pre">my_fworker.yaml</span></code>, <code class="docutils literal notranslate"><span class="pre">my_launchpad.yaml</span></code>, and <code class="docutils literal notranslate"><span class="pre">my_qadapter.yaml</span></code>.</p>
 <p>To begin, make a directory called <code class="docutils literal notranslate"><span class="pre">fw_config</span></code> where you will store the above four files.</p>
 <section id="fw-config-file">
-<h3>FW Config File<a class="headerlink" href="#fw-config-file" title="Permalink to this headline">#</a></h3>
+<h3>FW Config File<a class="headerlink" href="#fw-config-file" title="Permalink to this heading">#</a></h3>
 <p>For the <code class="docutils literal notranslate"><span class="pre">FW_config.yaml</span></code>, you can use the following template. Make sure to update the path to the <code class="docutils literal notranslate"><span class="pre">fw_config</span></code> folder you made earlier.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">CONFIG_FILE_DIR</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;/path/to/fw_config&gt;</span><span class="w"></span>
 <span class="nt">QUEUE_UPDATE_INTERVAL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span><span class="w"></span>
@@ -452,7 +452,7 @@
 </div>
 </section>
 <section id="fworker">
-<h3>FWorker<a class="headerlink" href="#fworker" title="Permalink to this headline">#</a></h3>
+<h3>FWorker<a class="headerlink" href="#fworker" title="Permalink to this heading">#</a></h3>
 <p>For the <code class="docutils literal notranslate"><span class="pre">my_fworker.yaml</span></code>, you can use the following template. You do not need to make any modifications.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quacc_fworker</span><span class="w"></span>
 <span class="nt">category</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="w"></span>
@@ -461,7 +461,7 @@
 </div>
 </section>
 <section id="launchpad">
-<h3>Launchpad<a class="headerlink" href="#launchpad" title="Permalink to this headline">#</a></h3>
+<h3>Launchpad<a class="headerlink" href="#launchpad" title="Permalink to this heading">#</a></h3>
 <p>For the <code class="docutils literal notranslate"><span class="pre">my_launchpad.yaml</span></code>, you can use the following template. Replace the entries in <code class="docutils literal notranslate"><span class="pre">&lt;&gt;</span></code> with the appropriate values for your Mongo database.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;host name&gt;</span><span class="w"></span>
 <span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">27017</span><span class="w"></span>
@@ -487,7 +487,7 @@
 </div>
 </section>
 <section id="qadapter">
-<h3>QAdapter<a class="headerlink" href="#qadapter" title="Permalink to this headline">#</a></h3>
+<h3>QAdapter<a class="headerlink" href="#qadapter" title="Permalink to this heading">#</a></h3>
 <p>Assuming you plan to use a queuing system for your compute jobs, you will need to make a <code class="docutils literal notranslate"><span class="pre">my_qadapter.yaml</span></code> file. For this, you will need to follow the instructions in the <a class="reference external" href="https://materialsproject.github.io/fireworks/qadapter_programming.html">FireWorks documentation</a> for your specific job scheduling system. An example <code class="docutils literal notranslate"><span class="pre">my_qadapter.yaml</span></code> file is shown below for SLURM.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">_fw_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CommonAdapter</span><span class="w"></span>
 <span class="nt">_fw_q_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SLURM</span><span class="w"></span>
@@ -593,6 +593,7 @@
 </div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/scripts/furo.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
