@@ -1,11 +1,11 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="quacc.recipes" href="quacc.recipes.html" /><link rel="prev" title="quacc.custodian.vasp" href="quacc.custodian.vasp.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
+    <meta name="generator" content="sphinx-5.0.1, furo 2022.06.04.1"/>
         <title>run_custodian - quacc</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
@@ -391,13 +391,13 @@
         </div>
         <article role="main">
           <section id="run-custodian">
-<h1>run_custodian<a class="headerlink" href="#run-custodian" title="Permalink to this headline">#</a></h1>
+<h1>run_custodian<a class="headerlink" href="#run-custodian" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="quacc.custodian.vasp.run_custodian">
 <span class="sig-prename descclassname"><span class="pre">quacc.custodian.vasp.</span></span><span class="sig-name descname"><span class="pre">run_custodian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vasp_parallel_cmd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'$VASP_PARALLEL_CMD'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vasp_cmd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'vasp_std'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vasp_gamma_cmd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'vasp_gam'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vasp_custodian_max_errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vasp_custodian_wall_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vtst_fixes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vasp_custodian_handlers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['VaspErrorHandler',</span> <span class="pre">'MeshSymmetryErrorHandler',</span> <span class="pre">'UnconvergedErrorHandler',</span> <span class="pre">'NonConvergingErrorHandler',</span> <span class="pre">'PotimErrorHandler',</span> <span class="pre">'PositiveEnergyErrorHandler',</span> <span class="pre">'FrozenJobErrorHandler',</span> <span class="pre">'StdErrHandler',</span> <span class="pre">'LargeSigmaHandler',</span> <span class="pre">'IncorrectSmearingHandler']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vasp_custodian_validators</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['VasprunXMLValidator',</span> <span class="pre">'VaspFilesValidator']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scratch_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vasp_job_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custodian_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/quacc/custodian/vasp.html#run_custodian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#quacc.custodian.vasp.run_custodian" title="Permalink to this definition">#</a></dt>
 <dd><p>Function to run VASP Custodian</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>vasp_parallel_cmd</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a>) – VASP parallel command, e.g. srun -N 2 –ntasks-per-node=24. Defaults to the $VASP_PARAlLEL_CMD
 environment variable in settings.</p></li>
@@ -471,6 +471,7 @@ environment variable in settings.</p></li>
 </div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/scripts/furo.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
