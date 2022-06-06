@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
         <title>quacc.recipes.vasp.core - quacc</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css" />
@@ -374,7 +374,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -389,7 +390,7 @@
         </div>
         <article role="main">
           <h1>Source code for quacc.recipes.vasp.core</h1><div class="highlight"><pre>
-<span></span><span class="sd">"""Core recipes for VASP"""</span>
+<span></span><span class="sd">&quot;&quot;&quot;Core recipes for VASP&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
@@ -406,7 +407,7 @@
 
 <div class="viewcode-block" id="StaticJob"><a class="viewcode-back" href="../../../../reference/quacc.recipes.vasp.core.StaticJob.html#quacc.recipes.vasp.core.StaticJob">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">StaticJob</span><span class="p">(</span><span class="n">Maker</span><span class="p">):</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class to carry out a single-point calculation.</span>
 
 <span class="sd">    Parameters</span>
@@ -417,15 +418,15 @@
 <span class="sd">        Preset to use.</span>
 <span class="sd">    swaps</span>
 <span class="sd">        Dictionary of custom kwargs for the calculator.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"VASP-Static"</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;VASP-Static&quot;</span>
     <span class="n">preset</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">swaps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
 
 <div class="viewcode-block" id="StaticJob.make"><a class="viewcode-back" href="../../../../reference/quacc.recipes.vasp.core.StaticJob.html#quacc.recipes.vasp.core.StaticJob.make">[docs]</a>    <span class="nd">@job</span>
     <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-        <span class="sd">"""</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Make the run.</span>
 
 <span class="sd">        Parameters</span>
@@ -437,28 +438,28 @@
 <span class="sd">        -------</span>
 <span class="sd">        Dict</span>
 <span class="sd">            Summary of the run.</span>
-<span class="sd">        """</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">defaults</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">"ismear"</span><span class="p">:</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span>
-            <span class="s2">"laechg"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-            <span class="s2">"lcharg"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-            <span class="s2">"lwave"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-            <span class="s2">"nedos"</span><span class="p">:</span> <span class="mi">5001</span><span class="p">,</span>
-            <span class="s2">"nsw"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;ismear&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span>
+            <span class="s2">&quot;laechg&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;lcharg&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;lwave&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;nedos&quot;</span><span class="p">:</span> <span class="mi">5001</span><span class="p">,</span>
+            <span class="s2">&quot;nsw&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="n">flags</span> <span class="o">=</span> <span class="n">merge_dicts</span><span class="p">(</span><span class="n">defaults</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">swaps</span><span class="p">)</span>
 
         <span class="n">calc</span> <span class="o">=</span> <span class="n">Vasp</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">preset</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">preset</span><span class="p">,</span> <span class="o">**</span><span class="n">flags</span><span class="p">)</span>
         <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">calc</span>
         <span class="n">atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
-        <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">})</span>
+        <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">})</span>
 
         <span class="k">return</span> <span class="n">summary</span></div></div>
 
 
 <div class="viewcode-block" id="RelaxJob"><a class="viewcode-back" href="../../../../reference/quacc.recipes.vasp.core.RelaxJob.html#quacc.recipes.vasp.core.RelaxJob">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">RelaxJob</span><span class="p">(</span><span class="n">Maker</span><span class="p">):</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class to relax a structure.</span>
 
 <span class="sd">    Parameters</span>
@@ -472,16 +473,16 @@
 <span class="sd">        False if only the positions (ISIF = 2) should be updated.</span>
 <span class="sd">    swaps</span>
 <span class="sd">        Dictionary of custom kwargs for the calculator.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"VASP-Relax"</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;VASP-Relax&quot;</span>
     <span class="n">preset</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">volume_relax</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">swaps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
 
 <div class="viewcode-block" id="RelaxJob.make"><a class="viewcode-back" href="../../../../reference/quacc.recipes.vasp.core.RelaxJob.html#quacc.recipes.vasp.core.RelaxJob.make">[docs]</a>    <span class="nd">@job</span>
     <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-        <span class="sd">"""</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Make the run.</span>
 
 <span class="sd">        Parameters</span>
@@ -493,29 +494,29 @@
 <span class="sd">        -------</span>
 <span class="sd">        Dict</span>
 <span class="sd">            Summary of the run.</span>
-<span class="sd">        """</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">defaults</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">"ediffg"</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.02</span><span class="p">,</span>
-            <span class="s2">"isif"</span><span class="p">:</span> <span class="mi">3</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">volume_relax</span> <span class="k">else</span> <span class="mi">2</span><span class="p">,</span>
-            <span class="s2">"ibrion"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-            <span class="s2">"isym"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="s2">"lcharg"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="s2">"lwave"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="s2">"nsw"</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+            <span class="s2">&quot;ediffg&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.02</span><span class="p">,</span>
+            <span class="s2">&quot;isif&quot;</span><span class="p">:</span> <span class="mi">3</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">volume_relax</span> <span class="k">else</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="s2">&quot;ibrion&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="s2">&quot;isym&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;lcharg&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s2">&quot;lwave&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s2">&quot;nsw&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="n">flags</span> <span class="o">=</span> <span class="n">merge_dicts</span><span class="p">(</span><span class="n">defaults</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">swaps</span><span class="p">)</span>
 
         <span class="n">calc</span> <span class="o">=</span> <span class="n">Vasp</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">preset</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">preset</span><span class="p">,</span> <span class="o">**</span><span class="n">flags</span><span class="p">)</span>
         <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">calc</span>
         <span class="n">atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
-        <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">})</span>
+        <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">})</span>
 
         <span class="k">return</span> <span class="n">summary</span></div></div>
 
 
 <div class="viewcode-block" id="DoubleRelaxJob"><a class="viewcode-back" href="../../../../reference/quacc.recipes.vasp.core.DoubleRelaxJob.html#quacc.recipes.vasp.core.DoubleRelaxJob">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">DoubleRelaxJob</span><span class="p">(</span><span class="n">Maker</span><span class="p">):</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class to double-relax a structure. This is particularly useful for</span>
 <span class="sd">    a few reasons:</span>
 <span class="sd">    1. To carry out a cheaper pre-relaxation before the high-quality run.</span>
@@ -537,9 +538,9 @@
 <span class="sd">        Dictionary of custom kwargs for the first relaxation.</span>
 <span class="sd">    swaps2</span>
 <span class="sd">        Dictionary of custom kwargs for the second relaxation.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"VASP-DoubleRelax"</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;VASP-DoubleRelax&quot;</span>
     <span class="n">preset</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">volume_relax</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="n">swaps1</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
@@ -547,7 +548,7 @@
 
 <div class="viewcode-block" id="DoubleRelaxJob.make"><a class="viewcode-back" href="../../../../reference/quacc.recipes.vasp.core.DoubleRelaxJob.html#quacc.recipes.vasp.core.DoubleRelaxJob.make">[docs]</a>    <span class="nd">@job</span>
     <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
-        <span class="sd">"""</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Make the run.</span>
 
 <span class="sd">        Parameters</span>
@@ -559,15 +560,15 @@
 <span class="sd">        -------</span>
 <span class="sd">        Dict</span>
 <span class="sd">            Summary of the run.</span>
-<span class="sd">        """</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">defaults</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">"ediffg"</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.02</span><span class="p">,</span>
-            <span class="s2">"isif"</span><span class="p">:</span> <span class="mi">3</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">volume_relax</span> <span class="k">else</span> <span class="mi">2</span><span class="p">,</span>
-            <span class="s2">"ibrion"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-            <span class="s2">"isym"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="s2">"lcharg"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="s2">"lwave"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-            <span class="s2">"nsw"</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+            <span class="s2">&quot;ediffg&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.02</span><span class="p">,</span>
+            <span class="s2">&quot;isif&quot;</span><span class="p">:</span> <span class="mi">3</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">volume_relax</span> <span class="k">else</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="s2">&quot;ibrion&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="s2">&quot;isym&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;lcharg&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s2">&quot;lwave&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;nsw&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
         <span class="p">}</span>
 
         <span class="c1"># Run first relaxation</span>
@@ -576,11 +577,11 @@
         <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">calc</span>
         <span class="n">kpts1</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">kpts</span>
         <span class="n">atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
-        <span class="n">summary1</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">})</span>
+        <span class="n">summary1</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">})</span>
 
         <span class="c1"># Run second relaxation</span>
         <span class="n">flags</span> <span class="o">=</span> <span class="n">merge_dicts</span><span class="p">(</span><span class="n">defaults</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">swaps2</span><span class="p">)</span>
-        <span class="n">calc</span> <span class="o">=</span> <span class="n">Vasp</span><span class="p">(</span><span class="n">summary1</span><span class="p">[</span><span class="s2">"atoms"</span><span class="p">],</span> <span class="n">preset</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">preset</span><span class="p">,</span> <span class="o">**</span><span class="n">flags</span><span class="p">)</span>
+        <span class="n">calc</span> <span class="o">=</span> <span class="n">Vasp</span><span class="p">(</span><span class="n">summary1</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">],</span> <span class="n">preset</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">preset</span><span class="p">,</span> <span class="o">**</span><span class="n">flags</span><span class="p">)</span>
         <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">calc</span>
         <span class="n">kpts2</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">kpts</span>
 
@@ -588,10 +589,10 @@
         <span class="k">if</span> <span class="n">kpts1</span> <span class="o">==</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="n">kpts2</span> <span class="o">!=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
             <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">istart</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-        <span class="n">atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">copy_files</span><span class="o">=</span><span class="p">[</span><span class="s2">"WAVECAR"</span><span class="p">])</span>
-        <span class="n">summary2</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">})</span>
+        <span class="n">atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">copy_files</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;WAVECAR&quot;</span><span class="p">])</span>
+        <span class="n">summary2</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">})</span>
 
-        <span class="k">return</span> <span class="p">{</span><span class="s2">"relax1"</span><span class="p">:</span> <span class="n">summary1</span><span class="p">,</span> <span class="s2">"relax2"</span><span class="p">:</span> <span class="n">summary2</span><span class="p">}</span></div></div>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;relax1&quot;</span><span class="p">:</span> <span class="n">summary1</span><span class="p">,</span> <span class="s2">&quot;relax2&quot;</span><span class="p">:</span> <span class="n">summary2</span><span class="p">}</span></div></div>
 </pre></div>
         </article>
       </div>

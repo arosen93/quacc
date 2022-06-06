@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
         <title>quacc.recipes.psi4.core - quacc</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css" />
@@ -374,7 +374,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -389,7 +390,7 @@
         </div>
         <article role="main">
           <h1>Source code for quacc.recipes.psi4.core</h1><div class="highlight"><pre>
-<span></span><span class="sd">"""Core recipes for Psi4"""</span>
+<span></span><span class="sd">&quot;&quot;&quot;Core recipes for Psi4&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
@@ -411,7 +412,7 @@
 
 <div class="viewcode-block" id="StaticMaker"><a class="viewcode-back" href="../../../../reference/quacc.recipes.psi4.core.StaticMaker.html#quacc.recipes.psi4.core.StaticMaker">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">StaticMaker</span><span class="p">(</span><span class="n">Maker</span><span class="p">):</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class to carry out a single-point calculation.</span>
 
 <span class="sd">    Parameters</span>
@@ -424,19 +425,19 @@
 <span class="sd">        Basis set</span>
 <span class="sd">    swaps</span>
 <span class="sd">        Dictionary of custom kwargs for the calculator.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"Psi4-Static"</span>
-    <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"wb97x-v"</span>
-    <span class="n">basis</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"def2-tzvp"</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Psi4-Static&quot;</span>
+    <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;wb97x-v&quot;</span>
+    <span class="n">basis</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;def2-tzvp&quot;</span>
     <span class="n">swaps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="StaticMaker.make"><a class="viewcode-back" href="../../../../reference/quacc.recipes.psi4.core.StaticMaker.html#quacc.recipes.psi4.core.StaticMaker.make">[docs]</a>    <span class="nd">@job</span>
-    <span class="nd">@requires</span><span class="p">(</span><span class="n">psi4</span><span class="p">,</span> <span class="s2">"Psi4 be installed. Try conda install -c psi4 psi4"</span><span class="p">)</span>
+    <span class="nd">@requires</span><span class="p">(</span><span class="n">psi4</span><span class="p">,</span> <span class="s2">&quot;Psi4 be installed. Try conda install -c psi4 psi4&quot;</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">make</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span> <span class="n">charge</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">mult</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-        <span class="sd">"""</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Make the run.</span>
 
 <span class="sd">        Parameters</span>
@@ -454,15 +455,15 @@
 <span class="sd">        -------</span>
 <span class="sd">        Dict</span>
 <span class="sd">            Summary of the run.</span>
-<span class="sd">        """</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">swaps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">swaps</span> <span class="ow">or</span> <span class="p">{}</span>
         <span class="n">defaults</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">"mem"</span><span class="p">:</span> <span class="s2">"16GB"</span><span class="p">,</span>
-            <span class="s2">"num_threads"</span><span class="p">:</span> <span class="s2">"max"</span><span class="p">,</span>
-            <span class="s2">"method"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
-            <span class="s2">"basis"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">basis</span><span class="p">,</span>
-            <span class="s2">"charge"</span><span class="p">:</span> <span class="n">charge</span> <span class="k">if</span> <span class="n">charge</span> <span class="k">else</span> <span class="nb">round</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_initial_charges</span><span class="p">())),</span>
-            <span class="s2">"multiplicity"</span><span class="p">:</span> <span class="n">mult</span>
+            <span class="s2">&quot;mem&quot;</span><span class="p">:</span> <span class="s2">&quot;16GB&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;num_threads&quot;</span><span class="p">:</span> <span class="s2">&quot;max&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
+            <span class="s2">&quot;basis&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">basis</span><span class="p">,</span>
+            <span class="s2">&quot;charge&quot;</span><span class="p">:</span> <span class="n">charge</span> <span class="k">if</span> <span class="n">charge</span> <span class="k">else</span> <span class="nb">round</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_initial_charges</span><span class="p">())),</span>
+            <span class="s2">&quot;multiplicity&quot;</span><span class="p">:</span> <span class="n">mult</span>
             <span class="k">if</span> <span class="n">mult</span>
             <span class="k">else</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_initial_magnetic_moments</span><span class="p">())),</span>
         <span class="p">}</span>
@@ -471,7 +472,7 @@
         <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">Psi4</span><span class="p">(</span><span class="o">**</span><span class="n">flags</span><span class="p">)</span>
         <span class="n">new_atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
         <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span>
-            <span class="n">new_atoms</span><span class="p">,</span> <span class="n">input_atoms</span><span class="o">=</span><span class="n">atoms</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
+            <span class="n">new_atoms</span><span class="p">,</span> <span class="n">input_atoms</span><span class="o">=</span><span class="n">atoms</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
         <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">summary</span></div></div>

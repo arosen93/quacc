@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
         <title>quacc.util.calc - quacc</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
@@ -374,7 +374,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -389,9 +390,9 @@
         </div>
         <article role="main">
           <h1>Source code for quacc.util.calc</h1><div class="highlight"><pre>
-<span></span><span class="sd">"""</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Utility functions for running ASE calculators</span>
-<span class="sd">"""</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
@@ -434,7 +435,7 @@
     <span class="n">gzip</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">GZIP_FILES</span><span class="p">,</span>
     <span class="n">copy_files</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Atoms</span><span class="p">:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Run a calculation in a scratch directory and copy the results back to the</span>
 <span class="sd">    original directory. This can be useful if file I/O is slow in the working</span>
 <span class="sd">    directory, so long as file transfer speeds are reasonable.</span>
@@ -448,8 +449,8 @@
 <span class="sd">        The Atoms object to run the calculation on.</span>
 <span class="sd">    geom_file : str</span>
 <span class="sd">        The filename of the log file that contains the output geometry, used</span>
-<span class="sd">        to update the atoms object's positions and cell after a job. It is better</span>
-<span class="sd">        to specify this rather than relying on ASE's atoms.get_potential_energy()</span>
+<span class="sd">        to update the atoms object&#39;s positions and cell after a job. It is better</span>
+<span class="sd">        to specify this rather than relying on ASE&#39;s atoms.get_potential_energy()</span>
 <span class="sd">        function to update the positions, as this varies between codes.</span>
 <span class="sd">    scratch_dir : str</span>
 <span class="sd">        Path where a tmpdir should be made for running the calculation. If None,</span>
@@ -463,18 +464,18 @@
 <span class="sd">    -------</span>
 <span class="sd">    .Atoms</span>
 <span class="sd">        The updated .Atoms object,</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Atoms object must have attached calculator."</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Atoms object must have attached calculator.&quot;</span><span class="p">)</span>
     <span class="n">atoms</span> <span class="o">=</span> <span class="n">copy_atoms</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
     <span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
     <span class="n">scratch_dir</span> <span class="o">=</span> <span class="n">scratch_dir</span> <span class="ow">or</span> <span class="n">cwd</span>
-    <span class="n">symlink</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="s2">"tmp_dir"</span><span class="p">)</span>
+    <span class="n">symlink</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="s2">&quot;tmp_dir&quot;</span><span class="p">)</span>
 
-    <span class="n">tmpdir</span> <span class="o">=</span> <span class="n">mkdtemp</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">"quacc-tmp"</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="n">scratch_dir</span><span class="p">)</span>
+    <span class="n">tmpdir</span> <span class="o">=</span> <span class="n">mkdtemp</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;quacc-tmp&quot;</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="n">scratch_dir</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">"nt"</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;nt&quot;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">islink</span><span class="p">(</span><span class="n">symlink</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">symlink</span><span class="p">)</span>
         <span class="n">os</span><span class="o">.</span><span class="n">symlink</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">symlink</span><span class="p">)</span>
@@ -505,8 +506,8 @@
     <span class="c1"># and magmoms.</span>
     <span class="k">if</span> <span class="n">geom_file</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">zpath</span><span class="p">(</span><span class="n">geom_file</span><span class="p">)):</span>
 
-        <span class="c1"># Note: We have to be careful to make sure we don't lose the</span>
-        <span class="c1"># converged magnetic moments, if present. That's why we simply</span>
+        <span class="c1"># Note: We have to be careful to make sure we don&#39;t lose the</span>
+        <span class="c1"># converged magnetic moments, if present. That&#39;s why we simply</span>
         <span class="c1"># update the positions and cell in-place.</span>
         <span class="n">atoms_new</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">zpath</span><span class="p">(</span><span class="n">geom_file</span><span class="p">))</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">atoms_new</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
@@ -521,13 +522,13 @@
     <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span>
     <span class="n">fmax</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span>
     <span class="n">max_steps</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
-    <span class="n">optimizer</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"FIRE"</span><span class="p">,</span>
+    <span class="n">optimizer</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;FIRE&quot;</span><span class="p">,</span>
     <span class="n">opt_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">scratch_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">SCRATCH_DIR</span><span class="p">,</span>
     <span class="n">gzip</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">GZIP_FILES</span><span class="p">,</span>
     <span class="n">copy_files</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">trajectory</span><span class="p">:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Run an ASE-based optimization in a scratch directory and copy the results</span>
 <span class="sd">    back to the original directory. This can be useful if file I/O is slow in</span>
 <span class="sd">    the working directory, so long as file transfer speeds are reasonable.</span>
@@ -559,41 +560,41 @@
 <span class="sd">    -------</span>
 <span class="sd">    traj</span>
 <span class="sd">        The ASE trajectory object.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Atoms object must have attached calculator."</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Atoms object must have attached calculator.&quot;</span><span class="p">)</span>
 
     <span class="n">atoms</span> <span class="o">=</span> <span class="n">copy_atoms</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
     <span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
     <span class="n">scratch_dir</span> <span class="o">=</span> <span class="n">scratch_dir</span> <span class="ow">or</span> <span class="n">cwd</span>
-    <span class="n">symlink</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="s2">"tmp_dir"</span><span class="p">)</span>
+    <span class="n">symlink</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="s2">&quot;tmp_dir&quot;</span><span class="p">)</span>
     <span class="n">opt_kwargs</span> <span class="o">=</span> <span class="n">opt_kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
 
-    <span class="n">opt_kwargs</span><span class="p">[</span><span class="s2">"trajectory"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"opt.traj"</span>
-    <span class="n">opt_kwargs</span><span class="p">[</span><span class="s2">"restart"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"opt.pckl"</span>
+    <span class="n">opt_kwargs</span><span class="p">[</span><span class="s2">&quot;trajectory&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;opt.traj&quot;</span>
+    <span class="n">opt_kwargs</span><span class="p">[</span><span class="s2">&quot;restart&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;opt.pckl&quot;</span>
 
     <span class="c1"># Get optimizer</span>
-    <span class="k">if</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"bfgs"</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;bfgs&quot;</span><span class="p">:</span>
         <span class="n">opt_class</span> <span class="o">=</span> <span class="n">BFGS</span>
-    <span class="k">elif</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"bfgslinesearch"</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;bfgslinesearch&quot;</span><span class="p">:</span>
         <span class="n">opt_class</span> <span class="o">=</span> <span class="n">BFGSLineSearch</span>
-    <span class="k">elif</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"lbfgs"</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;lbfgs&quot;</span><span class="p">:</span>
         <span class="n">opt_class</span> <span class="o">=</span> <span class="n">LBFGS</span>
-    <span class="k">elif</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"lbfgslinesearch"</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;lbfgslinesearch&quot;</span><span class="p">:</span>
         <span class="n">opt_class</span> <span class="o">=</span> <span class="n">LBFGSLineSearch</span>
-    <span class="k">elif</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"gpmin"</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;gpmin&quot;</span><span class="p">:</span>
         <span class="n">opt_class</span> <span class="o">=</span> <span class="n">GPMin</span>
-    <span class="k">elif</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"mdmin"</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;mdmin&quot;</span><span class="p">:</span>
         <span class="n">opt_class</span> <span class="o">=</span> <span class="n">MDMin</span>
-    <span class="k">elif</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"fire"</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;fire&quot;</span><span class="p">:</span>
         <span class="n">opt_class</span> <span class="o">=</span> <span class="n">FIRE</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unknown optimizer: </span><span class="si">{</span><span class="n">optimizer</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown optimizer: </span><span class="si">{</span><span class="n">optimizer</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="n">tmpdir</span> <span class="o">=</span> <span class="n">mkdtemp</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">"quacc-tmp"</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="n">scratch_dir</span><span class="p">)</span>
+    <span class="n">tmpdir</span> <span class="o">=</span> <span class="n">mkdtemp</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;quacc-tmp&quot;</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="n">scratch_dir</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">"nt"</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;nt&quot;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">islink</span><span class="p">(</span><span class="n">symlink</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">symlink</span><span class="p">)</span>
         <span class="n">os</span><span class="o">.</span><span class="n">symlink</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">symlink</span><span class="p">)</span>
@@ -610,10 +611,10 @@
 
     <span class="c1"># Check convergence</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">dyn</span><span class="o">.</span><span class="n">converged</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Optimization did not converge."</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Optimization did not converge.&quot;</span><span class="p">)</span>
 
     <span class="c1"># Read trajectory</span>
-    <span class="n">traj</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="s2">"opt.traj"</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="s2">":"</span><span class="p">)</span>
+    <span class="n">traj</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="s2">&quot;opt.traj&quot;</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
 
     <span class="c1"># Gzip files in tmpdir</span>
     <span class="k">if</span> <span class="n">gzip</span><span class="p">:</span>
@@ -638,7 +639,7 @@
     <span class="n">gzip</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">GZIP_FILES</span><span class="p">,</span>
     <span class="n">copy_files</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Atoms</span><span class="p">:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Run an ASE-based vibration analysis in a scratch directory and copy the results</span>
 <span class="sd">    back to the original directory. This can be useful if file I/O is slow in</span>
 <span class="sd">    the working directory, so long as file transfer speeds are reasonable.</span>
@@ -664,20 +665,20 @@
 <span class="sd">    -------</span>
 <span class="sd">    .Vibrations</span>
 <span class="sd">        The updated Vibrations module</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Atoms object must have attached calculator."</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Atoms object must have attached calculator.&quot;</span><span class="p">)</span>
 
     <span class="n">atoms</span> <span class="o">=</span> <span class="n">copy_atoms</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
     <span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
     <span class="n">scratch_dir</span> <span class="o">=</span> <span class="n">scratch_dir</span> <span class="ow">or</span> <span class="n">cwd</span>
-    <span class="n">symlink</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="s2">"tmp_dir"</span><span class="p">)</span>
+    <span class="n">symlink</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="s2">&quot;tmp_dir&quot;</span><span class="p">)</span>
     <span class="n">vib_kwargs</span> <span class="o">=</span> <span class="n">vib_kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
 
-    <span class="n">tmpdir</span> <span class="o">=</span> <span class="n">mkdtemp</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">"quacc-tmp"</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="n">scratch_dir</span><span class="p">)</span>
+    <span class="n">tmpdir</span> <span class="o">=</span> <span class="n">mkdtemp</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;quacc-tmp&quot;</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="n">scratch_dir</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">"nt"</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s2">&quot;nt&quot;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">islink</span><span class="p">(</span><span class="n">symlink</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">symlink</span><span class="p">)</span>
         <span class="n">os</span><span class="o">.</span><span class="n">symlink</span><span class="p">(</span><span class="n">tmpdir</span><span class="p">,</span> <span class="n">symlink</span><span class="p">)</span>
@@ -717,7 +718,7 @@
     <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
     <span class="n">spin_multiplicity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate thermodynamic properties for a molecule from a given vibrational analysis.</span>
 
 <span class="sd">    Parameters</span>
@@ -741,20 +742,20 @@
 <span class="sd">    -------</span>
 <span class="sd">    dict</span>
 <span class="sd">        {</span>
-<span class="sd">            "atoms": .Atoms,</span>
+<span class="sd">            &quot;atoms&quot;: .Atoms,</span>
 <span class="sd">            ...,</span>
-<span class="sd">            "results":</span>
+<span class="sd">            &quot;results&quot;:</span>
 <span class="sd">            {</span>
-<span class="sd">                "frequencies": list of frequencies in cm^-1,</span>
-<span class="sd">                "true_frequencies": list of true vibrational frequencies in cm^-1,</span>
-<span class="sd">                "n_imag": number of imaginary modes,</span>
-<span class="sd">                "energy": potential energy in eV,</span>
-<span class="sd">                "enthalpy": enthalpy in eV,</span>
-<span class="sd">                "entropy": entropy in eV/K,</span>
-<span class="sd">                "gibbs_energy": free energy in eV</span>
+<span class="sd">                &quot;frequencies&quot;: list of frequencies in cm^-1,</span>
+<span class="sd">                &quot;true_frequencies&quot;: list of true vibrational frequencies in cm^-1,</span>
+<span class="sd">                &quot;n_imag&quot;: number of imaginary modes,</span>
+<span class="sd">                &quot;energy&quot;: potential energy in eV,</span>
+<span class="sd">                &quot;enthalpy&quot;: enthalpy in eV,</span>
+<span class="sd">                &quot;entropy&quot;: entropy in eV/K,</span>
+<span class="sd">                &quot;gibbs_energy&quot;: free energy in eV</span>
 <span class="sd">            }</span>
 <span class="sd">        }</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Pull atoms from vibrations object if needed</span>
     <span class="n">atoms</span> <span class="o">=</span> <span class="n">atoms</span> <span class="ow">or</span> <span class="n">vibrations</span><span class="o">.</span><span class="n">atoms</span>
 
@@ -763,11 +764,11 @@
         <span class="n">spin</span> <span class="o">=</span> <span class="p">(</span><span class="n">spin_multiplicity</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">if</span> <span class="p">(</span>
-            <span class="nb">getattr</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="s2">"calc"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-            <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="p">,</span> <span class="s2">"results"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="nb">getattr</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="s2">&quot;calc&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="p">,</span> <span class="s2">&quot;results&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="p">):</span>
-            <span class="n">spin</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"magmom"</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span>
-        <span class="k">elif</span> <span class="n">atoms</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">"initial_magmoms"</span><span class="p">):</span>
+            <span class="n">spin</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;magmom&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="k">elif</span> <span class="n">atoms</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">&quot;initial_magmoms&quot;</span><span class="p">):</span>
             <span class="n">spin</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_initial_magnetic_moments</span><span class="p">()))</span> <span class="o">/</span> <span class="mi">2</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">spin</span> <span class="o">=</span> <span class="mi">0</span>
@@ -783,17 +784,17 @@
 
     <span class="c1"># Get the geometry</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">geometry</span> <span class="o">=</span> <span class="s2">"monatomic"</span>
+        <span class="n">geometry</span> <span class="o">=</span> <span class="s2">&quot;monatomic&quot;</span>
         <span class="n">n_vib</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">pointgroup</span> <span class="o">==</span> <span class="s2">"D*h"</span><span class="p">):</span>
-        <span class="n">geometry</span> <span class="o">=</span> <span class="s2">"linear"</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">pointgroup</span> <span class="o">==</span> <span class="s2">&quot;D*h&quot;</span><span class="p">):</span>
+        <span class="n">geometry</span> <span class="o">=</span> <span class="s2">&quot;linear&quot;</span>
         <span class="n">n_vib</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">-</span> <span class="mi">5</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">geometry</span> <span class="o">=</span> <span class="s2">"nonlinear"</span>
+        <span class="n">geometry</span> <span class="o">=</span> <span class="s2">&quot;nonlinear&quot;</span>
         <span class="n">n_vib</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span> <span class="o">-</span> <span class="mi">6</span>
 
     <span class="c1"># Automatically get rotational symmetry number</span>
-    <span class="k">if</span> <span class="n">geometry</span> <span class="o">==</span> <span class="s2">"monatomic"</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">geometry</span> <span class="o">==</span> <span class="s2">&quot;monatomic&quot;</span><span class="p">:</span>
         <span class="n">symmetry_number</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">symmetry_number</span> <span class="o">=</span> <span class="n">pga</span><span class="o">.</span><span class="n">get_rotational_symmetry_number</span><span class="p">()</span>
@@ -829,16 +830,16 @@
 
     <span class="n">thermo_summary</span> <span class="o">=</span> <span class="p">{</span>
         <span class="o">**</span><span class="n">atoms_to_metadata</span><span class="p">(</span><span class="n">atoms</span><span class="p">),</span>
-        <span class="s2">"results"</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">"frequencies"</span><span class="p">:</span> <span class="n">clean_freqs</span><span class="p">,</span>
-            <span class="s2">"true_frequencies"</span><span class="p">:</span> <span class="n">true_frequencies</span><span class="p">,</span>
-            <span class="s2">"n_imag"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">imag_freqs</span><span class="p">),</span>
-            <span class="s2">"geometry"</span><span class="p">:</span> <span class="n">geometry</span><span class="p">,</span>
-            <span class="s2">"pointgroup"</span><span class="p">:</span> <span class="n">pointgroup</span><span class="p">,</span>
-            <span class="s2">"energy"</span><span class="p">:</span> <span class="n">energy</span><span class="p">,</span>
-            <span class="s2">"enthalpy"</span><span class="p">:</span> <span class="n">igt</span><span class="o">.</span><span class="n">get_enthalpy</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
-            <span class="s2">"entropy"</span><span class="p">:</span> <span class="n">igt</span><span class="o">.</span><span class="n">get_entropy</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">pressure</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
-            <span class="s2">"gibbs_energy"</span><span class="p">:</span> <span class="n">igt</span><span class="o">.</span><span class="n">get_gibbs_energy</span><span class="p">(</span>
+        <span class="s2">&quot;results&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;frequencies&quot;</span><span class="p">:</span> <span class="n">clean_freqs</span><span class="p">,</span>
+            <span class="s2">&quot;true_frequencies&quot;</span><span class="p">:</span> <span class="n">true_frequencies</span><span class="p">,</span>
+            <span class="s2">&quot;n_imag&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">imag_freqs</span><span class="p">),</span>
+            <span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="n">geometry</span><span class="p">,</span>
+            <span class="s2">&quot;pointgroup&quot;</span><span class="p">:</span> <span class="n">pointgroup</span><span class="p">,</span>
+            <span class="s2">&quot;energy&quot;</span><span class="p">:</span> <span class="n">energy</span><span class="p">,</span>
+            <span class="s2">&quot;enthalpy&quot;</span><span class="p">:</span> <span class="n">igt</span><span class="o">.</span><span class="n">get_enthalpy</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+            <span class="s2">&quot;entropy&quot;</span><span class="p">:</span> <span class="n">igt</span><span class="o">.</span><span class="n">get_entropy</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">pressure</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+            <span class="s2">&quot;gibbs_energy&quot;</span><span class="p">:</span> <span class="n">igt</span><span class="o">.</span><span class="n">get_gibbs_energy</span><span class="p">(</span>
                 <span class="n">temperature</span><span class="p">,</span> <span class="n">pressure</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span>
             <span class="p">),</span>
         <span class="p">},</span>
@@ -848,7 +849,7 @@
 
 
 <span class="k">def</span> <span class="nf">_check_logfile</span><span class="p">(</span><span class="n">logfile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">check_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Check if a logfile has a given string (case-insensitive).</span>
 
 <span class="sd">    Parameters</span>
@@ -862,11 +863,11 @@
 <span class="sd">    -------</span>
 <span class="sd">    bool</span>
 <span class="sd">        True if the string is found in the logfile, False otherwise.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">zlog</span> <span class="o">=</span> <span class="n">zpath</span><span class="p">(</span><span class="n">logfile</span><span class="p">)</span>
-    <span class="k">with</span> <span class="n">zopen</span><span class="p">(</span><span class="n">zlog</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">zopen</span><span class="p">(</span><span class="n">zlog</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">check_str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">check_str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
                 <span class="k">return</span> <span class="kc">True</span>
     <span class="k">return</span> <span class="kc">False</span>
 
@@ -879,14 +880,14 @@
     <span class="o">|</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]],</span>
     <span class="n">force_gamma</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]],</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">bool</span><span class="p">,</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">bool</span><span class="p">]:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Shortcuts for pymatgen k-point generation schemes.</span>
 <span class="sd">    Options include: line_density (for band structures),</span>
 <span class="sd">    reciprocal_density (by volume), grid_density (by number of atoms),</span>
 <span class="sd">    max_mixed_density (max of reciprocal_density volume or atoms), and length_density (good for slabs).</span>
-<span class="sd">    These are formatted as {"line_density": float}, {"reciprocal_density": float},</span>
-<span class="sd">    {"grid_density": float}, {"max_mixed_density": [float, float]}, and</span>
-<span class="sd">    {"length_density": [float, float, float]}.</span>
+<span class="sd">    These are formatted as {&quot;line_density&quot;: float}, {&quot;reciprocal_density&quot;: float},</span>
+<span class="sd">    {&quot;grid_density&quot;: float}, {&quot;max_mixed_density&quot;: [float, float]}, and</span>
+<span class="sd">    {&quot;length_density&quot;: [float, float, float]}.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -905,14 +906,14 @@
 <span class="sd">        The gamma command for use with the ASE Vasp calculator</span>
 <span class="sd">    Optional[bool]</span>
 <span class="sd">        The reciprocal command for use with the ASE Vasp calculator</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">struct</span> <span class="o">=</span> <span class="n">AseAtomsAdaptor</span><span class="o">.</span><span class="n">get_structure</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">auto_kpts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"line_density"</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">auto_kpts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;line_density&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
         <span class="c1"># TODO: Support methods other than latimer-munro</span>
-        <span class="n">kpath</span> <span class="o">=</span> <span class="n">HighSymmKpath</span><span class="p">(</span><span class="n">struct</span><span class="p">,</span> <span class="n">path_type</span><span class="o">=</span><span class="s2">"latimer_munro"</span><span class="p">)</span>
+        <span class="n">kpath</span> <span class="o">=</span> <span class="n">HighSymmKpath</span><span class="p">(</span><span class="n">struct</span><span class="p">,</span> <span class="n">path_type</span><span class="o">=</span><span class="s2">&quot;latimer_munro&quot;</span><span class="p">)</span>
         <span class="n">kpts</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">kpath</span><span class="o">.</span><span class="n">get_kpoints</span><span class="p">(</span>
-            <span class="n">line_density</span><span class="o">=</span><span class="n">auto_kpts</span><span class="p">[</span><span class="s2">"line_density"</span><span class="p">],</span> <span class="n">coords_are_cartesian</span><span class="o">=</span><span class="kc">True</span>
+            <span class="n">line_density</span><span class="o">=</span><span class="n">auto_kpts</span><span class="p">[</span><span class="s2">&quot;line_density&quot;</span><span class="p">],</span> <span class="n">coords_are_cartesian</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
         <span class="n">kpts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">kpts</span><span class="p">)</span>
         <span class="n">reciprocal</span> <span class="o">=</span> <span class="kc">True</span>
@@ -920,43 +921,43 @@
 
     <span class="k">else</span><span class="p">:</span>
         <span class="n">reciprocal</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="n">auto_kpts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"max_mixed_density"</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">auto_kpts</span><span class="p">[</span><span class="s2">"max_mixed_density"</span><span class="p">])</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Must specify two values for max_mixed_density."</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">auto_kpts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;max_mixed_density&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">auto_kpts</span><span class="p">[</span><span class="s2">&quot;max_mixed_density&quot;</span><span class="p">])</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Must specify two values for max_mixed_density.&quot;</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">auto_kpts</span><span class="p">[</span><span class="s2">"max_mixed_density"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">auto_kpts</span><span class="p">[</span><span class="s2">"max_mixed_density"</span><span class="p">][</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">auto_kpts</span><span class="p">[</span><span class="s2">&quot;max_mixed_density&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">auto_kpts</span><span class="p">[</span><span class="s2">&quot;max_mixed_density&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]:</span>
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                    <span class="s2">"Warning: It is not usual that kppvol &gt; kppa. Please make sure you have chosen the right k-point densities."</span><span class="p">,</span>
+                    <span class="s2">&quot;Warning: It is not usual that kppvol &gt; kppa. Please make sure you have chosen the right k-point densities.&quot;</span><span class="p">,</span>
                 <span class="p">)</span>
             <span class="n">pmg_kpts1</span> <span class="o">=</span> <span class="n">Kpoints</span><span class="o">.</span><span class="n">automatic_density_by_vol</span><span class="p">(</span>
-                <span class="n">struct</span><span class="p">,</span> <span class="n">auto_kpts</span><span class="p">[</span><span class="s2">"max_mixed_density"</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">force_gamma</span><span class="o">=</span><span class="n">force_gamma</span>
+                <span class="n">struct</span><span class="p">,</span> <span class="n">auto_kpts</span><span class="p">[</span><span class="s2">&quot;max_mixed_density&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">force_gamma</span><span class="o">=</span><span class="n">force_gamma</span>
             <span class="p">)</span>
             <span class="n">pmg_kpts2</span> <span class="o">=</span> <span class="n">Kpoints</span><span class="o">.</span><span class="n">automatic_density</span><span class="p">(</span>
-                <span class="n">struct</span><span class="p">,</span> <span class="n">auto_kpts</span><span class="p">[</span><span class="s2">"max_mixed_density"</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">force_gamma</span><span class="o">=</span><span class="n">force_gamma</span>
+                <span class="n">struct</span><span class="p">,</span> <span class="n">auto_kpts</span><span class="p">[</span><span class="s2">&quot;max_mixed_density&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">force_gamma</span><span class="o">=</span><span class="n">force_gamma</span>
             <span class="p">)</span>
             <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">pmg_kpts1</span><span class="o">.</span><span class="n">kpts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">pmg_kpts2</span><span class="o">.</span><span class="n">kpts</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
                 <span class="n">pmg_kpts</span> <span class="o">=</span> <span class="n">pmg_kpts1</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">pmg_kpts</span> <span class="o">=</span> <span class="n">pmg_kpts2</span>
-        <span class="k">elif</span> <span class="n">auto_kpts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"reciprocal_density"</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">elif</span> <span class="n">auto_kpts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;reciprocal_density&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
             <span class="n">pmg_kpts</span> <span class="o">=</span> <span class="n">Kpoints</span><span class="o">.</span><span class="n">automatic_density_by_vol</span><span class="p">(</span>
-                <span class="n">struct</span><span class="p">,</span> <span class="n">auto_kpts</span><span class="p">[</span><span class="s2">"reciprocal_density"</span><span class="p">],</span> <span class="n">force_gamma</span><span class="o">=</span><span class="n">force_gamma</span>
+                <span class="n">struct</span><span class="p">,</span> <span class="n">auto_kpts</span><span class="p">[</span><span class="s2">&quot;reciprocal_density&quot;</span><span class="p">],</span> <span class="n">force_gamma</span><span class="o">=</span><span class="n">force_gamma</span>
             <span class="p">)</span>
-        <span class="k">elif</span> <span class="n">auto_kpts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"grid_density"</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">elif</span> <span class="n">auto_kpts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;grid_density&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
             <span class="n">pmg_kpts</span> <span class="o">=</span> <span class="n">Kpoints</span><span class="o">.</span><span class="n">automatic_density</span><span class="p">(</span>
-                <span class="n">struct</span><span class="p">,</span> <span class="n">auto_kpts</span><span class="p">[</span><span class="s2">"grid_density"</span><span class="p">],</span> <span class="n">force_gamma</span><span class="o">=</span><span class="n">force_gamma</span>
+                <span class="n">struct</span><span class="p">,</span> <span class="n">auto_kpts</span><span class="p">[</span><span class="s2">&quot;grid_density&quot;</span><span class="p">],</span> <span class="n">force_gamma</span><span class="o">=</span><span class="n">force_gamma</span>
             <span class="p">)</span>
-        <span class="k">elif</span> <span class="n">auto_kpts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"length_density"</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">auto_kpts</span><span class="p">[</span><span class="s2">"length_density"</span><span class="p">])</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Must specify three values for length_density."</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">auto_kpts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;length_density&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">auto_kpts</span><span class="p">[</span><span class="s2">&quot;length_density&quot;</span><span class="p">])</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Must specify three values for length_density.&quot;</span><span class="p">)</span>
             <span class="n">pmg_kpts</span> <span class="o">=</span> <span class="n">Kpoints</span><span class="o">.</span><span class="n">automatic_density_by_lengths</span><span class="p">(</span>
-                <span class="n">struct</span><span class="p">,</span> <span class="n">auto_kpts</span><span class="p">[</span><span class="s2">"length_density"</span><span class="p">],</span> <span class="n">force_gamma</span><span class="o">=</span><span class="n">force_gamma</span>
+                <span class="n">struct</span><span class="p">,</span> <span class="n">auto_kpts</span><span class="p">[</span><span class="s2">&quot;length_density&quot;</span><span class="p">],</span> <span class="n">force_gamma</span><span class="o">=</span><span class="n">force_gamma</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unsupported k-point generation scheme: </span><span class="si">{</span><span class="n">auto_kpts</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported k-point generation scheme: </span><span class="si">{</span><span class="n">auto_kpts</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
 
         <span class="n">kpts</span> <span class="o">=</span> <span class="n">pmg_kpts</span><span class="o">.</span><span class="n">kpts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">gamma</span> <span class="o">=</span> <span class="n">pmg_kpts</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">"gamma"</span>
+        <span class="n">gamma</span> <span class="o">=</span> <span class="n">pmg_kpts</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;gamma&quot;</span>
 
     <span class="k">return</span> <span class="n">kpts</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">reciprocal</span>
 </pre></div>

@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
         <title>quacc.schemas.vasp - quacc</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
@@ -374,7 +374,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -389,9 +390,9 @@
         </div>
         <article role="main">
           <h1>Source code for quacc.schemas.vasp</h1><div class="highlight"><pre>
-<span></span><span class="sd">"""</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Schemas for VASP</span>
-<span class="sd">"""</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
@@ -418,7 +419,7 @@
     <span class="n">remove_empties</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">additional_fields</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get tabulated results from a VASP run and store them in a database-friendly format.</span>
 
 <span class="sd">    Parameters</span>
@@ -428,7 +429,7 @@
 <span class="sd">    dir_path</span>
 <span class="sd">        Path to VASP outputs. A value of None specifies the current working directory</span>
 <span class="sd">    prep_next_run</span>
-<span class="sd">        Whether the Atoms object stored in {"atoms": atoms} should be prepared for the next run.</span>
+<span class="sd">        Whether the Atoms object stored in {&quot;atoms&quot;: atoms} should be prepared for the next run.</span>
 <span class="sd">        This clears out any attached calculator and moves the final magmoms to the initial magmoms.</span>
 <span class="sd">    bader</span>
 <span class="sd">        Whether a Bader analysis should be performed. Will not run if bader executable is not in PATH even if</span>
@@ -448,7 +449,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    Dict</span>
 <span class="sd">        Dictionary of tabulated inputs/results</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">additional_fields</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">additional_fields</span> <span class="o">=</span> <span class="p">{}</span>
@@ -460,38 +461,38 @@
     <span class="n">results</span> <span class="o">=</span> <span class="n">TaskDocument</span><span class="o">.</span><span class="n">from_directory</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
 
     <span class="c1"># Check for calculation convergence</span>
-    <span class="k">if</span> <span class="n">check_convergence</span> <span class="ow">and</span> <span class="n">results</span><span class="p">[</span><span class="s2">"state"</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">"successful"</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">check_convergence</span> <span class="ow">and</span> <span class="n">results</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;successful&quot;</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
-            <span class="s2">"VASP calculation did not converge. Will not store task data."</span>
+            <span class="s2">&quot;VASP calculation did not converge. Will not store task data.&quot;</span>
         <span class="p">)</span>
 
     <span class="k">if</span> <span class="n">compact</span><span class="p">:</span>
         <span class="c1"># Replace the InputSummary and OutputSummary with the full</span>
         <span class="c1"># input and output details from calcs_reversed</span>
-        <span class="k">if</span> <span class="s2">"calcs_reversed"</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
-            <span class="n">final_run</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s2">"calcs_reversed"</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="n">results</span><span class="p">[</span><span class="s2">"input"</span><span class="p">]</span> <span class="o">=</span> <span class="n">final_run</span><span class="p">[</span><span class="s2">"input"</span><span class="p">]</span>
-            <span class="n">results</span><span class="p">[</span><span class="s2">"output"</span><span class="p">]</span> <span class="o">=</span> <span class="n">final_run</span><span class="p">[</span><span class="s2">"output"</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s2">&quot;calcs_reversed&quot;</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">final_run</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s2">&quot;calcs_reversed&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;input&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">final_run</span><span class="p">[</span><span class="s2">&quot;input&quot;</span><span class="p">]</span>
+            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">final_run</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">]</span>
 
             <span class="c1"># Store a few additional properties</span>
-            <span class="n">results</span><span class="p">[</span><span class="s2">"vasp_version"</span><span class="p">]</span> <span class="o">=</span> <span class="n">final_run</span><span class="p">[</span><span class="s2">"vasp_version"</span><span class="p">]</span>
-            <span class="n">results</span><span class="p">[</span><span class="s2">"task_type"</span><span class="p">]</span> <span class="o">=</span> <span class="n">final_run</span><span class="p">[</span><span class="s2">"task_type"</span><span class="p">]</span>
-            <span class="n">results</span><span class="p">[</span><span class="s2">"run_type"</span><span class="p">]</span> <span class="o">=</span> <span class="n">final_run</span><span class="p">[</span><span class="s2">"run_type"</span><span class="p">]</span>
+            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;vasp_version&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">final_run</span><span class="p">[</span><span class="s2">&quot;vasp_version&quot;</span><span class="p">]</span>
+            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;task_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">final_run</span><span class="p">[</span><span class="s2">&quot;task_type&quot;</span><span class="p">]</span>
+            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;run_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">final_run</span><span class="p">[</span><span class="s2">&quot;run_type&quot;</span><span class="p">]</span>
 
             <span class="c1"># Then dump the calcs_reversed</span>
-            <span class="n">results</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"calcs_reversed"</span><span class="p">)</span>
+            <span class="n">results</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;calcs_reversed&quot;</span><span class="p">)</span>
 
-        <span class="c1"># Remove structure because it's already in the outputs</span>
-        <span class="n">results</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"structure"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="c1"># Remove structure because it&#39;s already in the outputs</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;structure&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
-        <span class="c1"># Remove the entry data since it's redundant</span>
-        <span class="n">results</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"entry"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="c1"># Remove the entry data since it&#39;s redundant</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;entry&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
         <span class="c1"># Remove other unnecessary fields</span>
-        <span class="n">results</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"task_type"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s2">"output"</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
-            <span class="n">results</span><span class="p">[</span><span class="s2">"output"</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"elph_displaced_structures"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-            <span class="n">results</span><span class="p">[</span><span class="s2">"output"</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"frequency_dependent_dielectric"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;task_type&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;output&quot;</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;elph_displaced_structures&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;frequency_dependent_dielectric&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
     <span class="c1"># Get Bader analysis</span>
     <span class="k">if</span> <span class="n">bader</span><span class="p">:</span>
@@ -499,17 +500,17 @@
             <span class="n">bader_stats</span> <span class="o">=</span> <span class="n">run_bader</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
         <span class="k">except</span><span class="p">:</span>
             <span class="n">bader_stats</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">"Bader analysis could not be performed."</span><span class="p">)</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Bader analysis could not be performed.&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">bader_stats</span><span class="p">:</span>
-            <span class="n">results</span><span class="p">[</span><span class="s2">"bader"</span><span class="p">]</span> <span class="o">=</span> <span class="n">bader_stats</span>
+            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;bader&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bader_stats</span>
 
             <span class="c1"># Attach bader charges/spins to structure object</span>
-            <span class="n">struct</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s2">"output"</span><span class="p">][</span><span class="s2">"structure"</span><span class="p">]</span>
-            <span class="n">struct</span><span class="o">.</span><span class="n">add_site_property</span><span class="p">(</span><span class="s2">"bader_charge"</span><span class="p">,</span> <span class="n">bader_stats</span><span class="p">[</span><span class="s2">"partial_charges"</span><span class="p">])</span>
-            <span class="k">if</span> <span class="s2">"spin_moments"</span> <span class="ow">in</span> <span class="n">bader_stats</span><span class="p">:</span>
-                <span class="n">struct</span><span class="o">.</span><span class="n">add_site_property</span><span class="p">(</span><span class="s2">"bader_spin"</span><span class="p">,</span> <span class="n">bader_stats</span><span class="p">[</span><span class="s2">"spin_moments"</span><span class="p">])</span>
-            <span class="n">results</span><span class="p">[</span><span class="s2">"output"</span><span class="p">][</span><span class="s2">"structure"</span><span class="p">]</span> <span class="o">=</span> <span class="n">struct</span>
+            <span class="n">struct</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">][</span><span class="s2">&quot;structure&quot;</span><span class="p">]</span>
+            <span class="n">struct</span><span class="o">.</span><span class="n">add_site_property</span><span class="p">(</span><span class="s2">&quot;bader_charge&quot;</span><span class="p">,</span> <span class="n">bader_stats</span><span class="p">[</span><span class="s2">&quot;partial_charges&quot;</span><span class="p">])</span>
+            <span class="k">if</span> <span class="s2">&quot;spin_moments&quot;</span> <span class="ow">in</span> <span class="n">bader_stats</span><span class="p">:</span>
+                <span class="n">struct</span><span class="o">.</span><span class="n">add_site_property</span><span class="p">(</span><span class="s2">&quot;bader_spin&quot;</span><span class="p">,</span> <span class="n">bader_stats</span><span class="p">[</span><span class="s2">&quot;spin_moments&quot;</span><span class="p">])</span>
+            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">][</span><span class="s2">&quot;structure&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">struct</span>
 
     <span class="c1"># Prepares the Atoms object for the next run by moving the</span>
     <span class="c1"># final magmoms to initial, clearing the calculator state,</span>

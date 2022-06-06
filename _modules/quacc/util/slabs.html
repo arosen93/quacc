@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
         <title>quacc.util.slabs - quacc</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
@@ -374,7 +374,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -389,9 +390,9 @@
         </div>
         <article role="main">
           <h1>Source code for quacc.util.slabs</h1><div class="highlight"><pre>
-<span></span><span class="sd">"""</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Utility functions for dealing with slabs</span>
-<span class="sd">"""</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">random</span>
@@ -420,7 +421,7 @@
 <div class="viewcode-block" id="flip_atoms"><a class="viewcode-back" href="../../../reference/quacc.util.slabs.flip_atoms.html#quacc.util.slabs.flip_atoms">[docs]</a><span class="k">def</span> <span class="nf">flip_atoms</span><span class="p">(</span>
     <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span> <span class="o">|</span> <span class="n">Structure</span> <span class="o">|</span> <span class="n">Slab</span><span class="p">,</span> <span class="n">return_struct</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Atoms</span> <span class="o">|</span> <span class="n">Structure</span> <span class="o">|</span> <span class="n">Slab</span><span class="p">:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convenience function for vertically flipping periodic atoms or structures</span>
 
 <span class="sd">    Parameters</span>
@@ -435,7 +436,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    Atoms | Structure | Slab</span>
 <span class="sd">        Inverted slab</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">Atoms</span><span class="p">):</span>
         <span class="n">new_atoms</span> <span class="o">=</span> <span class="n">copy_atoms</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
@@ -444,7 +445,7 @@
         <span class="n">new_atoms</span> <span class="o">=</span> <span class="n">AseAtomsAdaptor</span><span class="o">.</span><span class="n">get_atoms</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
         <span class="n">atoms_info</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="n">new_atoms</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="s2">"x"</span><span class="p">)</span>
+    <span class="n">new_atoms</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">)</span>
     <span class="n">new_atoms</span><span class="o">.</span><span class="n">wrap</span><span class="p">()</span>
 
     <span class="n">new_atoms</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="n">atoms_info</span>
@@ -465,7 +466,7 @@
     <span class="n">allowed_surface_symbols</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">slabgen_kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Atoms</span><span class="p">]:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function to make slabs from a bulk atoms object.</span>
 
 <span class="sd">    Parameters</span>
@@ -485,16 +486,16 @@
 <span class="sd">    flip_asymmetric</span>
 <span class="sd">        If an asymmetric surface should be flipped and added to the list</span>
 <span class="sd">    allowed_surface_symbols</span>
-<span class="sd">        List of chemical symbols that must be present on the surface of the slab otherwise the slab will be discarded, e.g. ["Cu", "Ni"]</span>
+<span class="sd">        List of chemical symbols that must be present on the surface of the slab otherwise the slab will be discarded, e.g. [&quot;Cu&quot;, &quot;Ni&quot;]</span>
 <span class="sd">    **slabgen_kwargs: keyword arguments to pass to the pymatgen generate_all_slabs() function</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    List[.Atoms]</span>
 <span class="sd">        All generated slabs</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c1"># Note: This will not work properly for 2D structures. See Oxana/Martin's code</span>
+    <span class="c1"># Note: This will not work properly for 2D structures. See Oxana/Martin&#39;s code</span>
     <span class="c1"># for adjustments for 2D: https://github.com/oxana-a/atomate/blob/ads_wf/atomate/vasp/firetasks/adsorption_tasks.py</span>
 
     <span class="c1"># Use pymatgen to generate slabs</span>
@@ -577,8 +578,8 @@
         <span class="k">if</span> <span class="n">z_fix</span><span class="p">:</span>
             <span class="n">sel_dyn</span> <span class="o">=</span> <span class="n">AdsorbateSiteFinder</span><span class="p">(</span>
                 <span class="n">slab</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="n">selective_dynamics</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">z_fix</span>
-            <span class="p">)</span><span class="o">.</span><span class="n">slab</span><span class="o">.</span><span class="n">site_properties</span><span class="p">[</span><span class="s2">"selective_dynamics"</span><span class="p">]</span>
-            <span class="n">slab</span><span class="o">.</span><span class="n">add_site_property</span><span class="p">(</span><span class="s2">"selective_dynamics"</span><span class="p">,</span> <span class="n">sel_dyn</span><span class="p">)</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">slab</span><span class="o">.</span><span class="n">site_properties</span><span class="p">[</span><span class="s2">&quot;selective_dynamics&quot;</span><span class="p">]</span>
+            <span class="n">slab</span><span class="o">.</span><span class="n">add_site_property</span><span class="p">(</span><span class="s2">&quot;selective_dynamics&quot;</span><span class="p">,</span> <span class="n">sel_dyn</span><span class="p">)</span>
 
         <span class="c1"># Add slab to list</span>
         <span class="n">slabs_with_props</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span>
@@ -591,13 +592,13 @@
     <span class="k">for</span> <span class="n">slab_with_props</span> <span class="ow">in</span> <span class="n">slabs_with_props</span><span class="p">:</span>
         <span class="n">final_slab</span> <span class="o">=</span> <span class="n">AseAtomsAdaptor</span><span class="o">.</span><span class="n">get_atoms</span><span class="p">(</span><span class="n">slab_with_props</span><span class="p">)</span>
         <span class="n">slab_stats</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">"bulk"</span><span class="p">:</span> <span class="n">atoms</span><span class="p">,</span>
-            <span class="s2">"miller_index"</span><span class="p">:</span> <span class="n">slab_with_props</span><span class="o">.</span><span class="n">miller_index</span><span class="p">,</span>
-            <span class="s2">"shift"</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">slab_with_props</span><span class="o">.</span><span class="n">shift</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
-            <span class="s2">"scale_factor"</span><span class="p">:</span> <span class="n">slab_with_props</span><span class="o">.</span><span class="n">scale_factor</span><span class="p">,</span>
+            <span class="s2">&quot;bulk&quot;</span><span class="p">:</span> <span class="n">atoms</span><span class="p">,</span>
+            <span class="s2">&quot;miller_index&quot;</span><span class="p">:</span> <span class="n">slab_with_props</span><span class="o">.</span><span class="n">miller_index</span><span class="p">,</span>
+            <span class="s2">&quot;shift&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">slab_with_props</span><span class="o">.</span><span class="n">shift</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+            <span class="s2">&quot;scale_factor&quot;</span><span class="p">:</span> <span class="n">slab_with_props</span><span class="o">.</span><span class="n">scale_factor</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="n">final_slab</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="n">atoms_info</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="n">final_slab</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">"slab_stats"</span><span class="p">]</span> <span class="o">=</span> <span class="n">slab_stats</span>
+        <span class="n">final_slab</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;slab_stats&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">slab_stats</span>
         <span class="n">final_slabs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">final_slab</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">final_slabs</span></div>
@@ -617,7 +618,7 @@
     <span class="o">**</span><span class="n">slabgen_kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Atoms</span><span class="p">]:</span>
 
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate no more than max_slabs number of slabs from a bulk structure.</span>
 <span class="sd">    The procedure is as follows:</span>
 <span class="sd">    1. Generate all slabs</span>
@@ -650,7 +651,7 @@
 <span class="sd">        If an asymmetric surface should be flipped and added to the list</span>
 <span class="sd">    allowed_surface_symbols</span>
 <span class="sd">        List of chemical symbols that must be present on the surface of the slab otherwise</span>
-<span class="sd">        the slab will be discarded, e.g. ["Cu", "Ni"]</span>
+<span class="sd">        the slab will be discarded, e.g. [&quot;Cu&quot;, &quot;Ni&quot;]</span>
 <span class="sd">    **slabgen_kwargs: keyword arguments to pass to the pymatgen generate_all_slabs() function</span>
 
 <span class="sd">    Returns:</span>
@@ -658,7 +659,7 @@
 <span class="sd">    List[.Atoms]</span>
 <span class="sd">        List of slabs</span>
 
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">allowed_surface_symbols</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">allowed_surface_symbols</span> <span class="o">=</span> <span class="p">[</span><span class="n">allowed_surface_symbols</span><span class="p">]</span>
@@ -686,10 +687,10 @@
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">slabs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">max_slabs</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">"You requested </span><span class="si">{</span><span class="n">max_slabs</span><span class="si">}</span><span class="s2"> slabs, but </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">slabs</span><span class="p">)</span><span class="si">}</span><span class="s2"> were generated. Tuning ftol in generate_all_slabs() to try to reduce the number of slabs, at the expense of sampling fewer surface configurations."</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;You requested </span><span class="si">{</span><span class="n">max_slabs</span><span class="si">}</span><span class="s2"> slabs, but </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">slabs</span><span class="p">)</span><span class="si">}</span><span class="s2"> were generated. Tuning ftol in generate_all_slabs() to try to reduce the number of slabs, at the expense of sampling fewer surface configurations.&quot;</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="k">for</span> <span class="n">ftol</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">):</span>
-                <span class="n">slabgen_kwargs</span><span class="p">[</span><span class="s2">"ftol"</span><span class="p">]</span> <span class="o">=</span> <span class="n">ftol</span>
+                <span class="n">slabgen_kwargs</span><span class="p">[</span><span class="s2">&quot;ftol&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ftol</span>
                 <span class="n">slabs_ftol</span> <span class="o">=</span> <span class="n">make_slabs_from_bulk</span><span class="p">(</span>
                     <span class="n">atoms</span><span class="p">,</span>
                     <span class="n">max_index</span><span class="o">=</span><span class="n">max_index</span><span class="p">,</span>
@@ -708,7 +709,7 @@
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">slabs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">max_slabs</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">"You requested </span><span class="si">{</span><span class="n">max_slabs</span><span class="si">}</span><span class="s2"> slabs, but </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">slabs</span><span class="p">)</span><span class="si">}</span><span class="s2"> were generated. Could not reduce further. Picking the smallest slabs by number of atoms."</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;You requested </span><span class="si">{</span><span class="n">max_slabs</span><span class="si">}</span><span class="s2"> slabs, but </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">slabs</span><span class="p">)</span><span class="si">}</span><span class="s2"> were generated. Could not reduce further. Picking the smallest slabs by number of atoms.&quot;</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="n">slabs</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)</span>
             <span class="n">slabs</span> <span class="o">=</span> <span class="n">slabs</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">max_slabs</span><span class="p">]</span>
@@ -726,7 +727,7 @@
     <span class="n">ads_site_finder_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">find_ads_sites_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Atoms</span><span class="p">]:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Add a single adsorbate to a structure for every requested adsorption mode</span>
 
 <span class="sd">    Parameters</span>
@@ -740,7 +741,7 @@
 <span class="sd">    min_distance</span>
 <span class="sd">        The (minimum) distance to set between the adsorbate and the surface site.</span>
 <span class="sd">    modes</span>
-<span class="sd">        The adsorption mode(s) to consider. Options include: "ontop", "bridge", "hollow", "subsurface".</span>
+<span class="sd">        The adsorption mode(s) to consider. Options include: &quot;ontop&quot;, &quot;bridge&quot;, &quot;hollow&quot;, &quot;subsurface&quot;.</span>
 <span class="sd">    allowed_surface_symbols</span>
 <span class="sd">        The symbols of surface atoms to consider. If None, will use all surface atoms.</span>
 <span class="sd">        Note: This method could be improved for bridge/hollow sites.</span>
@@ -757,11 +758,11 @@
 <span class="sd">    List[ase.Atoms]</span>
 <span class="sd">        The structures with adsorbates</span>
 
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">atoms</span> <span class="o">=</span> <span class="n">copy_atoms</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">modes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">modes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"ontop"</span><span class="p">,</span> <span class="s2">"bridge"</span><span class="p">,</span> <span class="s2">"hollow"</span><span class="p">]</span>
+        <span class="n">modes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ontop&quot;</span><span class="p">,</span> <span class="s2">&quot;bridge&quot;</span><span class="p">,</span> <span class="s2">&quot;hollow&quot;</span><span class="p">]</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">modes</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">modes</span> <span class="o">=</span> <span class="p">[</span><span class="n">modes</span><span class="p">]</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">allowed_surface_symbols</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
@@ -773,16 +774,16 @@
     <span class="n">find_ads_sites_kwargs</span> <span class="o">=</span> <span class="n">find_ads_sites_kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
 
     <span class="c1"># Check for double-used parameters</span>
-    <span class="k">if</span> <span class="n">min_distance</span> <span class="ow">and</span> <span class="s2">"distance"</span> <span class="ow">in</span> <span class="n">find_ads_sites_kwargs</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">min_distance</span> <span class="ow">and</span> <span class="s2">&quot;distance&quot;</span> <span class="ow">in</span> <span class="n">find_ads_sites_kwargs</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">"Cannot specify both min_distance and find_ads_sites_kwargs['distance']"</span><span class="p">,</span>
+            <span class="s2">&quot;Cannot specify both min_distance and find_ads_sites_kwargs[&#39;distance&#39;]&quot;</span><span class="p">,</span>
         <span class="p">)</span>
-    <span class="k">if</span> <span class="n">modes</span> <span class="ow">and</span> <span class="s2">"positions"</span> <span class="ow">in</span> <span class="n">find_ads_sites_kwargs</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">modes</span> <span class="ow">and</span> <span class="s2">&quot;positions&quot;</span> <span class="ow">in</span> <span class="n">find_ads_sites_kwargs</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">"Cannot specify both modes and find_ads_sites_kwargs['positions']"</span><span class="p">,</span>
+            <span class="s2">&quot;Cannot specify both modes and find_ads_sites_kwargs[&#39;positions&#39;]&quot;</span><span class="p">,</span>
         <span class="p">)</span>
-    <span class="n">find_ads_sites_kwargs</span><span class="p">[</span><span class="s2">"distance"</span><span class="p">]</span> <span class="o">=</span> <span class="n">min_distance</span>
-    <span class="n">find_ads_sites_kwargs</span><span class="p">[</span><span class="s2">"positions"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">mode</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">mode</span> <span class="ow">in</span> <span class="n">modes</span><span class="p">]</span>
+    <span class="n">find_ads_sites_kwargs</span><span class="p">[</span><span class="s2">&quot;distance&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">min_distance</span>
+    <span class="n">find_ads_sites_kwargs</span><span class="p">[</span><span class="s2">&quot;positions&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">mode</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">mode</span> <span class="ow">in</span> <span class="n">modes</span><span class="p">]</span>
 
     <span class="c1"># Check the provided surface indices are reasonable</span>
     <span class="n">atom_indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">atom</span><span class="o">.</span><span class="n">index</span> <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">]</span>
@@ -790,15 +791,15 @@
         <span class="n">idx</span> <span class="ow">in</span> <span class="n">atom_indices</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">allowed_surface_indices</span>
     <span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">"All indices in allowed_surface_indices must be in atoms."</span><span class="p">,</span>
+            <span class="s2">&quot;All indices in allowed_surface_indices must be in atoms.&quot;</span><span class="p">,</span>
             <span class="n">allowed_surface_indices</span><span class="p">,</span>
             <span class="n">atom_indices</span><span class="p">,</span>
         <span class="p">)</span>
 
     <span class="c1"># Add 0.0 initial magmoms to atoms/adsorbate if needed</span>
-    <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">"initial_magmoms"</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">adsorbate</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">"initial_magmoms"</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">&quot;initial_magmoms&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">adsorbate</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">&quot;initial_magmoms&quot;</span><span class="p">):</span>
         <span class="n">adsorbate</span><span class="o">.</span><span class="n">set_initial_magnetic_moments</span><span class="p">([</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">adsorbate</span><span class="p">))</span>
-    <span class="k">if</span> <span class="n">adsorbate</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">"initial_magmoms"</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">atoms</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">"initial_magmoms"</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">adsorbate</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">&quot;initial_magmoms&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">atoms</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">&quot;initial_magmoms&quot;</span><span class="p">):</span>
         <span class="n">atoms</span><span class="o">.</span><span class="n">set_initial_magnetic_moments</span><span class="p">([</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">))</span>
 
     <span class="c1"># Make a Pymatgen structure and molecule</span>
@@ -857,15 +858,15 @@
             <span class="c1"># Store adsorbate info</span>
             <span class="n">atoms_with_adsorbate</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
             <span class="n">ads_stats</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">"adsorbate"</span><span class="p">:</span> <span class="n">adsorbate</span><span class="p">,</span>
-                <span class="s2">"initial_mode"</span><span class="p">:</span> <span class="n">mode</span><span class="p">,</span>
-                <span class="s2">"surface_atoms_symbols"</span><span class="p">:</span> <span class="n">surface_atom_symbols</span><span class="p">,</span>
-                <span class="s2">"surface_atoms_indices"</span><span class="p">:</span> <span class="n">surface_atom_indices</span><span class="p">,</span>
+                <span class="s2">&quot;adsorbate&quot;</span><span class="p">:</span> <span class="n">adsorbate</span><span class="p">,</span>
+                <span class="s2">&quot;initial_mode&quot;</span><span class="p">:</span> <span class="n">mode</span><span class="p">,</span>
+                <span class="s2">&quot;surface_atoms_symbols&quot;</span><span class="p">:</span> <span class="n">surface_atom_symbols</span><span class="p">,</span>
+                <span class="s2">&quot;surface_atoms_indices&quot;</span><span class="p">:</span> <span class="n">surface_atom_indices</span><span class="p">,</span>
             <span class="p">}</span>
-            <span class="k">if</span> <span class="n">atoms_with_adsorbate</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"adsorbates"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">atoms_with_adsorbate</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">"adsorbates"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ads_stats</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">atoms_with_adsorbate</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;adsorbates&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">atoms_with_adsorbate</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;adsorbates&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ads_stats</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">atoms_with_adsorbate</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">"adsorbates"</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">ads_stats</span><span class="p">])</span>
+                <span class="n">atoms_with_adsorbate</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;adsorbates&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">ads_stats</span><span class="p">])</span>
 
             <span class="c1"># Add slab+adsorbate to list</span>
             <span class="n">new_atoms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">atoms_with_adsorbate</span><span class="p">)</span>
@@ -876,7 +877,7 @@
 <div class="viewcode-block" id="get_surface_energy"><a class="viewcode-back" href="../../../reference/quacc.util.slabs.get_surface_energy.html#quacc.util.slabs.get_surface_energy">[docs]</a><span class="k">def</span> <span class="nf">get_surface_energy</span><span class="p">(</span>
     <span class="n">bulk</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span> <span class="n">slab</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span> <span class="n">bulk_energy</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">slab_energy</span><span class="p">:</span> <span class="nb">float</span>
 <span class="p">):</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate the surface energy to form a given surface slab from a bulk structure.</span>
 <span class="sd">    For asymmetric slabs, this is better thought of as the cleavage energy.</span>
 
@@ -890,7 +891,7 @@
 <span class="sd">        The total energy of the bulk structure.</span>
 <span class="sd">    slab_energy</span>
 <span class="sd">        The total energy of the slab structure.</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">alpha</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">slab</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">bulk</span><span class="p">)</span>
     <span class="n">cell</span> <span class="o">=</span> <span class="n">slab</span><span class="o">.</span><span class="n">get_cell</span><span class="p">()</span>

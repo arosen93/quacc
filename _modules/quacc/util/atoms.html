@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
         <title>quacc.util.atoms - quacc</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
@@ -374,7 +374,8 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -389,9 +390,9 @@
         </div>
         <article role="main">
           <h1>Source code for quacc.util.atoms</h1><div class="highlight"><pre>
-<span></span><span class="sd">"""</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Utility functions for dealing with Atoms</span>
-<span class="sd">"""</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">hashlib</span>
@@ -420,17 +421,17 @@
     <span class="n">move_magmoms</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">store_results</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Atoms</span><span class="p">:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Prepares the Atoms object for a new run.</span>
 
 <span class="sd">    Depending on the arguments, this function will:</span>
 <span class="sd">        - Move the converged magnetic moments to the initial magnetic moments.</span>
-<span class="sd">        - Assign a unique ID to the Atoms object in atoms.info["_id"]. Any existing IDs will</span>
-<span class="sd">        be moved to atoms.info["_old_ids"].</span>
-<span class="sd">        - Store the calculator results in atoms.info["results"] for later retrieval.</span>
+<span class="sd">        - Assign a unique ID to the Atoms object in atoms.info[&quot;_id&quot;]. Any existing IDs will</span>
+<span class="sd">        be moved to atoms.info[&quot;_old_ids&quot;].</span>
+<span class="sd">        - Store the calculator results in atoms.info[&quot;results&quot;] for later retrieval.</span>
 <span class="sd">        This makes it so the calculator results are not lost between</span>
 <span class="sd">        serialize/deserialize cycles, if desired. Each one will be stored in</span>
-<span class="sd">        atoms.info["results"] = {"calc0": {}, "calc1": {}, ...} with higher numbers</span>
+<span class="sd">        atoms.info[&quot;results&quot;] = {&quot;calc0&quot;: {}, &quot;calc1&quot;: {}, ...} with higher numbers</span>
 <span class="sd">        being the most recent.</span>
 
 <span class="sd">    In all cases, the calculator will be reset so new jobs can be run.</span>
@@ -440,44 +441,44 @@
 <span class="sd">    atoms</span>
 <span class="sd">        Atoms object</span>
 <span class="sd">    assign_id</span>
-<span class="sd">        Whether to assign a unique ID to the Atoms object in atoms.info["_id"].</span>
-<span class="sd">        Any existing IDs will be moved to atoms.info["_old_ids"].</span>
+<span class="sd">        Whether to assign a unique ID to the Atoms object in atoms.info[&quot;_id&quot;].</span>
+<span class="sd">        Any existing IDs will be moved to atoms.info[&quot;_old_ids&quot;].</span>
 <span class="sd">    move_magmoms</span>
-<span class="sd">        If True, move atoms.calc.results["magmoms"] to atoms.get_initial_magnetic_moments()</span>
+<span class="sd">        If True, move atoms.calc.results[&quot;magmoms&quot;] to atoms.get_initial_magnetic_moments()</span>
 <span class="sd">    store_results</span>
-<span class="sd">        If True, store calculator results in atoms.info["results"]. This makes it so the calculator results</span>
+<span class="sd">        If True, store calculator results in atoms.info[&quot;results&quot;]. This makes it so the calculator results</span>
 <span class="sd">        are not lost between serialize/deserialize cycles, if desired. Each one will be stored in</span>
-<span class="sd">        atoms.info["results"] = {"calc0": {}, "calc1": {}, ...} with higher numbers being the most recent.</span>
+<span class="sd">        atoms.info[&quot;results&quot;] = {&quot;calc0&quot;: {}, &quot;calc1&quot;: {}, ...} with higher numbers being the most recent.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    .Atoms</span>
-<span class="sd">        Atoms object with calculator results attached in atoms.info["results"]</span>
-<span class="sd">    """</span>
+<span class="sd">        Atoms object with calculator results attached in atoms.info[&quot;results&quot;]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">atoms</span> <span class="o">=</span> <span class="n">copy_atoms</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="s2">"calc"</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="p">,</span> <span class="s2">"results"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="s2">&quot;calc&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="p">,</span> <span class="s2">&quot;results&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
 
         <span class="k">if</span> <span class="n">store_results</span><span class="p">:</span>
             <span class="c1"># Dump calculator results into the .info tag</span>
-            <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">"rundir"</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"results"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;rundir&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;results&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">prior_calcs</span> <span class="o">=</span> <span class="mi">0</span>
-                <span class="n">atoms</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">"results"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="n">atoms</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;results&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">prior_calcs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">"results"</span><span class="p">])</span>
+                <span class="n">prior_calcs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;results&quot;</span><span class="p">])</span>
 
-            <span class="n">atoms</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">"results"</span><span class="p">][</span><span class="sa">f</span><span class="s2">"calc</span><span class="si">{</span><span class="n">prior_calcs</span><span class="si">}</span><span class="s2">"</span><span class="p">]</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">results</span>
+            <span class="n">atoms</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;results&quot;</span><span class="p">][</span><span class="sa">f</span><span class="s2">&quot;calc</span><span class="si">{</span><span class="n">prior_calcs</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">results</span>
 
         <span class="c1"># Move converged magmoms to initial magmoms</span>
-        <span class="c1"># If none were present, then initial magmoms should be set to 0's</span>
+        <span class="c1"># If none were present, then initial magmoms should be set to 0&#39;s</span>
         <span class="c1"># because a spin-unpolarized calculation was carried out</span>
         <span class="k">if</span> <span class="n">move_magmoms</span><span class="p">:</span>
             <span class="n">atoms</span><span class="o">.</span><span class="n">set_initial_magnetic_moments</span><span class="p">(</span>
-                <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"magmoms"</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">))</span>
+                <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;magmoms&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">))</span>
             <span class="p">)</span>
 
-    <span class="c1"># Clear off the calculator so we can run a new job. If we don't do this,</span>
+    <span class="c1"># Clear off the calculator so we can run a new job. If we don&#39;t do this,</span>
     <span class="c1"># then something like atoms *= (2,2,2) stil has a calculator attached, which</span>
     <span class="c1"># is a bit confusing.</span>
     <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="kc">None</span>
@@ -487,11 +488,11 @@
     <span class="c1"># Note: Kep this at the end of the function so that the ID is assigned based</span>
     <span class="c1"># on the returned Atoms object.</span>
     <span class="k">if</span> <span class="n">assign_id</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"_id"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"_old_ids"</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">atoms</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">"_old_ids"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="n">atoms</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">"_old_ids"</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">"_id"</span><span class="p">])</span>
-        <span class="n">atoms</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">"_id"</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_atoms_id</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;_id&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;_old_ids&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">atoms</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;_old_ids&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">atoms</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;_old_ids&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">])</span>
+        <span class="n">atoms</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_atoms_id</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">atoms</span></div>
 
@@ -503,7 +504,7 @@
     <span class="n">copy_magmoms</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">mag_cutoff</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Atoms</span><span class="p">:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Sets the initial magnetic moments in the Atoms object.</span>
 
 <span class="sd">    This function deserves particular attention. The following logic is applied:</span>
@@ -527,7 +528,7 @@
 <span class="sd">        If None, no default values will be used.</span>
 <span class="sd">    elemental_mags_default</span>
 <span class="sd">        Default magnetic moment on an element if no magnetic moment is specified in the elemental_mags_dict.</span>
-<span class="sd">        Only used if elemental_mags_dict is not None. This kwarg is mainly a convenience so that you don't need to</span>
+<span class="sd">        Only used if elemental_mags_dict is not None. This kwarg is mainly a convenience so that you don&#39;t need to</span>
 <span class="sd">        list every single element in the elemental_mags_dict.</span>
 <span class="sd">    copy_magmoms</span>
 <span class="sd">        Whether to copy the magnetic moments from the converged set of magnetic moments to the initial magnetic moments.</span>
@@ -538,12 +539,12 @@
 <span class="sd">    -------</span>
 <span class="sd">    .Atoms</span>
 <span class="sd">        Atoms object</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Handle the magnetic moments</span>
     <span class="c1"># Check if a prior job was run and pull the prior magmoms</span>
-    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="s2">"calc"</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="p">,</span> <span class="s2">"results"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">mags</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"magmoms"</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">))</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="s2">&quot;calc&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="p">,</span> <span class="s2">&quot;results&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">mags</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;magmoms&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">))</span>
         <span class="c1"># Note: It is important that we set mags to 0.0 here rather than None if the</span>
         <span class="c1"># calculator has no magmoms because: 1) ispin=1 might be set, and 2) we do</span>
         <span class="c1"># not want the preset magmoms to be used.</span>
@@ -551,7 +552,7 @@
         <span class="n">mags</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="c1"># Check if the user has set any initial magmoms</span>
-    <span class="n">has_initial_mags</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">"initial_magmoms"</span><span class="p">)</span>
+    <span class="n">has_initial_mags</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">&quot;initial_magmoms&quot;</span><span class="p">)</span>
 
     <span class="c1"># If there are no initial magmoms set and this is not a follow-up job,</span>
     <span class="c1"># we may need to add some from the preset yaml.</span>
@@ -559,7 +560,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">has_initial_mags</span><span class="p">:</span>
 
             <span class="c1"># If the preset dictionary has default magmoms, set</span>
-            <span class="c1"># those by element. If the element isn't in the magmoms dict</span>
+            <span class="c1"># those by element. If the element isn&#39;t in the magmoms dict</span>
             <span class="c1"># then set it to mag_default.</span>
             <span class="k">if</span> <span class="n">elemental_mags_dict</span><span class="p">:</span>
                 <span class="n">initial_mags</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
@@ -576,7 +577,7 @@
 
     <span class="c1"># If all the set mags are below mag_cutoff, set them to 0</span>
     <span class="k">if</span> <span class="n">mag_cutoff</span><span class="p">:</span>
-        <span class="n">has_new_initial_mags</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">"initial_magmoms"</span><span class="p">)</span>
+        <span class="n">has_new_initial_mags</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">has</span><span class="p">(</span><span class="s2">&quot;initial_magmoms&quot;</span><span class="p">)</span>
         <span class="n">new_initial_mags</span> <span class="o">=</span> <span class="n">atoms</span><span class="o">.</span><span class="n">get_initial_magnetic_moments</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">has_new_initial_mags</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">new_initial_mags</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">mag_cutoff</span><span class="p">):</span>
             <span class="n">atoms</span><span class="o">.</span><span class="n">set_initial_magnetic_moments</span><span class="p">([</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">))</span>
@@ -585,7 +586,7 @@
 
 
 <div class="viewcode-block" id="get_atoms_id"><a class="viewcode-back" href="../../../reference/quacc.util.atoms.get_atoms_id.html#quacc.util.atoms.get_atoms_id">[docs]</a><span class="k">def</span> <span class="nf">get_atoms_id</span><span class="p">(</span><span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns a unique ID for the Atoms object. Note: The .info dict</span>
 <span class="sd">    and calculator is excluded from the hash generation.</span>
 
@@ -598,7 +599,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    md5hash</span>
 <span class="sd">        MD5 hash of the .Atoms object</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">atoms</span> <span class="o">=</span> <span class="n">copy_atoms</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
     <span class="n">atoms</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="p">{}</span>
@@ -607,17 +608,17 @@
     <span class="c1"># This is a hack to avoid int32/int64 and float32/float64 differences</span>
     <span class="c1"># between machines.</span>
     <span class="n">encoded_atoms</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">encoded_atoms</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"int64"</span><span class="p">,</span> <span class="s2">"int"</span><span class="p">)</span>
-        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"int32"</span><span class="p">,</span> <span class="s2">"int"</span><span class="p">)</span>
-        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"float64"</span><span class="p">,</span> <span class="s2">"float"</span><span class="p">)</span>
-        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"float32"</span><span class="p">,</span> <span class="s2">"float"</span><span class="p">)</span>
+        <span class="n">encoded_atoms</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;int64&quot;</span><span class="p">,</span> <span class="s2">&quot;int&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;int32&quot;</span><span class="p">,</span> <span class="s2">&quot;int&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;float64&quot;</span><span class="p">,</span> <span class="s2">&quot;float&quot;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">,</span> <span class="s2">&quot;float&quot;</span><span class="p">)</span>
     <span class="p">)</span>
-    <span class="n">md5hash</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">encoded_atoms</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">))</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+    <span class="n">md5hash</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">encoded_atoms</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">md5hash</span></div>
 
 
 <div class="viewcode-block" id="check_is_metal"><a class="viewcode-back" href="../../../reference/quacc.util.atoms.check_is_metal.html#quacc.util.atoms.check_is_metal">[docs]</a><span class="k">def</span> <span class="nf">check_is_metal</span><span class="p">(</span><span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Checks if a structure is a likely metal.</span>
 
 <span class="sd">    Parameters</span>
@@ -629,7 +630,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    bool</span>
 <span class="sd">        True if the structure is likely a metal; False otherwise</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">pbc</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
         <span class="n">struct</span> <span class="o">=</span> <span class="n">AseAtomsAdaptor</span><span class="o">.</span><span class="n">get_molecule</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
@@ -639,7 +640,7 @@
 
 
 <div class="viewcode-block" id="get_highest_block"><a class="viewcode-back" href="../../../reference/quacc.util.atoms.get_highest_block.html#quacc.util.atoms.get_highest_block">[docs]</a><span class="k">def</span> <span class="nf">get_highest_block</span><span class="p">(</span><span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get the highest block (e.g. p-block, d-block f-block) of a structure</span>
 
 <span class="sd">    Parameters</span>
@@ -651,26 +652,26 @@
 <span class="sd">    -------</span>
 <span class="sd">    str</span>
 <span class="sd">        highest block of the structure</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">pbc</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
         <span class="n">struct</span> <span class="o">=</span> <span class="n">AseAtomsAdaptor</span><span class="o">.</span><span class="n">get_molecule</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">struct</span> <span class="o">=</span> <span class="n">AseAtomsAdaptor</span><span class="o">.</span><span class="n">get_structure</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
     <span class="n">blocks</span> <span class="o">=</span> <span class="p">[</span><span class="n">site</span><span class="o">.</span><span class="n">specie</span><span class="o">.</span><span class="n">block</span> <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="n">struct</span><span class="p">]</span>
-    <span class="k">if</span> <span class="s2">"f"</span> <span class="ow">in</span> <span class="n">blocks</span><span class="p">:</span>
-        <span class="n">max_block</span> <span class="o">=</span> <span class="s2">"f"</span>
-    <span class="k">elif</span> <span class="s2">"d"</span> <span class="ow">in</span> <span class="n">blocks</span><span class="p">:</span>
-        <span class="n">max_block</span> <span class="o">=</span> <span class="s2">"d"</span>
-    <span class="k">elif</span> <span class="s2">"p"</span> <span class="ow">in</span> <span class="n">blocks</span><span class="p">:</span>
-        <span class="n">max_block</span> <span class="o">=</span> <span class="s2">"p"</span>
+    <span class="k">if</span> <span class="s2">&quot;f&quot;</span> <span class="ow">in</span> <span class="n">blocks</span><span class="p">:</span>
+        <span class="n">max_block</span> <span class="o">=</span> <span class="s2">&quot;f&quot;</span>
+    <span class="k">elif</span> <span class="s2">&quot;d&quot;</span> <span class="ow">in</span> <span class="n">blocks</span><span class="p">:</span>
+        <span class="n">max_block</span> <span class="o">=</span> <span class="s2">&quot;d&quot;</span>
+    <span class="k">elif</span> <span class="s2">&quot;p&quot;</span> <span class="ow">in</span> <span class="n">blocks</span><span class="p">:</span>
+        <span class="n">max_block</span> <span class="o">=</span> <span class="s2">&quot;p&quot;</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">max_block</span> <span class="o">=</span> <span class="s2">"s"</span>
+        <span class="n">max_block</span> <span class="o">=</span> <span class="s2">&quot;s&quot;</span>
 
     <span class="k">return</span> <span class="n">max_block</span></div>
 
 
 <div class="viewcode-block" id="copy_atoms"><a class="viewcode-back" href="../../../reference/quacc.util.atoms.copy_atoms.html#quacc.util.atoms.copy_atoms">[docs]</a><span class="k">def</span> <span class="nf">copy_atoms</span><span class="p">(</span><span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Atoms</span><span class="p">:</span>
-    <span class="sd">"""</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Simple function to copy an atoms object to prevent mutability.</span>
 
 <span class="sd">    Parameters</span>
@@ -682,7 +683,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    atoms</span>
 <span class="sd">        .Atoms object</span>
-<span class="sd">    """</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">atoms</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
