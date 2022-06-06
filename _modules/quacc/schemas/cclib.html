@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
         <title>quacc.schemas.cclib - quacc</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
     <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
@@ -374,8 +374,7 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -390,9 +389,9 @@
         </div>
         <article role="main">
           <h1>Source code for quacc.schemas.cclib</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Schemas for molecular DFT codes parsed by cclib</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
@@ -414,7 +413,7 @@
     <span class="n">prep_next_run</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">additional_fields</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">"""</span>
 <span class="sd">    Get tabulated results from a molecular DFT run and store them in a database-friendly format.</span>
 <span class="sd">    This is meant to be a general parser built on top of cclib.</span>
 
@@ -423,7 +422,7 @@
 <span class="sd">    atoms</span>
 <span class="sd">        ASE Atoms object following a calculation.</span>
 <span class="sd">    logfile_extensions</span>
-<span class="sd">        Possible extensions of the log file (e.g. &quot;.log&quot;, &quot;.out&quot;, &quot;.txt&quot;, &quot;.chk&quot;). Note that</span>
+<span class="sd">        Possible extensions of the log file (e.g. ".log", ".out", ".txt", ".chk"). Note that</span>
 <span class="sd">        only a partial match is needed. For instance, `.log` will match `.log.gz` and `.log.1.gz`.</span>
 <span class="sd">        If multiple files with this extension are found, the one with the most recent change time</span>
 <span class="sd">        will be used. For an exact match only, put in the full file name.</span>
@@ -435,7 +434,7 @@
 <span class="sd">    transition_state</span>
 <span class="sd">        Whether the calculation is a transition state (used for convergence check).</span>
 <span class="sd">    prep_next_run</span>
-<span class="sd">        Whether the Atoms object storeed in {&quot;atoms&quot;: atoms} should be prepared for the next run.</span>
+<span class="sd">        Whether the Atoms object storeed in {"atoms": atoms} should be prepared for the next run.</span>
 <span class="sd">        This clears out any attached calculator and moves the final magmoms to the initial magmoms.</span>
 <span class="sd">    additional_fields</span>
 <span class="sd">        Additional fields to add to the task document.</span>
@@ -444,12 +443,12 @@
 <span class="sd">    -------</span>
 <span class="sd">    Dict</span>
 <span class="sd">        Dictionary of tabulated inputs/results</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="c1"># Make sure there is a calculator with results</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;ASE Atoms object has no attached calculator.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"ASE Atoms object has no attached calculator."</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">results</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;ASE Atoms object&#39;s calculator has no results.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"ASE Atoms object's calculator has no results."</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">additional_fields</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">additional_fields</span> <span class="o">=</span> <span class="p">{}</span>
@@ -461,33 +460,33 @@
 
     <span class="c1"># Check convergence if requested</span>
     <span class="k">if</span> <span class="n">check_convergence</span><span class="p">:</span>
-        <span class="c1"># If it&#39;s an opt+freq job, we will just check convergence on the</span>
+        <span class="c1"># If it's an opt+freq job, we will just check convergence on the</span>
         <span class="c1"># frequency step. This is because sometimes the frequency job will</span>
         <span class="c1"># yield all positive modes, but the optimization tolerances me be</span>
         <span class="c1"># not entirely met. See https://gaussian.com/faq3.</span>
-        <span class="n">vibfreqs</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s2">&quot;attributes&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;vibfreqs&quot;</span><span class="p">)</span>
+        <span class="n">vibfreqs</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s2">"attributes"</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"vibfreqs"</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">vibfreqs</span><span class="p">:</span>
             <span class="n">n_imag</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">vibfreq</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">vibfreq</span> <span class="ow">in</span> <span class="n">vibfreqs</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">n_imag</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Too many imaginary modes: </span><span class="si">{</span><span class="n">n_imag</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Too many imaginary modes: </span><span class="si">{</span><span class="n">n_imag</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">n_imag</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">transition_state</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;One imaginary mode, but transition_state = False.&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"One imaginary mode, but transition_state = False."</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">n_imag</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">transition_state</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No imaginary modes, but transition_state = True.&quot;</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">results</span><span class="p">[</span><span class="s2">&quot;attributes&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;optdone&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Optimization not complete.&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"No imaginary modes, but transition_state = True."</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">results</span><span class="p">[</span><span class="s2">"attributes"</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"optdone"</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Optimization not complete."</span><span class="p">)</span>
 
-    <span class="c1"># Remove some key/vals we don&#39;t actually ever use</span>
+    <span class="c1"># Remove some key/vals we don't actually ever use</span>
     <span class="n">unused_props</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="s2">&quot;task_label&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;tags&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;molecule&quot;</span><span class="p">,</span>
+        <span class="s2">"task_label"</span><span class="p">,</span>
+        <span class="s2">"tags"</span><span class="p">,</span>
+        <span class="s2">"molecule"</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">for</span> <span class="n">unused_prop</span> <span class="ow">in</span> <span class="n">unused_props</span><span class="p">:</span>
         <span class="n">results</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">unused_prop</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
     <span class="c1"># Get the calculator inputs</span>
-    <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">parameters</span><span class="p">}</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"parameters"</span><span class="p">:</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">parameters</span><span class="p">}</span>
 
     <span class="c1"># Prepares the Atoms object for the next run by moving the</span>
     <span class="c1"># final magmoms to initial, clearing the calculator state,</span>

@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
         <title>quacc.recipes.dftb.core - quacc</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css" />
@@ -374,8 +374,7 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -390,7 +389,7 @@
         </div>
         <article role="main">
           <h1>Source code for quacc.recipes.dftb.core</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Core recipes for DFTB+&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""Core recipes for DFTB+"""</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
@@ -406,14 +405,14 @@
 <span class="kn">from</span> <span class="nn">quacc.util.basics</span> <span class="kn">import</span> <span class="n">merge_dicts</span>
 <span class="kn">from</span> <span class="nn">quacc.util.calc</span> <span class="kn">import</span> <span class="n">_check_logfile</span><span class="p">,</span> <span class="n">run_calc</span>
 
-<span class="n">DFTBPLUS_EXISTS</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">which</span><span class="p">(</span><span class="s2">&quot;dftb+&quot;</span><span class="p">))</span>
-<span class="n">LOG_FILE</span> <span class="o">=</span> <span class="s2">&quot;dftb.out&quot;</span>
-<span class="n">GEOM_FILE</span> <span class="o">=</span> <span class="s2">&quot;geo_end.gen&quot;</span>
+<span class="n">DFTBPLUS_EXISTS</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">which</span><span class="p">(</span><span class="s2">"dftb+"</span><span class="p">))</span>
+<span class="n">LOG_FILE</span> <span class="o">=</span> <span class="s2">"dftb.out"</span>
+<span class="n">GEOM_FILE</span> <span class="o">=</span> <span class="s2">"geo_end.gen"</span>
 
 
 <div class="viewcode-block" id="StaticJob"><a class="viewcode-back" href="../../../../reference/quacc.recipes.dftb.core.StaticJob.html#quacc.recipes.dftb.core.StaticJob">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">StaticJob</span><span class="p">(</span><span class="n">Maker</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">"""</span>
 <span class="sd">    Class to carry out a single-point calculation.</span>
 
 <span class="sd">    Parameters</span>
@@ -421,26 +420,26 @@
 <span class="sd">    name</span>
 <span class="sd">        Name of the job.</span>
 <span class="sd">    method</span>
-<span class="sd">        Method to use. Accepts &#39;DFTB&#39;, &#39;GFN1-xTB&#39;, and &#39;GFN2-xTB&#39;.</span>
+<span class="sd">        Method to use. Accepts 'DFTB', 'GFN1-xTB', and 'GFN2-xTB'.</span>
 <span class="sd">    kpts</span>
 <span class="sd">        k-point grid to use. Defaults to None for molecules and</span>
 <span class="sd">        (1, 1, 1) for solids.</span>
 <span class="sd">    swaps</span>
 <span class="sd">        Dictionary of custom kwargs for the calculator.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;DFTB-Static&quot;</span>
-    <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;GFN2-xTB&quot;</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"DFTB-Static"</span>
+    <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"GFN2-xTB"</span>
     <span class="n">kpts</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">|</span> <span class="n">List</span><span class="p">[</span><span class="nb">tuple</span><span class="p">]</span> <span class="o">|</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">swaps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
 
 <div class="viewcode-block" id="StaticJob.make"><a class="viewcode-back" href="../../../../reference/quacc.recipes.dftb.core.StaticJob.html#quacc.recipes.dftb.core.StaticJob.make">[docs]</a>    <span class="nd">@job</span>
     <span class="nd">@requires</span><span class="p">(</span>
         <span class="n">DFTBPLUS_EXISTS</span><span class="p">,</span>
-        <span class="s2">&quot;DFTB+ must be installed. Try conda install -c conda-forge dftbplus&quot;</span><span class="p">,</span>
+        <span class="s2">"DFTB+ must be installed. Try conda install -c conda-forge dftbplus"</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">"""</span>
 <span class="sd">        Make the run.</span>
 
 <span class="sd">        Parameters</span>
@@ -452,11 +451,11 @@
 <span class="sd">        -------</span>
 <span class="sd">        Dict</span>
 <span class="sd">            Summary of the run.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">defaults</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;Hamiltonian_&quot;</span><span class="p">:</span> <span class="s2">&quot;xTB&quot;</span> <span class="k">if</span> <span class="s2">&quot;xtb&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;DFTB&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;Hamiltonian_Method&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="k">if</span> <span class="s2">&quot;xtb&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="s2">&quot;kpts&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">kpts</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kpts</span> <span class="k">else</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">pbc</span><span class="o">.</span><span class="n">any</span><span class="p">()</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">"Hamiltonian_"</span><span class="p">:</span> <span class="s2">"xTB"</span> <span class="k">if</span> <span class="s2">"xtb"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">else</span> <span class="s2">"DFTB"</span><span class="p">,</span>
+            <span class="s2">"Hamiltonian_Method"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="k">if</span> <span class="s2">"xtb"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">"kpts"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">kpts</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kpts</span> <span class="k">else</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">pbc</span><span class="o">.</span><span class="n">any</span><span class="p">()</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="n">flags</span> <span class="o">=</span> <span class="n">merge_dicts</span><span class="p">(</span>
             <span class="n">defaults</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">swaps</span><span class="p">,</span> <span class="n">remove_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">auto_lowercase</span><span class="o">=</span><span class="kc">False</span>
@@ -464,11 +463,11 @@
 
         <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">Dftb</span><span class="p">(</span><span class="o">**</span><span class="n">flags</span><span class="p">)</span>
         <span class="n">new_atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">geom_file</span><span class="o">=</span><span class="n">GEOM_FILE</span><span class="p">)</span>
-        <span class="n">scc_check</span> <span class="o">=</span> <span class="n">_check_logfile</span><span class="p">(</span><span class="n">LOG_FILE</span><span class="p">,</span> <span class="s2">&quot;SCC is NOT converged&quot;</span><span class="p">)</span>
+        <span class="n">scc_check</span> <span class="o">=</span> <span class="n">_check_logfile</span><span class="p">(</span><span class="n">LOG_FILE</span><span class="p">,</span> <span class="s2">"SCC is NOT converged"</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">scc_check</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;SCC is not converged&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"SCC is not converged"</span><span class="p">)</span>
         <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span>
-            <span class="n">new_atoms</span><span class="p">,</span> <span class="n">input_atoms</span><span class="o">=</span><span class="n">atoms</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
+            <span class="n">new_atoms</span><span class="p">,</span> <span class="n">input_atoms</span><span class="o">=</span><span class="n">atoms</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
         <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">summary</span></div></div>
@@ -476,7 +475,7 @@
 
 <div class="viewcode-block" id="RelaxJob"><a class="viewcode-back" href="../../../../reference/quacc.recipes.dftb.core.RelaxJob.html#quacc.recipes.dftb.core.RelaxJob">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">RelaxJob</span><span class="p">(</span><span class="n">Maker</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">"""</span>
 <span class="sd">    Class to carry out a structure relaxation.</span>
 
 <span class="sd">    Parameters</span>
@@ -484,7 +483,7 @@
 <span class="sd">    name</span>
 <span class="sd">        Name of the job.</span>
 <span class="sd">    method</span>
-<span class="sd">        Method to use. Accepts &#39;DFTB&#39;, &#39;GFN1-xTB&#39;, and &#39;GFN2-xTB&#39;.</span>
+<span class="sd">        Method to use. Accepts 'DFTB', 'GFN1-xTB', and 'GFN2-xTB'.</span>
 <span class="sd">    kpts</span>
 <span class="sd">        k-point grid to use. Defaults to None for molecules and</span>
 <span class="sd">        (1, 1, 1) for solids.</span>
@@ -493,10 +492,10 @@
 <span class="sd">        the positions.</span>
 <span class="sd">    swaps</span>
 <span class="sd">        Dictionary of custom kwargs for the calculator.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;DFTB-Relax&quot;</span>
-    <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;GFN2-xTB&quot;</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"DFTB-Relax"</span>
+    <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"GFN2-xTB"</span>
     <span class="n">kpts</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">|</span> <span class="n">List</span><span class="p">[</span><span class="nb">tuple</span><span class="p">]</span> <span class="o">|</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">lattice_opt</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">swaps</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
@@ -504,10 +503,10 @@
 <div class="viewcode-block" id="RelaxJob.make"><a class="viewcode-back" href="../../../../reference/quacc.recipes.dftb.core.RelaxJob.html#quacc.recipes.dftb.core.RelaxJob.make">[docs]</a>    <span class="nd">@job</span>
     <span class="nd">@requires</span><span class="p">(</span>
         <span class="n">DFTBPLUS_EXISTS</span><span class="p">,</span>
-        <span class="s2">&quot;DFTB+ must be installed. Try conda install -c conda-forge dftbplus&quot;</span><span class="p">,</span>
+        <span class="s2">"DFTB+ must be installed. Try conda install -c conda-forge dftbplus"</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">"""</span>
 <span class="sd">        Make the run.</span>
 
 <span class="sd">        Parameters</span>
@@ -519,15 +518,15 @@
 <span class="sd">        -------</span>
 <span class="sd">        Dict</span>
 <span class="sd">            Summary of the run.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">defaults</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;Hamiltonian_&quot;</span><span class="p">:</span> <span class="s2">&quot;xTB&quot;</span> <span class="k">if</span> <span class="s2">&quot;xtb&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;DFTB&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;Hamiltonian_Method&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="k">if</span> <span class="s2">&quot;xtb&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="s2">&quot;kpts&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">kpts</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kpts</span> <span class="k">else</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">pbc</span><span class="o">.</span><span class="n">any</span><span class="p">()</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="s2">&quot;Driver_&quot;</span><span class="p">:</span> <span class="s2">&quot;GeometryOptimization&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;Driver_LatticeOpt&quot;</span><span class="p">:</span> <span class="s2">&quot;Yes&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lattice_opt</span> <span class="k">else</span> <span class="s2">&quot;No&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;Driver_AppendGeometries&quot;</span><span class="p">:</span> <span class="s2">&quot;Yes&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;Driver_MaxSteps&quot;</span><span class="p">:</span> <span class="mi">2000</span><span class="p">,</span>
+            <span class="s2">"Hamiltonian_"</span><span class="p">:</span> <span class="s2">"xTB"</span> <span class="k">if</span> <span class="s2">"xtb"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">else</span> <span class="s2">"DFTB"</span><span class="p">,</span>
+            <span class="s2">"Hamiltonian_Method"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="k">if</span> <span class="s2">"xtb"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">"kpts"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">kpts</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">kpts</span> <span class="k">else</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">pbc</span><span class="o">.</span><span class="n">any</span><span class="p">()</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">"Driver_"</span><span class="p">:</span> <span class="s2">"GeometryOptimization"</span><span class="p">,</span>
+            <span class="s2">"Driver_LatticeOpt"</span><span class="p">:</span> <span class="s2">"Yes"</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lattice_opt</span> <span class="k">else</span> <span class="s2">"No"</span><span class="p">,</span>
+            <span class="s2">"Driver_AppendGeometries"</span><span class="p">:</span> <span class="s2">"Yes"</span><span class="p">,</span>
+            <span class="s2">"Driver_MaxSteps"</span><span class="p">:</span> <span class="mi">2000</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="n">flags</span> <span class="o">=</span> <span class="n">merge_dicts</span><span class="p">(</span>
             <span class="n">defaults</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">swaps</span><span class="p">,</span> <span class="n">remove_none</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">auto_lowercase</span><span class="o">=</span><span class="kc">False</span>
@@ -535,11 +534,11 @@
 
         <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">Dftb</span><span class="p">(</span><span class="o">**</span><span class="n">flags</span><span class="p">)</span>
         <span class="n">new_atoms</span> <span class="o">=</span> <span class="n">run_calc</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">geom_file</span><span class="o">=</span><span class="n">GEOM_FILE</span><span class="p">)</span>
-        <span class="n">geom_check</span> <span class="o">=</span> <span class="n">_check_logfile</span><span class="p">(</span><span class="n">LOG_FILE</span><span class="p">,</span> <span class="s2">&quot;Geometry converged&quot;</span><span class="p">)</span>
+        <span class="n">geom_check</span> <span class="o">=</span> <span class="n">_check_logfile</span><span class="p">(</span><span class="n">LOG_FILE</span><span class="p">,</span> <span class="s2">"Geometry converged"</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">geom_check</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Geometry did not converge&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Geometry did not converge"</span><span class="p">)</span>
         <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span>
-            <span class="n">new_atoms</span><span class="p">,</span> <span class="n">input_atoms</span><span class="o">=</span><span class="n">atoms</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
+            <span class="n">new_atoms</span><span class="p">,</span> <span class="n">input_atoms</span><span class="o">=</span><span class="n">atoms</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
         <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">summary</span></div></div>

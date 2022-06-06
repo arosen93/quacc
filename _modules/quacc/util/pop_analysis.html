@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
         <title>quacc.util.pop_analysis - quacc</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
     <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
@@ -374,8 +374,7 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -390,9 +389,9 @@
         </div>
         <article role="main">
           <h1>Source code for quacc.util.pop_analysis</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Utility functions for population analyses</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
@@ -409,7 +408,7 @@
 <div class="viewcode-block" id="run_bader"><a class="viewcode-back" href="../../../reference/quacc.util.pop_analysis.run_bader.html#quacc.util.pop_analysis.run_bader">[docs]</a><span class="k">def</span> <span class="nf">run_bader</span><span class="p">(</span>
     <span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scratch_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">SCRATCH_DIR</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">"""</span>
 <span class="sd">    Runs a Bader partial charge and spin moment analysis using the VASP</span>
 <span class="sd">    output files in the given path. This function requires that `bader`</span>
 <span class="sd">    is located in your PATH environment variable. See</span>
@@ -422,7 +421,7 @@
 <span class="sd">    path</span>
 <span class="sd">        The path where the VASP output files are located.</span>
 <span class="sd">        Must include CHGCAR, AECCAR0, AECCAR2, and POTCAR files. These</span>
-<span class="sd">        files can be gzip&#39;d or not -- it doesn&#39;t matter.</span>
+<span class="sd">        files can be gzip'd or not -- it doesn't matter.</span>
 <span class="sd">        If None, the current working directory is used.</span>
 <span class="sd">    scratch_dir</span>
 <span class="sd">        The path where the Bader analysis will be run.</span>
@@ -432,26 +431,26 @@
 <span class="sd">    Dict</span>
 <span class="sd">        Dictionary containing the Bader analysis summary:</span>
 <span class="sd">            {</span>
-<span class="sd">                &quot;min_dist&quot;: List[float],</span>
-<span class="sd">                &quot;atomic_volume&quot;: List[float],</span>
-<span class="sd">                &quot;vacuum_charge&quot;: float,</span>
-<span class="sd">                &quot;vacuum_volume&quot;: float,</span>
-<span class="sd">                &quot;bader_version&quot;: float,</span>
-<span class="sd">                &quot;partial_charges&quot;: List[float],</span>
-<span class="sd">                &quot;spin_moments&quot;: List[float],</span>
+<span class="sd">                "min_dist": List[float],</span>
+<span class="sd">                "atomic_volume": List[float],</span>
+<span class="sd">                "vacuum_charge": float,</span>
+<span class="sd">                "vacuum_volume": float,</span>
+<span class="sd">                "bader_version": float,</span>
+<span class="sd">                "partial_charges": List[float],</span>
+<span class="sd">                "spin_moments": List[float],</span>
 <span class="sd">            }</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">path</span> <span class="o">=</span> <span class="n">path</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
     <span class="n">scratch_dir</span> <span class="o">=</span> <span class="n">scratch_dir</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
 
     <span class="c1"># Make sure files are present</span>
-    <span class="n">relevant_files</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;AECCAR0&quot;</span><span class="p">,</span> <span class="s2">&quot;AECCAR2&quot;</span><span class="p">,</span> <span class="s2">&quot;CHGCAR&quot;</span><span class="p">,</span> <span class="s2">&quot;POTCAR&quot;</span><span class="p">]</span>
+    <span class="n">relevant_files</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"AECCAR0"</span><span class="p">,</span> <span class="s2">"AECCAR2"</span><span class="p">,</span> <span class="s2">"CHGCAR"</span><span class="p">,</span> <span class="s2">"POTCAR"</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">relevant_files</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">f</span><span class="p">))</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">.gz&quot;</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">.gz"</span><span class="p">)</span>
         <span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not find </span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2"> in </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Could not find </span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2"> in </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
 
     <span class="c1"># Run Bader analysis</span>
     <span class="k">with</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="n">scratch_dir</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmpdir</span><span class="p">:</span>
@@ -462,15 +461,15 @@
     <span class="c1"># raw charge and is more intuitive than the charge transferred.</span>
     <span class="c1"># An atom with a positive partial charge is cationic, whereas</span>
     <span class="c1"># an atom with a negative partial charge is anionic.</span>
-    <span class="n">bader_stats</span><span class="p">[</span><span class="s2">&quot;partial_charges&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">bader_stats</span><span class="p">[</span><span class="s2">&quot;charge_transfer&quot;</span><span class="p">]]</span>
+    <span class="n">bader_stats</span><span class="p">[</span><span class="s2">"partial_charges"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">bader_stats</span><span class="p">[</span><span class="s2">"charge_transfer"</span><span class="p">]]</span>
 
     <span class="c1"># Some cleanup of the returned dictionary</span>
-    <span class="k">if</span> <span class="s2">&quot;magmom&quot;</span> <span class="ow">in</span> <span class="n">bader_stats</span><span class="p">:</span>
-        <span class="n">bader_stats</span><span class="p">[</span><span class="s2">&quot;spin_moments&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">bader_stats</span><span class="p">[</span><span class="s2">&quot;magmom&quot;</span><span class="p">]</span>
-    <span class="n">bader_stats</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;charge&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="n">bader_stats</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;charge_transfer&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="n">bader_stats</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;reference_used&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="n">bader_stats</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;magmom&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">"magmom"</span> <span class="ow">in</span> <span class="n">bader_stats</span><span class="p">:</span>
+        <span class="n">bader_stats</span><span class="p">[</span><span class="s2">"spin_moments"</span><span class="p">]</span> <span class="o">=</span> <span class="n">bader_stats</span><span class="p">[</span><span class="s2">"magmom"</span><span class="p">]</span>
+    <span class="n">bader_stats</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"charge"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">bader_stats</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"charge_transfer"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">bader_stats</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"reference_used"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">bader_stats</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"magmom"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">bader_stats</span></div>
 
@@ -480,7 +479,7 @@
     <span class="n">atomic_densities_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">scratch_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">SETTINGS</span><span class="o">.</span><span class="n">SCRATCH_DIR</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">"""</span>
 <span class="sd">    Runs a Chargemol (i.e. DDEC6 + CM5) analysis using the VASP output files</span>
 <span class="sd">    in the given path. This function requires that the chargemol executable,</span>
 <span class="sd">    given by the name `Chargemol_09_26_2017_linux_parallel`,</span>
@@ -494,7 +493,7 @@
 <span class="sd">    path</span>
 <span class="sd">        The path where the VASP output files are located.</span>
 <span class="sd">        Must include CHGCAR, AECCAR0, AECCAR2, and POTCAR files. These</span>
-<span class="sd">        files can be gzip&#39;d or not -- it doesn&#39;t matter.</span>
+<span class="sd">        files can be gzip'd or not -- it doesn't matter.</span>
 <span class="sd">        If None, the current working directory is used.</span>
 <span class="sd">    atomic_densities_path</span>
 <span class="sd">        The path where the reference atomic densities are located for Chargemol.</span>
@@ -509,32 +508,32 @@
 <span class="sd">    Dict</span>
 <span class="sd">        Dictionary containing the Chargemol analysis summary:</span>
 <span class="sd">            {</span>
-<span class="sd">                &quot;ddec&quot;: {</span>
-<span class="sd">                            &quot;partial_charges&quot;: List[float],</span>
-<span class="sd">                            &quot;spin_moments&quot;: List[float],</span>
-<span class="sd">                            &quot;dipoles&quot;: List[float],</span>
-<span class="sd">                            &quot;bond_order_sums&quot;: List[float],</span>
-<span class="sd">                            &quot;bond_order_dict&quot;: Dict</span>
+<span class="sd">                "ddec": {</span>
+<span class="sd">                            "partial_charges": List[float],</span>
+<span class="sd">                            "spin_moments": List[float],</span>
+<span class="sd">                            "dipoles": List[float],</span>
+<span class="sd">                            "bond_order_sums": List[float],</span>
+<span class="sd">                            "bond_order_dict": Dict</span>
 <span class="sd">                        },</span>
-<span class="sd">                &quot;cm5&quot;: {</span>
-<span class="sd">                            &quot;partial_charges&quot;: List[float],</span>
+<span class="sd">                "cm5": {</span>
+<span class="sd">                            "partial_charges": List[float],</span>
 <span class="sd">                        }</span>
 <span class="sd">            }</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">path</span> <span class="o">=</span> <span class="n">path</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
     <span class="n">scratch_dir</span> <span class="o">=</span> <span class="n">scratch_dir</span> <span class="ow">or</span> <span class="n">path</span>
 
     <span class="c1"># Make sure files are present</span>
-    <span class="n">relevant_files</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;AECCAR0&quot;</span><span class="p">,</span> <span class="s2">&quot;AECCAR2&quot;</span><span class="p">,</span> <span class="s2">&quot;CHGCAR&quot;</span><span class="p">,</span> <span class="s2">&quot;POTCAR&quot;</span><span class="p">]</span>
+    <span class="n">relevant_files</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"AECCAR0"</span><span class="p">,</span> <span class="s2">"AECCAR2"</span><span class="p">,</span> <span class="s2">"CHGCAR"</span><span class="p">,</span> <span class="s2">"POTCAR"</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">relevant_files</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">f</span><span class="p">))</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">.gz&quot;</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">.gz"</span><span class="p">)</span>
         <span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not find </span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2"> in </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Could not find </span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2"> in </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
 
     <span class="c1"># Check environment variable</span>
-    <span class="k">if</span> <span class="n">atomic_densities_path</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s2">&quot;DDEC6_ATOMIC_DENSITIES_DIR&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;DDEC6_ATOMIC_DENSITIES_DIR environment variable not defined.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">atomic_densities_path</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s2">"DDEC6_ATOMIC_DENSITIES_DIR"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"DDEC6_ATOMIC_DENSITIES_DIR environment variable not defined."</span><span class="p">)</span>
 
     <span class="c1"># Run Chargemol analysis</span>
     <span class="k">with</span> <span class="n">TemporaryDirectory</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="n">scratch_dir</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmpdir</span><span class="p">:</span>
@@ -545,9 +544,9 @@
         <span class="p">)</span>
 
     <span class="c1"># Some cleanup of the returned dictionary</span>
-    <span class="n">chargemol_stats</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;rsquared_moments&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="n">chargemol_stats</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;rcubed_moments&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-    <span class="n">chargemol_stats</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;rfourth_moments&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">chargemol_stats</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"rsquared_moments"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">chargemol_stats</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"rcubed_moments"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">chargemol_stats</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"rfourth_moments"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">chargemol_stats</span></div>
 </pre></div>

@@ -5,10 +5,10 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Settings" href="settings.html" /><link rel="prev" title="DFT Package Setup" href="codes.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
         <title>Database Configuration - quacc</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
@@ -375,8 +375,7 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -407,7 +406,7 @@
 <li><p>Once logged in, select the “Build a Database” option under the “Database Deployments” section and choose the “Shared” free option.</p></li>
 <li><p>Select “Create Cluster” and enter your desired login credentials that will use to access your database. After waiting a minute or two, your cluster will be created, which is essentially a mini computer in the cloud.</p></li>
 <li><p>Go to the “Collections” tab of your cluster and create a new database. Give the database a unique name (e.g. “LastName_db”) and create a collection where your QuAcc data will be stored (e.g. “quacc”).</p></li>
-<li><p>Retrieve your MongoDB URI, which is the address of your MongoDB cluster. You can find your database’s URI by clicking the “Database” section in the sidebar and then selecting “Connect &gt; Connect Your Application &gt; Driver &gt; Python &gt; 3.11 or later” and copying the link that appears. It will be of the form <code class="docutils literal notranslate"><span class="pre">mongodb+srv://&lt;username&gt;:&lt;password&gt;&#64;&lt;host&gt;/&lt;database_name&gt;</span></code>. Don’t forget to include the <span class="raw-html-m2r"><database_name></span> at the end, which you selected in Step 4.</p></li>
+<li><p>Retrieve your MongoDB URI, which is the address of your MongoDB cluster. You can find your database’s URI by clicking the “Database” section in the sidebar and then selecting “Connect &gt; Connect Your Application &gt; Driver &gt; Python &gt; 3.11 or later” and copying the link that appears. It will be of the form <code class="docutils literal notranslate"><span class="pre">mongodb+srv://&lt;username&gt;:&lt;password&gt;@&lt;host&gt;/&lt;database_name&gt;</span></code>. Don’t forget to include the <span class="raw-html-m2r"><database_name></database_name></span> at the end, which you selected in Step 4.</p></li>
 </ol>
 </section>
 </section>
@@ -436,7 +435,7 @@
 </pre></div>
 </div>
 <p>Finally, you will need to define a <code class="docutils literal notranslate"><span class="pre">JOBFLOW_CONFIG_FILE</span></code> environment variable pointing to the file you made. For instance, in your <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> file, add the following line:
-<code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">JOBFLOW_CONFIG_FILE=&quot;/path/to/my/jobflow.yaml&quot;</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">JOBFLOW_CONFIG_FILE="/path/to/my/jobflow.yaml"</span></code>.</p>
 <p>When a QuAcc calculation completes, all the data will be stored in the database you have specified above. If needed, additional information about setting up your <code class="docutils literal notranslate"><span class="pre">jobflow.yaml</span></code> file can be found in the official <a class="reference external" href="https://materialsproject.github.io/jobflow/jobflow.settings.html">jobflow documentation</a>.</p>
 </section>
 <section id="fireworks-db-setup">
@@ -455,8 +454,8 @@
 <h3>FWorker<a class="headerlink" href="#fworker" title="Permalink to this headline">#</a></h3>
 <p>For the <code class="docutils literal notranslate"><span class="pre">my_fworker.yaml</span></code>, you can use the following template. You do not need to make any modifications.</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">quacc_fworker</span><span class="w"></span>
-<span class="nt">category</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;&#39;</span><span class="w"></span>
-<span class="nt">query</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{}&#39;</span><span class="w"></span>
+<span class="nt">category</span><span class="p">:</span><span class="w"> </span><span class="s">''</span><span class="w"></span>
+<span class="nt">query</span><span class="p">:</span><span class="w"> </span><span class="s">'{}'</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
@@ -499,12 +498,12 @@
 <span class="nt">qos</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">regular</span><span class="w"></span>
 <span class="nt">pre_rocket</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span><span class="w"></span>
 <span class="w">            </span><span class="no">module load vasp</span><span class="w"></span>
-<span class="w">            </span><span class="no">export VASP_PARALLEL_CMD=&quot;srun -N 2 --ntasks-per-node=24&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="no">export VASP_PARALLEL_CMD="srun -N 2 --ntasks-per-node=24"</span><span class="w"></span>
 </pre></div>
 </div>
 <p>In the above example, you would need to change the path in the <code class="docutils literal notranslate"><span class="pre">rocket_launch</span></code> field to the correct path to your <code class="docutils literal notranslate"><span class="pre">my_fworker.yaml</span></code>. The nodes, walltime, account, and qos are the corresponding parameters for your queuing system. Finally, anything in the <code class="docutils literal notranslate"><span class="pre">pre_rocket</span></code> field will be executed before the job begins running. It is a good place to load modules and set environment variables. A representative example has been provided above.</p>
 <p>Finally, you will need to define a <code class="docutils literal notranslate"><span class="pre">FW_CONFIG_FILE</span></code> environment variable pointing to the <code class="docutils literal notranslate"><span class="pre">FW_config.yaml</span></code> file you made. For instance, in your <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code> file, add the following line:
-<code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">FW_CONFIG_FILE=&quot;/path/to/config/fw_config/FW_config.yaml&quot;</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">FW_CONFIG_FILE="/path/to/config/fw_config/FW_config.yaml"</span></code>.</p>
 </section>
 </section>
 </section>

@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.06.04.1"/>
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
         <title>quacc.recipes.emt.core - quacc</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css" />
@@ -374,8 +374,7 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -390,7 +389,7 @@
         </div>
         <article role="main">
           <h1>Source code for quacc.recipes.emt.core</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Core recipes for EMT&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""Core recipes for EMT"""</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
@@ -410,7 +409,7 @@
 
 <div class="viewcode-block" id="StaticJob"><a class="viewcode-back" href="../../../../reference/quacc.recipes.emt.core.StaticJob.html#quacc.recipes.emt.core.StaticJob">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">StaticJob</span><span class="p">(</span><span class="n">Maker</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">"""</span>
 <span class="sd">    Class to carry out a single-point calculation.</span>
 
 <span class="sd">    Parameters</span>
@@ -419,14 +418,14 @@
 <span class="sd">        Name of the job.</span>
 <span class="sd">    asap_cutoff</span>
 <span class="sd">        If an ASAP-style cutoff should be used.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;EMT-Static&quot;</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"EMT-Static"</span>
     <span class="n">asap_cutoff</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
 <div class="viewcode-block" id="StaticJob.make"><a class="viewcode-back" href="../../../../reference/quacc.recipes.emt.core.StaticJob.html#quacc.recipes.emt.core.StaticJob.make">[docs]</a>    <span class="nd">@job</span>
     <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">"""</span>
 <span class="sd">        Make the run.</span>
 
 <span class="sd">        Parameters</span>
@@ -438,12 +437,12 @@
 <span class="sd">        -------</span>
 <span class="sd">        Dict</span>
 <span class="sd">            Summary of the run.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">input_atoms</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
         <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">EMT</span><span class="p">(</span><span class="n">asap_cutoff</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">asap_cutoff</span><span class="p">)</span>
         <span class="n">atoms</span><span class="o">.</span><span class="n">get_potential_energy</span><span class="p">()</span>
         <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_run</span><span class="p">(</span>
-            <span class="n">atoms</span><span class="p">,</span> <span class="n">input_atoms</span><span class="o">=</span><span class="n">input_atoms</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
+            <span class="n">atoms</span><span class="p">,</span> <span class="n">input_atoms</span><span class="o">=</span><span class="n">input_atoms</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
         <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">summary</span></div></div>
@@ -451,7 +450,7 @@
 
 <div class="viewcode-block" id="RelaxJob"><a class="viewcode-back" href="../../../../reference/quacc.recipes.emt.core.RelaxJob.html#quacc.recipes.emt.core.RelaxJob">[docs]</a><span class="nd">@dataclass</span>
 <span class="k">class</span> <span class="nc">RelaxJob</span><span class="p">(</span><span class="n">Maker</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">"""</span>
 <span class="sd">    Class to carry out a geometry optimization.</span>
 
 <span class="sd">    Parameters</span>
@@ -464,16 +463,16 @@
 <span class="sd">        Tolerance for the force convergence (in eV/A).</span>
 <span class="sd">    opt_kwargs</span>
 <span class="sd">        Dictionary of kwargs for the optimizer.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;EMT-Relax&quot;</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"EMT-Relax"</span>
     <span class="n">asap_cutoff</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">fmax</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.03</span>
     <span class="n">opt_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
 
 <div class="viewcode-block" id="RelaxJob.make"><a class="viewcode-back" href="../../../../reference/quacc.recipes.emt.core.RelaxJob.html#quacc.recipes.emt.core.RelaxJob.make">[docs]</a>    <span class="nd">@job</span>
     <span class="k">def</span> <span class="nf">make</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">"""</span>
 <span class="sd">        Make the run.</span>
 
 <span class="sd">        Parameters</span>
@@ -485,13 +484,13 @@
 <span class="sd">        -------</span>
 <span class="sd">        Dict</span>
 <span class="sd">            Summary of the run.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span> <span class="o">=</span> <span class="n">EMT</span><span class="p">(</span><span class="n">asap_cutoff</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">asap_cutoff</span><span class="p">)</span>
-        <span class="n">dyn</span> <span class="o">=</span> <span class="n">FIRE</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="s2">&quot;opt.log&quot;</span><span class="p">,</span> <span class="n">trajectory</span><span class="o">=</span><span class="s2">&quot;opt.traj&quot;</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">opt_kwargs</span><span class="p">)</span>
+        <span class="n">dyn</span> <span class="o">=</span> <span class="n">FIRE</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="s2">"opt.log"</span><span class="p">,</span> <span class="n">trajectory</span><span class="o">=</span><span class="s2">"opt.traj"</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">opt_kwargs</span><span class="p">)</span>
         <span class="n">dyn</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">fmax</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">fmax</span><span class="p">)</span>
-        <span class="n">traj</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s2">&quot;opt.traj&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+        <span class="n">traj</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="s2">"opt.traj"</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="s2">":"</span><span class="p">)</span>
         <span class="n">summary</span> <span class="o">=</span> <span class="n">summarize_opt_run</span><span class="p">(</span>
-            <span class="n">traj</span><span class="p">,</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
+            <span class="n">traj</span><span class="p">,</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span> <span class="n">additional_fields</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
         <span class="p">)</span>
 
         <span class="k">return</span> <span class="n">summary</span></div></div>
