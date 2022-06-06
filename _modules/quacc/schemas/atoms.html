@@ -436,12 +436,14 @@
     <span class="c1"># Get Atoms metadata, if requested. Atomate2 already has built-in tools for</span>
     <span class="c1"># generating pymatgen Structure/Molecule metadata, so we&#39;ll just use that.</span>
     <span class="k">if</span> <span class="n">get_metadata</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">pbc</span> <span class="o">==</span> <span class="kc">False</span><span class="p">):</span>
-            <span class="n">mol</span> <span class="o">=</span> <span class="n">AseAtomsAdaptor</span><span class="p">()</span><span class="o">.</span><span class="n">get_molecule</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">charge_spin_check</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-            <span class="n">metadata</span> <span class="o">=</span> <span class="n">MoleculeMetadata</span><span class="p">()</span><span class="o">.</span><span class="n">from_molecule</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">pbc</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
             <span class="n">struct</span> <span class="o">=</span> <span class="n">AseAtomsAdaptor</span><span class="p">()</span><span class="o">.</span><span class="n">get_structure</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
             <span class="n">metadata</span> <span class="o">=</span> <span class="n">StructureMetadata</span><span class="p">()</span><span class="o">.</span><span class="n">from_structure</span><span class="p">(</span><span class="n">struct</span><span class="p">)</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
+            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;structure&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">struct</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mol</span> <span class="o">=</span> <span class="n">AseAtomsAdaptor</span><span class="p">()</span><span class="o">.</span><span class="n">get_molecule</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">charge_spin_check</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">metadata</span> <span class="o">=</span> <span class="n">MoleculeMetadata</span><span class="p">()</span><span class="o">.</span><span class="n">from_molecule</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
+            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;molecule&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mol</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">metadata</span> <span class="o">=</span> <span class="p">{}</span>
 
