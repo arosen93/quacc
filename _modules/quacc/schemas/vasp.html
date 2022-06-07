@@ -520,7 +520,7 @@
 
     <span class="c1"># We use get_metadata=False because the TaskDocument already</span>
     <span class="c1"># makes the structure metadata for us</span>
-    <span class="n">atoms_db</span> <span class="o">=</span> <span class="n">atoms_to_metadata</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">get_metadata</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">atoms_db</span> <span class="o">=</span> <span class="n">atoms_to_metadata</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">get_metadata</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">store_pmg</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="n">task_doc</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">results</span><span class="p">,</span> <span class="o">**</span><span class="n">atoms_db</span><span class="p">,</span> <span class="o">**</span><span class="n">additional_fields</span><span class="p">}</span>
 

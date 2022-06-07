@@ -408,7 +408,7 @@
 
 
 <div class="viewcode-block" id="atoms_to_metadata"><a class="viewcode-back" href="../../../reference/quacc.schemas.atoms.atoms_to_metadata.html#quacc.schemas.atoms.atoms_to_metadata">[docs]</a><span class="k">def</span> <span class="nf">atoms_to_metadata</span><span class="p">(</span>
-    <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span> <span class="n">get_metadata</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">strip_info</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">atoms</span><span class="p">:</span> <span class="n">Atoms</span><span class="p">,</span> <span class="n">get_metadata</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">strip_info</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">store_pmg</span><span class="o">=</span><span class="kc">True</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
@@ -422,7 +422,10 @@
 <span class="sd">        Whether to store atoms metadata in the returned dict.</span>
 <span class="sd">    strip_info</span>
 <span class="sd">        Whether to strip the data from atoms.info in the returned {&quot;atoms&quot;:.Atoms}.</span>
-<span class="sd">        Note that this data will be stored in {&quot;atoms_info&quot;:atoms.info} regardless.</span>
+<span class="sd">        Note that this data will be stored in {&quot;atoms_info&quot;:atoms.info} regardless</span>
+<span class="sd">    store_pmg</span>
+<span class="sd">        Whether to store the Pymatgen Structure/Molecule object in {&quot;structure&quot;: Structure}</span>
+<span class="sd">        or {&quot;molecule&quot;: Molecule}, respectively.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -439,11 +442,13 @@
         <span class="k">if</span> <span class="n">atoms</span><span class="o">.</span><span class="n">pbc</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
             <span class="n">struct</span> <span class="o">=</span> <span class="n">AseAtomsAdaptor</span><span class="p">()</span><span class="o">.</span><span class="n">get_structure</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
             <span class="n">metadata</span> <span class="o">=</span> <span class="n">StructureMetadata</span><span class="p">()</span><span class="o">.</span><span class="n">from_structure</span><span class="p">(</span><span class="n">struct</span><span class="p">)</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
-            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;structure&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">struct</span>
+            <span class="k">if</span> <span class="n">store_pmg</span><span class="p">:</span>
+                <span class="n">results</span><span class="p">[</span><span class="s2">&quot;structure&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">struct</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">mol</span> <span class="o">=</span> <span class="n">AseAtomsAdaptor</span><span class="p">()</span><span class="o">.</span><span class="n">get_molecule</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">charge_spin_check</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
             <span class="n">metadata</span> <span class="o">=</span> <span class="n">MoleculeMetadata</span><span class="p">()</span><span class="o">.</span><span class="n">from_molecule</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
-            <span class="n">results</span><span class="p">[</span><span class="s2">&quot;molecule&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mol</span>
+            <span class="k">if</span> <span class="n">store_pmg</span><span class="p">:</span>
+                <span class="n">results</span><span class="p">[</span><span class="s2">&quot;molecule&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mol</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">metadata</span> <span class="o">=</span> <span class="p">{}</span>
 
