@@ -447,7 +447,12 @@
     <span class="n">results</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;results&quot;</span><span class="p">:</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">results</span><span class="p">}</span>
 
     <span class="c1"># Get the calculator inputs</span>
-    <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span> <span class="s2">&quot;dir_name&quot;</span><span class="p">:</span> <span class="n">get_uri</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())}</span>
+    <span class="n">uri</span> <span class="o">=</span> <span class="n">get_uri</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="n">atoms</span><span class="o">.</span><span class="n">calc</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span>
+        <span class="s2">&quot;nid&quot;</span><span class="p">:</span> <span class="n">uri</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="s2">&quot;dir_name&quot;</span><span class="p">:</span> <span class="s2">&quot;:&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">uri</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]),</span>
+    <span class="p">}</span>
     <span class="k">if</span> <span class="n">input_atoms</span><span class="p">:</span>
         <span class="n">input_atoms_db</span> <span class="o">=</span> <span class="n">atoms_to_metadata</span><span class="p">(</span><span class="n">input_atoms</span><span class="p">)</span>
         <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;input_structure&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">input_atoms_db</span>

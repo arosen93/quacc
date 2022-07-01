@@ -459,6 +459,9 @@
     <span class="c1"># Fetch all tabulated results from VASP outputs files</span>
     <span class="c1"># Fortunately, Atomate2 already has a handy function for this</span>
     <span class="n">results</span> <span class="o">=</span> <span class="n">TaskDocument</span><span class="o">.</span><span class="n">from_directory</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
+    <span class="n">uri</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s2">&quot;dir_name&quot;</span><span class="p">]</span>
+    <span class="n">results</span><span class="p">[</span><span class="s2">&quot;nid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">uri</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">results</span><span class="p">[</span><span class="s2">&quot;dir_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;:&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">uri</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span>
 
     <span class="c1"># Check for calculation convergence</span>
     <span class="k">if</span> <span class="n">check_convergence</span> <span class="ow">and</span> <span class="n">results</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s2">&quot;successful&quot;</span><span class="p">:</span>

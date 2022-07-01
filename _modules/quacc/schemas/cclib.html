@@ -427,7 +427,7 @@
 <span class="sd">        only a partial match is needed. For instance, `.log` will match `.log.gz` and `.log.1.gz`.</span>
 <span class="sd">        If multiple files with this extension are found, the one with the most recent change time</span>
 <span class="sd">        will be used. For an exact match only, put in the full file name.</span>
-<span class="sd">    dir_name</span>
+<span class="sd">    dir_path</span>
 <span class="sd">        The path to the folder containing the calculation outputs. A value of None specifies the</span>
 <span class="sd">        current working directory.</span>
 <span class="sd">    check_convergence</span>
@@ -458,6 +458,9 @@
 
     <span class="c1"># Fortunately, there is already a cclib parser in Atomate2</span>
     <span class="n">results</span> <span class="o">=</span> <span class="n">TaskDocument</span><span class="o">.</span><span class="n">from_logfile</span><span class="p">(</span><span class="n">dir_path</span><span class="p">,</span> <span class="n">logfile_extensions</span><span class="p">)</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
+    <span class="n">uri</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s2">&quot;dir_name&quot;</span><span class="p">]</span>
+    <span class="n">results</span><span class="p">[</span><span class="s2">&quot;nid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">uri</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">results</span><span class="p">[</span><span class="s2">&quot;dir_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;:&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">uri</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span>
 
     <span class="c1"># Check convergence if requested</span>
     <span class="k">if</span> <span class="n">check_convergence</span><span class="p">:</span>

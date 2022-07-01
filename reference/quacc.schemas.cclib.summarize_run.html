@@ -405,14 +405,13 @@ This is meant to be a general parser built on top of cclib.</p>
 only a partial match is needed. For instance, <cite>.log</cite> will match <cite>.log.gz</cite> and <cite>.log.1.gz</cite>.
 If multiple files with this extension are found, the one with the most recent change time
 will be used. For an exact match only, put in the full file name.</p></li>
-<li><p><strong>dir_name</strong> – The path to the folder containing the calculation outputs. A value of None specifies the
+<li><p><strong>dir_path</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – The path to the folder containing the calculation outputs. A value of None specifies the
 current working directory.</p></li>
 <li><p><strong>check_convergence</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether to throw an error if convergence is not reached.</p></li>
 <li><p><strong>transition_state</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the calculation is a transition state (used for convergence check).</p></li>
 <li><p><strong>prep_next_run</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/functions.html#bool" title="(in Python v3.10)"><em>bool</em></a>) – Whether the Atoms object storeed in {“atoms”: atoms} should be prepared for the next run.
 This clears out any attached calculator and moves the final magmoms to the initial magmoms.</p></li>
 <li><p><strong>additional_fields</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Dict" title="(in Python v3.10)"><em>Dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Any" title="(in Python v3.10)"><em>Any</em></a><em>]</em><em>]</em>) – Additional fields to add to the task document.</p></li>
-<li><p><strong>dir_path</strong> (<a class="reference external" href="https://docs.python.org/3.10/library/typing.html#typing.Optional" title="(in Python v3.10)"><em>Optional</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.10/library/stdtypes.html#str" title="(in Python v3.10)"><em>str</em></a><em>]</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
